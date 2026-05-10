@@ -1,0 +1,8895 @@
+[
+  {
+    "id": "MEX01",
+    "numero": 1,
+    "nome": "Logo México",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "logo"
+  },
+  {
+    "id": "MEX02",
+    "numero": 2,
+    "nome": "Luis Malagón",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX03",
+    "numero": 3,
+    "nome": "Johan Vásquez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX04",
+    "numero": 4,
+    "nome": "Jorge Sánchez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX05",
+    "numero": 5,
+    "nome": "César Montes",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX06",
+    "numero": 6,
+    "nome": "Jesús Gallardo",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX07",
+    "numero": 7,
+    "nome": "Israel Reyes",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX08",
+    "numero": 8,
+    "nome": "Diego Lainez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX09",
+    "numero": 9,
+    "nome": "Carlos Rodríguez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX10",
+    "numero": 10,
+    "nome": "Edson Álvarez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX11",
+    "numero": 11,
+    "nome": "Orbelín Pineda",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX12",
+    "numero": 12,
+    "nome": "Marcel Ruiz",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX13",
+    "numero": 13,
+    "nome": "Érick Sánchez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX14",
+    "numero": 14,
+    "nome": "Hirving Lozano",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX15",
+    "numero": 15,
+    "nome": "Santiago Giménez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX16",
+    "numero": 16,
+    "nome": "Raúl Jiménez",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX17",
+    "numero": 17,
+    "nome": "Alexis Vega",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX18",
+    "numero": 18,
+    "nome": "Roberto Alvarado",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MEX19",
+    "numero": 19,
+    "nome": "César Huerta",
+    "selecao": "México",
+    "selecao_codigo": "MEX",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA01",
+    "numero": 20,
+    "nome": "Logo África do Sul",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "logo"
+  },
+  {
+    "id": "RSA02",
+    "numero": 21,
+    "nome": "Ronwen Williams",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA03",
+    "numero": 22,
+    "nome": "Sipho Chaine",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA04",
+    "numero": 23,
+    "nome": "Aubrey Modiba",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA05",
+    "numero": 24,
+    "nome": "Samukele Kabini",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA06",
+    "numero": 25,
+    "nome": "Mbekezeli Mbokazi",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA07",
+    "numero": 26,
+    "nome": "Khulumani Ndamane",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA08",
+    "numero": 27,
+    "nome": "Siyabonga Ngezana",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA09",
+    "numero": 28,
+    "nome": "Khuliso Mudau",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA10",
+    "numero": 29,
+    "nome": "Nkosinathi Sibisi",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA11",
+    "numero": 30,
+    "nome": "Teboho Mokoena",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA12",
+    "numero": 31,
+    "nome": "Thalente Mbatha",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA13",
+    "numero": 32,
+    "nome": "Bathuisi Aubaas",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA14",
+    "numero": 33,
+    "nome": "Yaya Sithole",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA15",
+    "numero": 34,
+    "nome": "Sipho Mbule",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA16",
+    "numero": 35,
+    "nome": "Lyle Foster",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA17",
+    "numero": 36,
+    "nome": "Ioraam Rayners",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA18",
+    "numero": 37,
+    "nome": "Mohau Nkota",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "RSA19",
+    "numero": 38,
+    "nome": "Oswin Appolis",
+    "selecao": "África do Sul",
+    "selecao_codigo": "RSA",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR01",
+    "numero": 39,
+    "nome": "Logo Coreia do Sul",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "logo"
+  },
+  {
+    "id": "KOR02",
+    "numero": 40,
+    "nome": "Hyeon-woo Jo",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR03",
+    "numero": 41,
+    "nome": "Seung-Gyu Kim",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR04",
+    "numero": 42,
+    "nome": "Min-jae Kim",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR05",
+    "numero": 43,
+    "nome": "Yu-min Cho",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR06",
+    "numero": 44,
+    "nome": "Young-woo Seol",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR07",
+    "numero": 45,
+    "nome": "Han-beom Lee",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR08",
+    "numero": 46,
+    "nome": "Tae-seok Lee",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR09",
+    "numero": 47,
+    "nome": "Myung-jae Lee",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR10",
+    "numero": 48,
+    "nome": "Jae-sung Lee",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR11",
+    "numero": 49,
+    "nome": "In-beom Hwang",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR12",
+    "numero": 50,
+    "nome": "Kang-in Lee",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR13",
+    "numero": 51,
+    "nome": "Seung-ho Paik",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR14",
+    "numero": 52,
+    "nome": "Jens Castrop",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR15",
+    "numero": 53,
+    "nome": "Dong-gyeong Lee",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR16",
+    "numero": 54,
+    "nome": "Gue-sung Cho",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR17",
+    "numero": 55,
+    "nome": "Heung-min Son",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR18",
+    "numero": 56,
+    "nome": "Hee-chan Hwang",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KOR19",
+    "numero": 57,
+    "nome": "Hyeon-Gyu Oh",
+    "selecao": "Coreia do Sul",
+    "selecao_codigo": "KOR",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE01",
+    "numero": 58,
+    "nome": "Logo República Tcheca",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "logo"
+  },
+  {
+    "id": "CZE02",
+    "numero": 59,
+    "nome": "Matěj Kovář",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE03",
+    "numero": 60,
+    "nome": "Jindřich Staněk",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE04",
+    "numero": 61,
+    "nome": "Ladislav Krejčí",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE05",
+    "numero": 62,
+    "nome": "Vladimír Coufal",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE06",
+    "numero": 63,
+    "nome": "Jaroslav Zelený",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE07",
+    "numero": 64,
+    "nome": "Tomáš Holeš",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE08",
+    "numero": 65,
+    "nome": "David Zima",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE09",
+    "numero": 66,
+    "nome": "Michal Sadílek",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE10",
+    "numero": 67,
+    "nome": "Lukáš Provod",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE11",
+    "numero": 68,
+    "nome": "Lukáš Červ",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE12",
+    "numero": 69,
+    "nome": "Tomáš Souček",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE13",
+    "numero": 70,
+    "nome": "Pavel Šulc",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE14",
+    "numero": 71,
+    "nome": "Matěj Vydra",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE15",
+    "numero": 72,
+    "nome": "Vasil Kušej",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE16",
+    "numero": 73,
+    "nome": "Tomáš Chorý",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE17",
+    "numero": 74,
+    "nome": "Václav Černý",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE18",
+    "numero": 75,
+    "nome": "Adam Hložek",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CZE19",
+    "numero": 76,
+    "nome": "Patrik Schick",
+    "selecao": "República Tcheca",
+    "selecao_codigo": "CZE",
+    "grupo": "A",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN01",
+    "numero": 77,
+    "nome": "Logo Canadá",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "logo"
+  },
+  {
+    "id": "CAN02",
+    "numero": 78,
+    "nome": "Dayne St. Clair",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN03",
+    "numero": 79,
+    "nome": "Alphonso Davies",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN04",
+    "numero": 80,
+    "nome": "Alistair Johnston",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN05",
+    "numero": 81,
+    "nome": "Samuel Adekugbe",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN06",
+    "numero": 82,
+    "nome": "Richie Laryea",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN07",
+    "numero": 83,
+    "nome": "Derek Cornelius",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN08",
+    "numero": 84,
+    "nome": "Moïse Bombito",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN09",
+    "numero": 85,
+    "nome": "Kamal Miller",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN10",
+    "numero": 86,
+    "nome": "Stephen Eustáquio",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN11",
+    "numero": 87,
+    "nome": "Ismaël Koné",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN12",
+    "numero": 88,
+    "nome": "Jonathan Osorio",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN13",
+    "numero": 89,
+    "nome": "Jacob Shaffelburg",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN14",
+    "numero": 90,
+    "nome": "Mathieu Choinière",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN15",
+    "numero": 91,
+    "nome": "Niko Sigur",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN16",
+    "numero": 92,
+    "nome": "Tajon Buchanan",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN17",
+    "numero": 93,
+    "nome": "Liam Millar",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN18",
+    "numero": 94,
+    "nome": "Cyle Larin",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CAN19",
+    "numero": 95,
+    "nome": "Jonathan David",
+    "selecao": "Canadá",
+    "selecao_codigo": "CAN",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH01",
+    "numero": 96,
+    "nome": "Logo Bósnia e Herzegovina",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "logo"
+  },
+  {
+    "id": "BIH02",
+    "numero": 97,
+    "nome": "Nikola Vasilj",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH03",
+    "numero": 98,
+    "nome": "Amar Dedić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH04",
+    "numero": 99,
+    "nome": "Sead Kolašinac",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH05",
+    "numero": 100,
+    "nome": "Tarik Muharemović",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH06",
+    "numero": 101,
+    "nome": "Nihad Mujakić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH07",
+    "numero": 102,
+    "nome": "Nikola Katić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH08",
+    "numero": 103,
+    "nome": "Amir Hadžiahmetović",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH09",
+    "numero": 104,
+    "nome": "Benjamin Tahirović",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH10",
+    "numero": 105,
+    "nome": "Armin Gigović",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH11",
+    "numero": 106,
+    "nome": "Ivan Šunjić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH12",
+    "numero": 107,
+    "nome": "Ivan Bašić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH13",
+    "numero": 108,
+    "nome": "Dženis Burnić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH14",
+    "numero": 109,
+    "nome": "Esmir Bajraktarević",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH15",
+    "numero": 110,
+    "nome": "Amar Memić",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH16",
+    "numero": 111,
+    "nome": "Ermedin Demirović",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH17",
+    "numero": 112,
+    "nome": "Edin Džeko",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH18",
+    "numero": 113,
+    "nome": "Samed Baždar",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BIH19",
+    "numero": 114,
+    "nome": "Haris Tabaković",
+    "selecao": "Bósnia e Herzegovina",
+    "selecao_codigo": "BIH",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT01",
+    "numero": 115,
+    "nome": "Logo Catar",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "logo"
+  },
+  {
+    "id": "QAT02",
+    "numero": 116,
+    "nome": "Meshaal Barsham",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT03",
+    "numero": 117,
+    "nome": "Sultan Albrake",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT04",
+    "numero": 118,
+    "nome": "Lucas Mendes",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT05",
+    "numero": 119,
+    "nome": "Homam Ahmed",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT06",
+    "numero": 120,
+    "nome": "Boualem Khoukhi",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT07",
+    "numero": 121,
+    "nome": "Pedro Miguel",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT08",
+    "numero": 122,
+    "nome": "Tarek Salman",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT09",
+    "numero": 123,
+    "nome": "Mohamed Al-Mannai",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT10",
+    "numero": 124,
+    "nome": "Karim Boudiaf",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT11",
+    "numero": 125,
+    "nome": "Assim Madibo",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT12",
+    "numero": 126,
+    "nome": "Ahmed Fatehi",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT13",
+    "numero": 127,
+    "nome": "Mohammed Waad",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT14",
+    "numero": 128,
+    "nome": "Abdulaziz Hatem",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT15",
+    "numero": 129,
+    "nome": "Hassan Al-Haydos",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT16",
+    "numero": 130,
+    "nome": "Edmilson Junior",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT17",
+    "numero": 131,
+    "nome": "Akram Hassan Afif",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT18",
+    "numero": 132,
+    "nome": "Ahmed Al Ganehi",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "QAT19",
+    "numero": 133,
+    "nome": "Almoez Ali",
+    "selecao": "Catar",
+    "selecao_codigo": "QAT",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI01",
+    "numero": 134,
+    "nome": "Logo Suíça",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "logo"
+  },
+  {
+    "id": "SUI02",
+    "numero": 135,
+    "nome": "Gregor Kobel",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI03",
+    "numero": 136,
+    "nome": "Yvon Mvogo",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI04",
+    "numero": 137,
+    "nome": "Manuel Akanji",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI05",
+    "numero": 138,
+    "nome": "Ricardo Rodriguez",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI06",
+    "numero": 139,
+    "nome": "Nico Elvedi",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI07",
+    "numero": 140,
+    "nome": "Aurèle Amenda",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI08",
+    "numero": 141,
+    "nome": "Silvan Widmer",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI09",
+    "numero": 142,
+    "nome": "Granit Xhaka",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI10",
+    "numero": 143,
+    "nome": "Denis Zakaria",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI11",
+    "numero": 144,
+    "nome": "Remo Freuler",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI12",
+    "numero": 145,
+    "nome": "Fabian Rieder",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI13",
+    "numero": 146,
+    "nome": "Ardon Jashari",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI14",
+    "numero": 147,
+    "nome": "Johan Manzambi",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI15",
+    "numero": 148,
+    "nome": "Michel Aebischer",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI16",
+    "numero": 149,
+    "nome": "Breel Embolo",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI17",
+    "numero": 150,
+    "nome": "Ruben Vargas",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI18",
+    "numero": 151,
+    "nome": "Dan Ndoye",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SUI19",
+    "numero": 152,
+    "nome": "Zeki Amdouni",
+    "selecao": "Suíça",
+    "selecao_codigo": "SUI",
+    "grupo": "B",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA01",
+    "numero": 153,
+    "nome": "Logo Brasil",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "logo"
+  },
+  {
+    "id": "BRA02",
+    "numero": 154,
+    "nome": "Alisson",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA03",
+    "numero": 155,
+    "nome": "Bento",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA04",
+    "numero": 156,
+    "nome": "Marquinhos",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA05",
+    "numero": 157,
+    "nome": "Éder Militão",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA06",
+    "numero": 158,
+    "nome": "Gabriel Magalhães",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA07",
+    "numero": 159,
+    "nome": "Danilo",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA08",
+    "numero": 160,
+    "nome": "Wesley",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA09",
+    "numero": 161,
+    "nome": "Lucas Paquetá",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA10",
+    "numero": 162,
+    "nome": "Casemiro",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA11",
+    "numero": 163,
+    "nome": "Bruno Guimarães",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA12",
+    "numero": 164,
+    "nome": "Luiz Henrique",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA13",
+    "numero": 165,
+    "nome": "Vinícius Júnior",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA14",
+    "numero": 166,
+    "nome": "Rodrygo",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA15",
+    "numero": 167,
+    "nome": "João Pedro",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA16",
+    "numero": 168,
+    "nome": "Matheus Cunha",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA17",
+    "numero": 169,
+    "nome": "Gabriel Martinelli",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA18",
+    "numero": 170,
+    "nome": "Raphinha",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BRA19",
+    "numero": 171,
+    "nome": "Estêvão",
+    "selecao": "Brasil",
+    "selecao_codigo": "BRA",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR01",
+    "numero": 172,
+    "nome": "Logo Marrocos",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "logo"
+  },
+  {
+    "id": "MAR02",
+    "numero": 173,
+    "nome": "Yassine Bounou",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR03",
+    "numero": 174,
+    "nome": "Munir El Kajoui",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR04",
+    "numero": 175,
+    "nome": "Achraf Hakimi",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR05",
+    "numero": 176,
+    "nome": "Noussair Mazraoui",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR06",
+    "numero": 177,
+    "nome": "Nayef Aguerd",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR07",
+    "numero": 178,
+    "nome": "Romain Saïss",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR08",
+    "numero": 179,
+    "nome": "Jawad El Yamiq",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR09",
+    "numero": 180,
+    "nome": "Adam Masina",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR10",
+    "numero": 181,
+    "nome": "Sofyan Amrabat",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR11",
+    "numero": 182,
+    "nome": "Azzedine Ounahi",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR12",
+    "numero": 183,
+    "nome": "Eliesse Ben Seghir",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR13",
+    "numero": 184,
+    "nome": "Bilal El Khannouss",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR14",
+    "numero": 185,
+    "nome": "Ismael Saibari",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR15",
+    "numero": 186,
+    "nome": "Youssef En-Nesyri",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR16",
+    "numero": 187,
+    "nome": "Abde Ezzalzouli",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR17",
+    "numero": 188,
+    "nome": "Soufiane Rahimi",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR18",
+    "numero": 189,
+    "nome": "Brahim Díaz",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "MAR19",
+    "numero": 190,
+    "nome": "Ayoub El Kaabi",
+    "selecao": "Marrocos",
+    "selecao_codigo": "MAR",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI01",
+    "numero": 191,
+    "nome": "Logo Haiti",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "logo"
+  },
+  {
+    "id": "HAI02",
+    "numero": 192,
+    "nome": "Johny Placide",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI03",
+    "numero": 193,
+    "nome": "Carlens Arcus",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI04",
+    "numero": 194,
+    "nome": "Martin Expérience",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI05",
+    "numero": 195,
+    "nome": "Jean-Kevin Duverne",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI06",
+    "numero": 196,
+    "nome": "Ricardo Adé",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI07",
+    "numero": 197,
+    "nome": "Duke Lacroix",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI08",
+    "numero": 198,
+    "nome": "Garven Metusala",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI09",
+    "numero": 199,
+    "nome": "Hannes Delcroix",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI10",
+    "numero": 200,
+    "nome": "Leverton Pierre",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI11",
+    "numero": 201,
+    "nome": "Danley Jean Jacques",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI12",
+    "numero": 202,
+    "nome": "Jean-Ricner Bellegarde",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI13",
+    "numero": 203,
+    "nome": "Christopher Attys",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI14",
+    "numero": 204,
+    "nome": "Derrick Etienne Jr.",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI15",
+    "numero": 205,
+    "nome": "Josué Casimir",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI16",
+    "numero": 206,
+    "nome": "Ruben Providence",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI17",
+    "numero": 207,
+    "nome": "Duckens Nazon",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI18",
+    "numero": 208,
+    "nome": "Louicius Deedson",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "HAI19",
+    "numero": 209,
+    "nome": "Frantzdy Pierrot",
+    "selecao": "Haiti",
+    "selecao_codigo": "HAI",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO01",
+    "numero": 210,
+    "nome": "Logo Escócia",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "logo"
+  },
+  {
+    "id": "SCO02",
+    "numero": 211,
+    "nome": "Angus Gunn",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO03",
+    "numero": 212,
+    "nome": "Jack Hendry",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO04",
+    "numero": 213,
+    "nome": "Kieran Tierney",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO05",
+    "numero": 214,
+    "nome": "Aaron Hickey",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO06",
+    "numero": 215,
+    "nome": "Andrew Robertson",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO07",
+    "numero": 216,
+    "nome": "Scott McKenna",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO08",
+    "numero": 217,
+    "nome": "John Souttar",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO09",
+    "numero": 218,
+    "nome": "Anthony Ralston",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO10",
+    "numero": 219,
+    "nome": "Grant Hanley",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO11",
+    "numero": 220,
+    "nome": "Scott McTominay",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO12",
+    "numero": 221,
+    "nome": "Billy Gilmour",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO13",
+    "numero": 222,
+    "nome": "Lewis Ferguson",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO14",
+    "numero": 223,
+    "nome": "Ryan Christie",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO15",
+    "numero": 224,
+    "nome": "Kenny McLean",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO16",
+    "numero": 225,
+    "nome": "John McGinn",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO17",
+    "numero": 226,
+    "nome": "Lyndon Dykes",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO18",
+    "numero": 227,
+    "nome": "Che Adams",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SCO19",
+    "numero": 228,
+    "nome": "Ben Gannon-Doak",
+    "selecao": "Escócia",
+    "selecao_codigo": "SCO",
+    "grupo": "C",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA01",
+    "numero": 229,
+    "nome": "Logo Estados Unidos",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "logo"
+  },
+  {
+    "id": "USA02",
+    "numero": 230,
+    "nome": "Math Freese",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA03",
+    "numero": 231,
+    "nome": "Chris Richards",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA04",
+    "numero": 232,
+    "nome": "Tim Ream",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA05",
+    "numero": 233,
+    "nome": "Mark McKenzie",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA06",
+    "numero": 234,
+    "nome": "Alex Freeman",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA07",
+    "numero": 235,
+    "nome": "Antonee Robinson",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA08",
+    "numero": 236,
+    "nome": "Tyler Adams",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA09",
+    "numero": 237,
+    "nome": "Tanner Tessmann",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA10",
+    "numero": 238,
+    "nome": "Weston McKenny",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA11",
+    "numero": 239,
+    "nome": "Christian Roldan",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA12",
+    "numero": 240,
+    "nome": "Timothy Weah",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA13",
+    "numero": 241,
+    "nome": "Diego Luna",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA14",
+    "numero": 242,
+    "nome": "Malim Tillman",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA15",
+    "numero": 243,
+    "nome": "Christian Pulisic",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA16",
+    "numero": 244,
+    "nome": "Brenden Aaronson",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA17",
+    "numero": 245,
+    "nome": "Ricardo Pepi",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA18",
+    "numero": 246,
+    "nome": "Haji Wright",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "USA19",
+    "numero": 247,
+    "nome": "Folarin Balogun",
+    "selecao": "Estados Unidos",
+    "selecao_codigo": "USA",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR01",
+    "numero": 248,
+    "nome": "Logo Paraguai",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "logo"
+  },
+  {
+    "id": "PAR02",
+    "numero": 249,
+    "nome": "Roberto Fernández",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR03",
+    "numero": 250,
+    "nome": "Orlando Gill",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR04",
+    "numero": 251,
+    "nome": "Gustavo Gómez",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR05",
+    "numero": 252,
+    "nome": "Fabián Balbuena",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR06",
+    "numero": 253,
+    "nome": "Juan José Cáceres",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR07",
+    "numero": 254,
+    "nome": "Omar Alderete",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR08",
+    "numero": 255,
+    "nome": "Junior Alonso",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR09",
+    "numero": 256,
+    "nome": "Mathías Villasanti",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR10",
+    "numero": 257,
+    "nome": "Diego Gómez",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR11",
+    "numero": 258,
+    "nome": "Damián Bobadilla",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR12",
+    "numero": 259,
+    "nome": "Andrés Cubas",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR13",
+    "numero": 260,
+    "nome": "Matías Galarza Fonda",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR14",
+    "numero": 261,
+    "nome": "Julio Enciso",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAR15",
+    "numero": 262,
+    "nome": "TODO Paraguai 14",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador",
+    "todo": true
+  },
+  {
+    "id": "PAR16",
+    "numero": 263,
+    "nome": "TODO Paraguai 15",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador",
+    "todo": true
+  },
+  {
+    "id": "PAR17",
+    "numero": 264,
+    "nome": "TODO Paraguai 16",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador",
+    "todo": true
+  },
+  {
+    "id": "PAR18",
+    "numero": 265,
+    "nome": "TODO Paraguai 17",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador",
+    "todo": true
+  },
+  {
+    "id": "PAR19",
+    "numero": 266,
+    "nome": "TODO Paraguai 18",
+    "selecao": "Paraguai",
+    "selecao_codigo": "PAR",
+    "grupo": "D",
+    "tipo": "jogador",
+    "todo": true
+  },
+  {
+    "id": "AUS01",
+    "numero": 267,
+    "nome": "Logo Austrália",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "logo"
+  },
+  {
+    "id": "AUS02",
+    "numero": 268,
+    "nome": "Mathew Ryan",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS03",
+    "numero": 269,
+    "nome": "Joe Gauci",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS04",
+    "numero": 270,
+    "nome": "Harry Souttar",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS05",
+    "numero": 271,
+    "nome": "Alessandro Circati",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS06",
+    "numero": 272,
+    "nome": "Jordan Bos",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS07",
+    "numero": 273,
+    "nome": "Aziz Behich",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS08",
+    "numero": 274,
+    "nome": "Cameron Burgess",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS09",
+    "numero": 275,
+    "nome": "Lewis Miller",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS10",
+    "numero": 276,
+    "nome": "Milos Degenek",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS11",
+    "numero": 277,
+    "nome": "Jackson Irvine",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS12",
+    "numero": 278,
+    "nome": "Riley McGree",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS13",
+    "numero": 279,
+    "nome": "Aiden O'Neill",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS14",
+    "numero": 280,
+    "nome": "Connor Metcalfe",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS15",
+    "numero": 281,
+    "nome": "Patrick Yazbek",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS16",
+    "numero": 282,
+    "nome": "Craig Goodwin",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS17",
+    "numero": 283,
+    "nome": "Kusini Yengi",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS18",
+    "numero": 284,
+    "nome": "Nestory Irankunda",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUS19",
+    "numero": 285,
+    "nome": "Mohamed Touré",
+    "selecao": "Austrália",
+    "selecao_codigo": "AUS",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR01",
+    "numero": 286,
+    "nome": "Logo Turquia",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "logo"
+  },
+  {
+    "id": "TUR02",
+    "numero": 287,
+    "nome": "Ugurcan Cakir",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR03",
+    "numero": 288,
+    "nome": "Mert Muldur",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR04",
+    "numero": 289,
+    "nome": "Zeki Celik",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR05",
+    "numero": 290,
+    "nome": "Abdulkerim Bardakci",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR06",
+    "numero": 291,
+    "nome": "Caglar Soyunku",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR07",
+    "numero": 292,
+    "nome": "Merih Demiral",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR08",
+    "numero": 293,
+    "nome": "Ferdi Kadioglu",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR09",
+    "numero": 294,
+    "nome": "Kaan Ayhan",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR10",
+    "numero": 295,
+    "nome": "Ismail Yuksek",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR11",
+    "numero": 296,
+    "nome": "Hakan Calhanoglu",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR12",
+    "numero": 297,
+    "nome": "Orkun Kokcu",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR13",
+    "numero": 298,
+    "nome": "Arda Güler",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR14",
+    "numero": 299,
+    "nome": "Irfan Can Kahvecu",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR15",
+    "numero": 300,
+    "nome": "Yunus Akgun",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR16",
+    "numero": 301,
+    "nome": "Can Uzun",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR17",
+    "numero": 302,
+    "nome": "Baris Alper Yilmaz",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR18",
+    "numero": 303,
+    "nome": "Kerem Akturkoglu",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUR19",
+    "numero": 304,
+    "nome": "Kenan Yildiz",
+    "selecao": "Turquia",
+    "selecao_codigo": "TUR",
+    "grupo": "D",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER01",
+    "numero": 305,
+    "nome": "Logo Alemanha",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "logo"
+  },
+  {
+    "id": "GER02",
+    "numero": 306,
+    "nome": "Marc-André ter Stegen",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER03",
+    "numero": 307,
+    "nome": "Jonathan Tah",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER04",
+    "numero": 308,
+    "nome": "David Raum",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER05",
+    "numero": 309,
+    "nome": "Nico Schlotterbeck",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER06",
+    "numero": 310,
+    "nome": "Antonio Rüdiger",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER07",
+    "numero": 311,
+    "nome": "Waldemar Anton",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER08",
+    "numero": 312,
+    "nome": "Ridle Baku",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER09",
+    "numero": 313,
+    "nome": "Maximilian Mittelstädt",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER10",
+    "numero": 314,
+    "nome": "Joshua Kimmich",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER11",
+    "numero": 315,
+    "nome": "Florian Wirtz",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER12",
+    "numero": 316,
+    "nome": "Felix Nmecha",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER13",
+    "numero": 317,
+    "nome": "Leon Goretzka",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER14",
+    "numero": 318,
+    "nome": "Jamal Musiala",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER15",
+    "numero": 319,
+    "nome": "Serge Gnabry",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER16",
+    "numero": 320,
+    "nome": "Kai Havertz",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER17",
+    "numero": 321,
+    "nome": "Leroy Sané",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER18",
+    "numero": 322,
+    "nome": "Karim Adeyemi",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GER19",
+    "numero": 323,
+    "nome": "Nick Woltemade",
+    "selecao": "Alemanha",
+    "selecao_codigo": "GER",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW01",
+    "numero": 324,
+    "nome": "Logo Curaçao",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "logo"
+  },
+  {
+    "id": "CUW02",
+    "numero": 325,
+    "nome": "Eloy Room",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW03",
+    "numero": 326,
+    "nome": "Armando Obispo",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW04",
+    "numero": 327,
+    "nome": "Sherel Floranus",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW05",
+    "numero": 328,
+    "nome": "Jurien Gaari",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW06",
+    "numero": 329,
+    "nome": "Joshua Brenet",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW07",
+    "numero": 330,
+    "nome": "Roshon Van Eijma",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW08",
+    "numero": 331,
+    "nome": "Shurandy Sambo",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW09",
+    "numero": 332,
+    "nome": "Livano Comenencia",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW10",
+    "numero": 333,
+    "nome": "Godfried Roemeratoe",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW11",
+    "numero": 334,
+    "nome": "Juninho Bacuna",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW12",
+    "numero": 335,
+    "nome": "Leandro Bacuna",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW13",
+    "numero": 336,
+    "nome": "Tahith Chong",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW14",
+    "numero": 337,
+    "nome": "Kenji Gorré",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW15",
+    "numero": 338,
+    "nome": "Jearl Margaritha",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW16",
+    "numero": 339,
+    "nome": "Jurgen Locadia",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW17",
+    "numero": 340,
+    "nome": "Jeremy Antonisse",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW18",
+    "numero": 341,
+    "nome": "Gervane Kastaneer",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CUW19",
+    "numero": 342,
+    "nome": "Sontje Hansen",
+    "selecao": "Curaçao",
+    "selecao_codigo": "CUW",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV01",
+    "numero": 343,
+    "nome": "Logo Costa do Marfim",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "logo"
+  },
+  {
+    "id": "CIV02",
+    "numero": 344,
+    "nome": "Yahia Fofana",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV03",
+    "numero": 345,
+    "nome": "Ghislain Konan",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV04",
+    "numero": 346,
+    "nome": "Wilfried Singo",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV05",
+    "numero": 347,
+    "nome": "Odilon Kossounou",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV06",
+    "numero": 348,
+    "nome": "Evan Ndicka",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV07",
+    "numero": 349,
+    "nome": "Willy Boly",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV08",
+    "numero": 350,
+    "nome": "Emmanuel Agbadou",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV09",
+    "numero": 351,
+    "nome": "Ousmane Diomande",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV10",
+    "numero": 352,
+    "nome": "Franck Kessié",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV11",
+    "numero": 353,
+    "nome": "Seko Fofana",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV12",
+    "numero": 354,
+    "nome": "Ibrahim Sangaré",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV13",
+    "numero": 355,
+    "nome": "Jean-Philippe Gbamin",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV14",
+    "numero": 356,
+    "nome": "Amad Diallo",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV15",
+    "numero": 357,
+    "nome": "Sébastien Haller",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV16",
+    "numero": 358,
+    "nome": "Simon Adingra",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV17",
+    "numero": 359,
+    "nome": "Yan Diomande",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV18",
+    "numero": 360,
+    "nome": "Evann Guessand",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CIV19",
+    "numero": 361,
+    "nome": "Oumar Diakité",
+    "selecao": "Costa do Marfim",
+    "selecao_codigo": "CIV",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU01",
+    "numero": 362,
+    "nome": "Logo Equador",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "logo"
+  },
+  {
+    "id": "ECU02",
+    "numero": 363,
+    "nome": "Hernán Galíndez",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU03",
+    "numero": 364,
+    "nome": "Gonzalo Valle",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU04",
+    "numero": 365,
+    "nome": "Piero Hincapié",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU05",
+    "numero": 366,
+    "nome": "Pervis Estupiñán",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU06",
+    "numero": 367,
+    "nome": "Willian Pacho",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU07",
+    "numero": 368,
+    "nome": "Ángelo Preciado",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU08",
+    "numero": 369,
+    "nome": "Joel Ordóñez",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU09",
+    "numero": 370,
+    "nome": "Moisés Caicedo",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU10",
+    "numero": 371,
+    "nome": "Alan Franco",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU11",
+    "numero": 372,
+    "nome": "Kendry Páez",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU12",
+    "numero": 373,
+    "nome": "Pedro Vite",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU13",
+    "numero": 374,
+    "nome": "John Veboah",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU14",
+    "numero": 375,
+    "nome": "Leonardo Campana",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU15",
+    "numero": 376,
+    "nome": "Gonzalo Plata",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU16",
+    "numero": 377,
+    "nome": "Nilson Angulo",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU17",
+    "numero": 378,
+    "nome": "Alan Minda",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU18",
+    "numero": 379,
+    "nome": "Kevin Rodríguez",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ECU19",
+    "numero": 380,
+    "nome": "Enner Valencia",
+    "selecao": "Equador",
+    "selecao_codigo": "ECU",
+    "grupo": "E",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED01",
+    "numero": 381,
+    "nome": "Logo Holanda",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "logo"
+  },
+  {
+    "id": "NED02",
+    "numero": 382,
+    "nome": "Bart Verbruggen",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED03",
+    "numero": 383,
+    "nome": "Virgil van Dijk",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED04",
+    "numero": 384,
+    "nome": "Micky van de Ven",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED05",
+    "numero": 385,
+    "nome": "Jurriën Timber",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED06",
+    "numero": 386,
+    "nome": "Denzel Dumfries",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED07",
+    "numero": 387,
+    "nome": "Nathan Aké",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED08",
+    "numero": 388,
+    "nome": "Jeremie Frimpong",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED09",
+    "numero": 389,
+    "nome": "Jan Paul van Hecke",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED10",
+    "numero": 390,
+    "nome": "Tijjani Reijnders",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED11",
+    "numero": 391,
+    "nome": "Ryan Gravenberch",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED12",
+    "numero": 392,
+    "nome": "Teun Koopmeiners",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED13",
+    "numero": 393,
+    "nome": "Frenkie de Jong",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED14",
+    "numero": 394,
+    "nome": "Xavi Simons",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED15",
+    "numero": 395,
+    "nome": "Justin Kluivert",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED16",
+    "numero": 396,
+    "nome": "Memphis Depay",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED17",
+    "numero": 397,
+    "nome": "Donyell Malen",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED18",
+    "numero": 398,
+    "nome": "Wout Weghorst",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NED19",
+    "numero": 399,
+    "nome": "Cody Gakpo",
+    "selecao": "Holanda",
+    "selecao_codigo": "NED",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN01",
+    "numero": 400,
+    "nome": "Logo Japão",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "logo"
+  },
+  {
+    "id": "JPN02",
+    "numero": 401,
+    "nome": "Zion Suzuki",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN03",
+    "numero": 402,
+    "nome": "Henry Heroki Mochizuki",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN04",
+    "numero": 403,
+    "nome": "Ayumu Seko",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN05",
+    "numero": 404,
+    "nome": "Junnosuke Suzuki",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN06",
+    "numero": 405,
+    "nome": "Shogo Taniguchi",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN07",
+    "numero": 406,
+    "nome": "Tsuyoshi Watanabe",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN08",
+    "numero": 407,
+    "nome": "Kaishu Sano",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN09",
+    "numero": 408,
+    "nome": "Yuki Soma",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN10",
+    "numero": 409,
+    "nome": "Ao Tanaka",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN11",
+    "numero": 410,
+    "nome": "Daichi Kamada",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN12",
+    "numero": 411,
+    "nome": "Takefusa Kubo",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN13",
+    "numero": 412,
+    "nome": "Ritsu Doan",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN14",
+    "numero": 413,
+    "nome": "Keito Nakamura",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN15",
+    "numero": 414,
+    "nome": "Takumi Minamino",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN16",
+    "numero": 415,
+    "nome": "Shuto Machino",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN17",
+    "numero": 416,
+    "nome": "Junya Ito",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN18",
+    "numero": 417,
+    "nome": "Koki Ogawa",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JPN19",
+    "numero": 418,
+    "nome": "Ayase Ueda",
+    "selecao": "Japão",
+    "selecao_codigo": "JPN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE01",
+    "numero": 419,
+    "nome": "Logo Suécia",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "logo"
+  },
+  {
+    "id": "SWE02",
+    "numero": 420,
+    "nome": "Victor Johansson",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE03",
+    "numero": 421,
+    "nome": "Isak Hien",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE04",
+    "numero": 422,
+    "nome": "Gabriel Gudmundsson",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE05",
+    "numero": 423,
+    "nome": "Emil Holm",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE06",
+    "numero": 424,
+    "nome": "Victor Nilsson Lindelöf",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE07",
+    "numero": 425,
+    "nome": "Gustaf Lagerbielke",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE08",
+    "numero": 426,
+    "nome": "Lucas Bergvall",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE09",
+    "numero": 427,
+    "nome": "Hugo Larsson",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE10",
+    "numero": 428,
+    "nome": "Jesper Karlström",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE11",
+    "numero": 429,
+    "nome": "Yasin Ayari",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE12",
+    "numero": 430,
+    "nome": "Mattias Svanberg",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE13",
+    "numero": 431,
+    "nome": "Daniel Svensson",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE14",
+    "numero": 432,
+    "nome": "Ken Sema",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE15",
+    "numero": 433,
+    "nome": "Roony Bardghji",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE16",
+    "numero": 434,
+    "nome": "Dejan Kulusevski",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE17",
+    "numero": 435,
+    "nome": "Anthony Elanga",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE18",
+    "numero": 436,
+    "nome": "Alexander Isak",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SWE19",
+    "numero": 437,
+    "nome": "Viktor Gyökeres",
+    "selecao": "Suécia",
+    "selecao_codigo": "SWE",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN01",
+    "numero": 438,
+    "nome": "Logo Tunísia",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "logo"
+  },
+  {
+    "id": "TUN02",
+    "numero": 439,
+    "nome": "Bechir Ben Said",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN03",
+    "numero": 440,
+    "nome": "Aymen Dahmen",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN04",
+    "numero": 441,
+    "nome": "Van Valery",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN05",
+    "numero": 442,
+    "nome": "Montassar Talbi",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN06",
+    "numero": 443,
+    "nome": "Yassine Meriah",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN07",
+    "numero": 444,
+    "nome": "Ali Abdi",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN08",
+    "numero": 445,
+    "nome": "Dylan Bronn",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN09",
+    "numero": 446,
+    "nome": "Ellyes Skhiri",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN10",
+    "numero": 447,
+    "nome": "Aissa Laidouni",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN11",
+    "numero": 448,
+    "nome": "Ferjani Sassi",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN12",
+    "numero": 449,
+    "nome": "Mohamed Ali Ben Romdhane",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN13",
+    "numero": 450,
+    "nome": "Hannibal Mejbri",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN14",
+    "numero": 451,
+    "nome": "Elias Achouri",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN15",
+    "numero": 452,
+    "nome": "Elias Saad",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN16",
+    "numero": 453,
+    "nome": "Hazem Mastouri",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN17",
+    "numero": 454,
+    "nome": "Ismael Gharbi",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN18",
+    "numero": 455,
+    "nome": "Sayfallah Ltaief",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "TUN19",
+    "numero": 456,
+    "nome": "Naim Sliti",
+    "selecao": "Tunísia",
+    "selecao_codigo": "TUN",
+    "grupo": "F",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL01",
+    "numero": 457,
+    "nome": "Logo Bélgica",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "logo"
+  },
+  {
+    "id": "BEL02",
+    "numero": 458,
+    "nome": "Thibaut Courtois",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL03",
+    "numero": 459,
+    "nome": "Arthur Theate",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL04",
+    "numero": 460,
+    "nome": "Timothy Castagne",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL05",
+    "numero": 461,
+    "nome": "Zeno Debast",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL06",
+    "numero": 462,
+    "nome": "Brandon Mechele",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL07",
+    "numero": 463,
+    "nome": "Maxim De Cuyper",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL08",
+    "numero": 464,
+    "nome": "Thomas Meunier",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL09",
+    "numero": 465,
+    "nome": "Youri Tielemans",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL10",
+    "numero": 466,
+    "nome": "Amadou Onana",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL11",
+    "numero": 467,
+    "nome": "Nicolas Raskin",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL12",
+    "numero": 468,
+    "nome": "Alexis Saelemaekers",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL13",
+    "numero": 469,
+    "nome": "Hans Vanaken",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL14",
+    "numero": 470,
+    "nome": "Kevin De Bruyne",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL15",
+    "numero": 471,
+    "nome": "Jérémy Doku",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL16",
+    "numero": 472,
+    "nome": "Charles De Ketelaere",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL17",
+    "numero": 473,
+    "nome": "Leandro Trossard",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL18",
+    "numero": 474,
+    "nome": "Loïs Openda",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "BEL19",
+    "numero": 475,
+    "nome": "Romelu Lukaku",
+    "selecao": "Bélgica",
+    "selecao_codigo": "BEL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY01",
+    "numero": 476,
+    "nome": "Logo Egito",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "logo"
+  },
+  {
+    "id": "EGY02",
+    "numero": 477,
+    "nome": "Mohamed El Shenawy",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY03",
+    "numero": 478,
+    "nome": "Mohamed Hany",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY04",
+    "numero": 479,
+    "nome": "Mohamed Hamdy",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY05",
+    "numero": 480,
+    "nome": "Yasser Ibrahim",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY06",
+    "numero": 481,
+    "nome": "Khaled Sobhi",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY07",
+    "numero": 482,
+    "nome": "Ramy Rabia",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY08",
+    "numero": 483,
+    "nome": "Hossam Abdelmaguid",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY09",
+    "numero": 484,
+    "nome": "Ahmed Fatouh",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY10",
+    "numero": 485,
+    "nome": "Marwan Attia",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY11",
+    "numero": 486,
+    "nome": "Zizo",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY12",
+    "numero": 487,
+    "nome": "Hamdy Fathy",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY13",
+    "numero": 488,
+    "nome": "Mohamed Lasheen",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY14",
+    "numero": 489,
+    "nome": "Emam Ashour",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY15",
+    "numero": 490,
+    "nome": "Osama Faisal",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY16",
+    "numero": 491,
+    "nome": "Mohamed Salah",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY17",
+    "numero": 492,
+    "nome": "Mostafa Mohamed",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY18",
+    "numero": 493,
+    "nome": "Trezeguet",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "EGY19",
+    "numero": 494,
+    "nome": "Omar Marmoush",
+    "selecao": "Egito",
+    "selecao_codigo": "EGY",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN01",
+    "numero": 495,
+    "nome": "Logo Irã",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "logo"
+  },
+  {
+    "id": "IRN02",
+    "numero": 496,
+    "nome": "Alireza Beiranvand",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN03",
+    "numero": 497,
+    "nome": "Morteza Pouraliganji",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN04",
+    "numero": 498,
+    "nome": "Ehsan Hajsafi",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN05",
+    "numero": 499,
+    "nome": "Milad Mohammadi",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN06",
+    "numero": 500,
+    "nome": "Shoja Khalilzadeh",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN07",
+    "numero": 501,
+    "nome": "Ramin Rezaeian",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN08",
+    "numero": 502,
+    "nome": "Hossein Kanaani",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN09",
+    "numero": 503,
+    "nome": "Sadegh Moharrami",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN10",
+    "numero": 504,
+    "nome": "Saleh Hardani",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN11",
+    "numero": 505,
+    "nome": "Saeed Ezatolahi",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN12",
+    "numero": 506,
+    "nome": "Saman Ghoddos",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN13",
+    "numero": 507,
+    "nome": "Omid Noorafkan",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN14",
+    "numero": 508,
+    "nome": "Roozbeh Cheshmi",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN15",
+    "numero": 509,
+    "nome": "Mohammad Mohebi",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN16",
+    "numero": 510,
+    "nome": "Sardar Azmoun",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN17",
+    "numero": 511,
+    "nome": "Mehdi Taremi",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN18",
+    "numero": 512,
+    "nome": "Alireza Jahanbakhsh",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRN19",
+    "numero": 513,
+    "nome": "Ali Gholizadeh",
+    "selecao": "Irã",
+    "selecao_codigo": "IRN",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL01",
+    "numero": 514,
+    "nome": "Logo Nova Zelândia",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "logo"
+  },
+  {
+    "id": "NZL02",
+    "numero": 515,
+    "nome": "Max Crocombe-Payne",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL03",
+    "numero": 516,
+    "nome": "Alex Paulsen",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL04",
+    "numero": 517,
+    "nome": "Michael Boxall",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL05",
+    "numero": 518,
+    "nome": "Liberato Cacace",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL06",
+    "numero": 519,
+    "nome": "Tim Payne",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL07",
+    "numero": 520,
+    "nome": "Tyler Bindon",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL08",
+    "numero": 521,
+    "nome": "Francis de Vries",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL09",
+    "numero": 522,
+    "nome": "Finn Surman",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL10",
+    "numero": 523,
+    "nome": "Joe Bell",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL11",
+    "numero": 524,
+    "nome": "Sarpreet Singh",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL12",
+    "numero": 525,
+    "nome": "Ryan Thomas",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL13",
+    "numero": 526,
+    "nome": "Matthew Garbett",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL14",
+    "numero": 527,
+    "nome": "Marko Stamenić",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL15",
+    "numero": 528,
+    "nome": "Ben Old",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL16",
+    "numero": 529,
+    "nome": "Chris Wood",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL17",
+    "numero": 530,
+    "nome": "Elijah Just",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL18",
+    "numero": 531,
+    "nome": "Callum McCowatt",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NZL19",
+    "numero": 532,
+    "nome": "Kosta Barbarouses",
+    "selecao": "Nova Zelândia",
+    "selecao_codigo": "NZL",
+    "grupo": "G",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP01",
+    "numero": 533,
+    "nome": "Logo Espanha",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "logo"
+  },
+  {
+    "id": "ESP02",
+    "numero": 534,
+    "nome": "Unai Simón",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP03",
+    "numero": 535,
+    "nome": "Robin Le Normand",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP04",
+    "numero": 536,
+    "nome": "Aymeric Laporte",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP05",
+    "numero": 537,
+    "nome": "Dean Huijsen",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP06",
+    "numero": 538,
+    "nome": "Pedro Porro",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP07",
+    "numero": 539,
+    "nome": "Dani Carvajal",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP08",
+    "numero": 540,
+    "nome": "Marc Cucurella",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP09",
+    "numero": 541,
+    "nome": "Martín Zubimendi",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP10",
+    "numero": 542,
+    "nome": "Rodri",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP11",
+    "numero": 543,
+    "nome": "Pedri",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP12",
+    "numero": 544,
+    "nome": "Fabián Ruiz",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP13",
+    "numero": 545,
+    "nome": "Mikel Merino",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP14",
+    "numero": 546,
+    "nome": "Lamine Yamal",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP15",
+    "numero": 547,
+    "nome": "Dani Olmo",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP16",
+    "numero": 548,
+    "nome": "Nico Williams",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP17",
+    "numero": 549,
+    "nome": "Ferran Torres",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP18",
+    "numero": 550,
+    "nome": "Álvaro Morata",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ESP19",
+    "numero": 551,
+    "nome": "Mikel Oyarzabal",
+    "selecao": "Espanha",
+    "selecao_codigo": "ESP",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV01",
+    "numero": 552,
+    "nome": "Logo Cabo Verde",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "logo"
+  },
+  {
+    "id": "CPV02",
+    "numero": 553,
+    "nome": "Vozinha",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV03",
+    "numero": 554,
+    "nome": "Logan Costa",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV04",
+    "numero": 555,
+    "nome": "Pico",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV05",
+    "numero": 556,
+    "nome": "Diney",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV06",
+    "numero": 557,
+    "nome": "Steven Moreira",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV07",
+    "numero": 558,
+    "nome": "Wagner Pina",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV08",
+    "numero": 559,
+    "nome": "João Paulo",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV09",
+    "numero": 560,
+    "nome": "Yannick Semedo",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV10",
+    "numero": 561,
+    "nome": "Kevin Pina",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV11",
+    "numero": 562,
+    "nome": "Patrick Andrade",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV12",
+    "numero": 563,
+    "nome": "Jamiro Monteiro",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV13",
+    "numero": 564,
+    "nome": "Deroy Duarte",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV14",
+    "numero": 565,
+    "nome": "Garry Rodrigues",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV15",
+    "numero": 566,
+    "nome": "Jovane Cabral",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV16",
+    "numero": 567,
+    "nome": "Ryan Mendes",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV17",
+    "numero": 568,
+    "nome": "Dailon Livramento",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV18",
+    "numero": 569,
+    "nome": "Willy Semedo",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CPV19",
+    "numero": 570,
+    "nome": "Bebé",
+    "selecao": "Cabo Verde",
+    "selecao_codigo": "CPV",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA01",
+    "numero": 571,
+    "nome": "Logo Arábia Saudita",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "logo"
+  },
+  {
+    "id": "KSA02",
+    "numero": 572,
+    "nome": "Nawaf Alaqidi",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA03",
+    "numero": 573,
+    "nome": "Abdulrahman Al-Sanbi",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA04",
+    "numero": 574,
+    "nome": "Saud Abdulhamid",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA05",
+    "numero": 575,
+    "nome": "Nawaf Boushal",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA06",
+    "numero": 576,
+    "nome": "Jihad Thakri",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA07",
+    "numero": 577,
+    "nome": "Moteb Al-Harbi",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA08",
+    "numero": 578,
+    "nome": "Hassan Altambakti",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA09",
+    "numero": 579,
+    "nome": "Musab Aljuwayr",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA10",
+    "numero": 580,
+    "nome": "Ziyad Aljohani",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA11",
+    "numero": 581,
+    "nome": "Abdullah Alkhaibari",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA12",
+    "numero": 582,
+    "nome": "Nasser Aldawsari",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA13",
+    "numero": 583,
+    "nome": "Saleh Abu Alshamat",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA14",
+    "numero": 584,
+    "nome": "Marwan Alsahafi",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA15",
+    "numero": 585,
+    "nome": "Salem Aldawsari",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA16",
+    "numero": 586,
+    "nome": "Abdulrahman Al-Aboud",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA17",
+    "numero": 587,
+    "nome": "Feras Albrikan",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA18",
+    "numero": 588,
+    "nome": "Saleh Alshehri",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "KSA19",
+    "numero": 589,
+    "nome": "Abdullah Al-Hamdan",
+    "selecao": "Arábia Saudita",
+    "selecao_codigo": "KSA",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU01",
+    "numero": 590,
+    "nome": "Logo Uruguai",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "logo"
+  },
+  {
+    "id": "URU02",
+    "numero": 591,
+    "nome": "Sergio Rochet",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU03",
+    "numero": 592,
+    "nome": "Santiago Mele",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU04",
+    "numero": 593,
+    "nome": "Ronald Araujo",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU05",
+    "numero": 594,
+    "nome": "José María Giménez",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU06",
+    "numero": 595,
+    "nome": "Sebastian Caceres",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU07",
+    "numero": 596,
+    "nome": "Mathias Olivera",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU08",
+    "numero": 597,
+    "nome": "Guillermo Varela",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU09",
+    "numero": 598,
+    "nome": "Nahitan Nandez",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU10",
+    "numero": 599,
+    "nome": "Federico Valverde",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU11",
+    "numero": 600,
+    "nome": "Giorgian De Arrascaeta",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU12",
+    "numero": 601,
+    "nome": "Rodrigo Bentancur",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU13",
+    "numero": 602,
+    "nome": "Manuel Ugarte",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU14",
+    "numero": 603,
+    "nome": "Nicolás de la Cruz",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU15",
+    "numero": 604,
+    "nome": "Maxi Araujo",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU16",
+    "numero": 605,
+    "nome": "Darwin Núñez",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU17",
+    "numero": 606,
+    "nome": "Federico Viñas",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU18",
+    "numero": 607,
+    "nome": "Rodrigo Aguirre",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "URU19",
+    "numero": 608,
+    "nome": "Facundo Pellistri",
+    "selecao": "Uruguai",
+    "selecao_codigo": "URU",
+    "grupo": "H",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA01",
+    "numero": 609,
+    "nome": "Logo França",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "logo"
+  },
+  {
+    "id": "FRA02",
+    "numero": 610,
+    "nome": "Mike Maignan",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA03",
+    "numero": 611,
+    "nome": "Theo Hernández",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA04",
+    "numero": 612,
+    "nome": "William Saliba",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA05",
+    "numero": 613,
+    "nome": "Jules Koundé",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA06",
+    "numero": 614,
+    "nome": "Ibrahima Konaté",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA07",
+    "numero": 615,
+    "nome": "Dayot Upamecano",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA08",
+    "numero": 616,
+    "nome": "Lucas Digne",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA09",
+    "numero": 617,
+    "nome": "Aurélien Tchouaméni",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA10",
+    "numero": 618,
+    "nome": "Eduardo Camavinga",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA11",
+    "numero": 619,
+    "nome": "Manu Koné",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA12",
+    "numero": 620,
+    "nome": "Adrien Rabiot",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA13",
+    "numero": 621,
+    "nome": "Michael Olise",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA14",
+    "numero": 622,
+    "nome": "Ousmane Dembélé",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA15",
+    "numero": 623,
+    "nome": "Bradley Barcola",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA16",
+    "numero": 624,
+    "nome": "Désiré Doué",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA17",
+    "numero": 625,
+    "nome": "Kingsley Coman",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA18",
+    "numero": 626,
+    "nome": "Hugo Ekitike",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FRA19",
+    "numero": 627,
+    "nome": "Kylian Mbappé",
+    "selecao": "França",
+    "selecao_codigo": "FRA",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN01",
+    "numero": 628,
+    "nome": "Logo Senegal",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "logo"
+  },
+  {
+    "id": "SEN02",
+    "numero": 629,
+    "nome": "Eduardo Mendy",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN03",
+    "numero": 630,
+    "nome": "Yehvann Diouf",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN04",
+    "numero": 631,
+    "nome": "Moussa Niakhaté",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN05",
+    "numero": 632,
+    "nome": "Abdoulaye Seck",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN06",
+    "numero": 633,
+    "nome": "Ismail Jakobs",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN07",
+    "numero": 634,
+    "nome": "El Hadji Malick Diouf",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN08",
+    "numero": 635,
+    "nome": "Kalidou Koulibaly",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN09",
+    "numero": 636,
+    "nome": "Idrissa Gana Gueye",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN10",
+    "numero": 637,
+    "nome": "Pape Matar Sarr",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN11",
+    "numero": 638,
+    "nome": "Pape Gueye",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN12",
+    "numero": 639,
+    "nome": "Habib Diarra",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN13",
+    "numero": 640,
+    "nome": "Lamine Camara",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN14",
+    "numero": 641,
+    "nome": "Sadio Mane",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN15",
+    "numero": 642,
+    "nome": "Ismaïla Sarr",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN16",
+    "numero": 643,
+    "nome": "Boulaye Dia",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN17",
+    "numero": 644,
+    "nome": "Iliman Ndiaye",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN18",
+    "numero": 645,
+    "nome": "Nicolas Jackson",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "SEN19",
+    "numero": 646,
+    "nome": "Krepin Diatta",
+    "selecao": "Senegal",
+    "selecao_codigo": "SEN",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ01",
+    "numero": 647,
+    "nome": "Logo Iraque",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "logo"
+  },
+  {
+    "id": "IRQ02",
+    "numero": 648,
+    "nome": "Jalal Hassan",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ03",
+    "numero": 649,
+    "nome": "Rebin Sulaka",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ04",
+    "numero": 650,
+    "nome": "Hussein Ali",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ05",
+    "numero": 651,
+    "nome": "Akam Hashem",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ06",
+    "numero": 652,
+    "nome": "Merchas Doski",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ07",
+    "numero": 653,
+    "nome": "Zaid Tahseen",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ08",
+    "numero": 654,
+    "nome": "Manaf Younis",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ09",
+    "numero": 655,
+    "nome": "Zidane Iqbal",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ10",
+    "numero": 656,
+    "nome": "Amir Al-Ammari",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ11",
+    "numero": 657,
+    "nome": "Ibrahim Bayesh",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ12",
+    "numero": 658,
+    "nome": "Ali Jasim",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ13",
+    "numero": 659,
+    "nome": "Youssef Amyn",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ14",
+    "numero": 660,
+    "nome": "Aimar Sher",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ15",
+    "numero": 661,
+    "nome": "Marko Farji",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ16",
+    "numero": 662,
+    "nome": "Osama Rashid",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ17",
+    "numero": 663,
+    "nome": "Ali Al-Hamadi",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ18",
+    "numero": 664,
+    "nome": "Aymen Hussein",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "IRQ19",
+    "numero": 665,
+    "nome": "Mohanad Ali",
+    "selecao": "Iraque",
+    "selecao_codigo": "IRQ",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR01",
+    "numero": 666,
+    "nome": "Logo Noruega",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "logo"
+  },
+  {
+    "id": "NOR02",
+    "numero": 667,
+    "nome": "Ørjan Nyland",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR03",
+    "numero": 668,
+    "nome": "Julian Ryerson",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR04",
+    "numero": 669,
+    "nome": "Leo Østigård",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR05",
+    "numero": 670,
+    "nome": "Kristoffer Ajer",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR06",
+    "numero": 671,
+    "nome": "Marcus Holmgren Pedersen",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR07",
+    "numero": 672,
+    "nome": "David Møller Wolfe",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR08",
+    "numero": 673,
+    "nome": "Torbjørn Heggem",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR09",
+    "numero": 674,
+    "nome": "Morten Thorsby",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR10",
+    "numero": 675,
+    "nome": "Martin Ødegaard",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR11",
+    "numero": 676,
+    "nome": "Sander Berge",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR12",
+    "numero": 677,
+    "nome": "Andreas Schjelderup",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR13",
+    "numero": 678,
+    "nome": "Patrick Berg",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR14",
+    "numero": 679,
+    "nome": "Erling Haaland",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR15",
+    "numero": 680,
+    "nome": "Alexander Sørloth",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR16",
+    "numero": 681,
+    "nome": "Aron Dønnum",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR17",
+    "numero": 682,
+    "nome": "Jørgen Strand Larsen",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR18",
+    "numero": 683,
+    "nome": "Antonio Nusa",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "NOR19",
+    "numero": 684,
+    "nome": "Oscar Bobb",
+    "selecao": "Noruega",
+    "selecao_codigo": "NOR",
+    "grupo": "I",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG01",
+    "numero": 685,
+    "nome": "Logo Argentina",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "logo"
+  },
+  {
+    "id": "ARG02",
+    "numero": 686,
+    "nome": "Emiliano Martínez",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG03",
+    "numero": 687,
+    "nome": "Nahuel Molina",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG04",
+    "numero": 688,
+    "nome": "Cristian Romero",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG05",
+    "numero": 689,
+    "nome": "Nicolás Otamendi",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG06",
+    "numero": 690,
+    "nome": "Nicolás Tagliafico",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG07",
+    "numero": 691,
+    "nome": "Leonardo Balerdi",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG08",
+    "numero": 692,
+    "nome": "Enzo Fernández",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG09",
+    "numero": 693,
+    "nome": "Alexis Mac Allister",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG10",
+    "numero": 694,
+    "nome": "Rodrigo De Paul",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG11",
+    "numero": 695,
+    "nome": "Exequiel Palacios",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG12",
+    "numero": 696,
+    "nome": "Leandro Paredes",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG13",
+    "numero": 697,
+    "nome": "Nico Paz",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG14",
+    "numero": 698,
+    "nome": "Franco Mastantuono",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG15",
+    "numero": 699,
+    "nome": "Nico González",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG16",
+    "numero": 700,
+    "nome": "Lionel Messi",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG17",
+    "numero": 701,
+    "nome": "Lautaro Martínez",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG18",
+    "numero": 702,
+    "nome": "Julián Álvarez",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ARG19",
+    "numero": 703,
+    "nome": "Giuliano Simeone",
+    "selecao": "Argentina",
+    "selecao_codigo": "ARG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG01",
+    "numero": 704,
+    "nome": "Logo Argélia",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "logo"
+  },
+  {
+    "id": "ALG02",
+    "numero": 705,
+    "nome": "Alexis Guendouz",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG03",
+    "numero": 706,
+    "nome": "Ramy Bensebaini",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG04",
+    "numero": 707,
+    "nome": "Youcef Atal",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG05",
+    "numero": 708,
+    "nome": "Rayan Aït-Nouri",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG06",
+    "numero": 709,
+    "nome": "Mohamed Amine Tougai",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG07",
+    "numero": 710,
+    "nome": "Aïssa Mandi",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG08",
+    "numero": 711,
+    "nome": "Ismael Bennacer",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG09",
+    "numero": 712,
+    "nome": "Houssem Aouar",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG10",
+    "numero": 713,
+    "nome": "Hicham Boudaoui",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG11",
+    "numero": 714,
+    "nome": "Ramiz Zerrouki",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG12",
+    "numero": 715,
+    "nome": "Nabil Bentaleb",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG13",
+    "numero": 716,
+    "nome": "Farés Chaibi",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG14",
+    "numero": 717,
+    "nome": "Riyad Mahrez",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG15",
+    "numero": 718,
+    "nome": "Said Benrahma",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG16",
+    "numero": 719,
+    "nome": "Anis Hadj Moussa",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG17",
+    "numero": 720,
+    "nome": "Amine Gouiri",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG18",
+    "numero": 721,
+    "nome": "Baghdad Bounedjah",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ALG19",
+    "numero": 722,
+    "nome": "Mohammed Amoura",
+    "selecao": "Argélia",
+    "selecao_codigo": "ALG",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT01",
+    "numero": 723,
+    "nome": "Logo Áustria",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "logo"
+  },
+  {
+    "id": "AUT02",
+    "numero": 724,
+    "nome": "Alexander Schlager",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT03",
+    "numero": 725,
+    "nome": "Patrick Pentz",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT04",
+    "numero": 726,
+    "nome": "David Alaba",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT05",
+    "numero": 727,
+    "nome": "Kevin Danso",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT06",
+    "numero": 728,
+    "nome": "Philipp Lienhart",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT07",
+    "numero": 729,
+    "nome": "Stefan Posch",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT08",
+    "numero": 730,
+    "nome": "Phillipp Mwene",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT09",
+    "numero": 731,
+    "nome": "Alexander Prass",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT10",
+    "numero": 732,
+    "nome": "Xaver Schlager",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT11",
+    "numero": 733,
+    "nome": "Marcel Sabitzer",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT12",
+    "numero": 734,
+    "nome": "Konrad Laimer",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT13",
+    "numero": 735,
+    "nome": "Florian Grillitsch",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT14",
+    "numero": 736,
+    "nome": "Nicolas Seiwald",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT15",
+    "numero": 737,
+    "nome": "Romano Schmid",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT16",
+    "numero": 738,
+    "nome": "Patrick Wimmer",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT17",
+    "numero": 739,
+    "nome": "Christoph Baumgartner",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT18",
+    "numero": 740,
+    "nome": "Michael Gregoritsch",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "AUT19",
+    "numero": 741,
+    "nome": "Marko Arnautović",
+    "selecao": "Áustria",
+    "selecao_codigo": "AUT",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR01",
+    "numero": 742,
+    "nome": "Logo Jordânia",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "logo"
+  },
+  {
+    "id": "JOR02",
+    "numero": 743,
+    "nome": "Yazeed Abulaila",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR03",
+    "numero": 744,
+    "nome": "Ihsan Haddad",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR04",
+    "numero": 745,
+    "nome": "Mohammad Abu Hashish",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR05",
+    "numero": 746,
+    "nome": "Yazan Al-Arab",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR06",
+    "numero": 747,
+    "nome": "Abdallah Nasib",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR07",
+    "numero": 748,
+    "nome": "Saleem Obaid",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR08",
+    "numero": 749,
+    "nome": "Mohammad Abualnadi",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR09",
+    "numero": 750,
+    "nome": "Ibrahim Saadeh",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR10",
+    "numero": 751,
+    "nome": "Nizar Al-Rashdan",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR11",
+    "numero": 752,
+    "nome": "Noor Al-Rawabdeh",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR12",
+    "numero": 753,
+    "nome": "Mohannad Abu Taha",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR13",
+    "numero": 754,
+    "nome": "Amer Jamous",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR14",
+    "numero": 755,
+    "nome": "Musa Al-Taamari",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR15",
+    "numero": 756,
+    "nome": "Yazan Al-Naimat",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR16",
+    "numero": 757,
+    "nome": "Mahmoud Al-Mardi",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR17",
+    "numero": 758,
+    "nome": "Ali Olwan",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR18",
+    "numero": 759,
+    "nome": "Mohammad Abu Zrayq",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "JOR19",
+    "numero": 760,
+    "nome": "Ibrahim Sabra",
+    "selecao": "Jordânia",
+    "selecao_codigo": "JOR",
+    "grupo": "J",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR01",
+    "numero": 761,
+    "nome": "Logo Portugal",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "logo"
+  },
+  {
+    "id": "POR02",
+    "numero": 762,
+    "nome": "Diogo Costa",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR03",
+    "numero": 763,
+    "nome": "Jose Sa",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR04",
+    "numero": 764,
+    "nome": "Ruben Dias",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR05",
+    "numero": 765,
+    "nome": "João Cancelo",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR06",
+    "numero": 766,
+    "nome": "Diogo Dalot",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR07",
+    "numero": 767,
+    "nome": "Nuno Mendes",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR08",
+    "numero": 768,
+    "nome": "Gonçalo Inácio",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR09",
+    "numero": 769,
+    "nome": "Bernardo Silva",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR10",
+    "numero": 770,
+    "nome": "Bruno Fernandes",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR11",
+    "numero": 771,
+    "nome": "Ruben Neves",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR12",
+    "numero": 772,
+    "nome": "Vitinha",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR13",
+    "numero": 773,
+    "nome": "João Neves",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR14",
+    "numero": 774,
+    "nome": "Cristiano Ronaldo",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR15",
+    "numero": 775,
+    "nome": "Francisco Trincão",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR16",
+    "numero": 776,
+    "nome": "João Felix",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR17",
+    "numero": 777,
+    "nome": "Gonçalo Ramos",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR18",
+    "numero": 778,
+    "nome": "Pedro Neto",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "POR19",
+    "numero": 779,
+    "nome": "Rafael Leão",
+    "selecao": "Portugal",
+    "selecao_codigo": "POR",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD01",
+    "numero": 780,
+    "nome": "Logo RD Congo",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "logo"
+  },
+  {
+    "id": "COD02",
+    "numero": 781,
+    "nome": "Lionel Mpasi",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD03",
+    "numero": 782,
+    "nome": "Aaron Wan-Bissaka",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD04",
+    "numero": 783,
+    "nome": "Axel Tuanzebe",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD05",
+    "numero": 784,
+    "nome": "Arthur Masuaku",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD06",
+    "numero": 785,
+    "nome": "Chancel Mbemba",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD07",
+    "numero": 786,
+    "nome": "Joris Kayembe",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD08",
+    "numero": 787,
+    "nome": "Charles Pickel",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD09",
+    "numero": 788,
+    "nome": "Ngal'ayel Mukau",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD10",
+    "numero": 789,
+    "nome": "Edo Kayembe",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD11",
+    "numero": 790,
+    "nome": "Samuel Moutoussamy",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD12",
+    "numero": 791,
+    "nome": "Noah Sadiki",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD13",
+    "numero": 792,
+    "nome": "Théo Bongonda",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD14",
+    "numero": 793,
+    "nome": "Meschack Elia",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD15",
+    "numero": 794,
+    "nome": "Yoane Wissa",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD16",
+    "numero": 795,
+    "nome": "Brian Cipenga",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD17",
+    "numero": 796,
+    "nome": "Fiston Mayele",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD18",
+    "numero": 797,
+    "nome": "Cédric Bakambu",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COD19",
+    "numero": 798,
+    "nome": "Nathanaël Mbuku",
+    "selecao": "RD Congo",
+    "selecao_codigo": "COD",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB01",
+    "numero": 799,
+    "nome": "Logo Uzbequistão",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "logo"
+  },
+  {
+    "id": "UZB02",
+    "numero": 800,
+    "nome": "Utkir Yusupov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB03",
+    "numero": 801,
+    "nome": "Farrukh Savfiev",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB04",
+    "numero": 802,
+    "nome": "Sherzod Nasrullaev",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB05",
+    "numero": 803,
+    "nome": "Umar Eshmurodov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB06",
+    "numero": 804,
+    "nome": "Husniddin Aliqulov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB07",
+    "numero": 805,
+    "nome": "Rustamjon Ashurmatov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB08",
+    "numero": 806,
+    "nome": "Khojiakbar Alijonov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB09",
+    "numero": 807,
+    "nome": "Abdukodir Khusanov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB10",
+    "numero": 808,
+    "nome": "Odiljon Hamrobekov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB11",
+    "numero": 809,
+    "nome": "Otabek Shukurov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB12",
+    "numero": 810,
+    "nome": "Jamshid Iskanderov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB13",
+    "numero": 811,
+    "nome": "Azizbek Turgunboev",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB14",
+    "numero": 812,
+    "nome": "Khojimat Erkinov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB15",
+    "numero": 813,
+    "nome": "Eldor Shomurodov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB16",
+    "numero": 814,
+    "nome": "Oston Urunov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB17",
+    "numero": 815,
+    "nome": "Jaloliddin Masharipov",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB18",
+    "numero": 816,
+    "nome": "Igor Sergeev",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "UZB19",
+    "numero": 817,
+    "nome": "Abbosbek Fayzullaev",
+    "selecao": "Uzbequistão",
+    "selecao_codigo": "UZB",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL01",
+    "numero": 818,
+    "nome": "Logo Colômbia",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "logo"
+  },
+  {
+    "id": "COL02",
+    "numero": 819,
+    "nome": "Camilo Vargas",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL03",
+    "numero": 820,
+    "nome": "David Ospina",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL04",
+    "numero": 821,
+    "nome": "Dávinson Sánchez",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL05",
+    "numero": 822,
+    "nome": "Yerry Mina",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL06",
+    "numero": 823,
+    "nome": "Daniel Muñoz",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL07",
+    "numero": 824,
+    "nome": "Johan Mojica",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL08",
+    "numero": 825,
+    "nome": "Jhon Lucumí",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL09",
+    "numero": 826,
+    "nome": "Santiago Arias",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL10",
+    "numero": 827,
+    "nome": "Jefferson Lerma",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL11",
+    "numero": 828,
+    "nome": "Kevin Castaño",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL12",
+    "numero": 829,
+    "nome": "Richard Ríos",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL13",
+    "numero": 830,
+    "nome": "James Rodríguez",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL14",
+    "numero": 831,
+    "nome": "Juan Fernando Quintero",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL15",
+    "numero": 832,
+    "nome": "Jorge Carrascal",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL16",
+    "numero": 833,
+    "nome": "Jhon Arias",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL17",
+    "numero": 834,
+    "nome": "Jhon Córdoba",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL18",
+    "numero": 835,
+    "nome": "Luis Suárez",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "COL19",
+    "numero": 836,
+    "nome": "Luis Díaz",
+    "selecao": "Colômbia",
+    "selecao_codigo": "COL",
+    "grupo": "K",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG01",
+    "numero": 837,
+    "nome": "Logo Inglaterra",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "logo"
+  },
+  {
+    "id": "ENG02",
+    "numero": 838,
+    "nome": "Jordan Pickford",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG03",
+    "numero": 839,
+    "nome": "John Stones",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG04",
+    "numero": 840,
+    "nome": "Marc Guéhi",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG05",
+    "numero": 841,
+    "nome": "Ezri Konsa",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG06",
+    "numero": 842,
+    "nome": "Trent Alexander-Arnold",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG07",
+    "numero": 843,
+    "nome": "Reece James",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG08",
+    "numero": 844,
+    "nome": "Dan Burn",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG09",
+    "numero": 845,
+    "nome": "Jordan Henderson",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG10",
+    "numero": 846,
+    "nome": "Declan Rice",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG11",
+    "numero": 847,
+    "nome": "Jude Bellingham",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG12",
+    "numero": 848,
+    "nome": "Cole Palmer",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG13",
+    "numero": 849,
+    "nome": "Morgan Rogers",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG14",
+    "numero": 850,
+    "nome": "Anthony Gordon",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG15",
+    "numero": 851,
+    "nome": "Phil Foden",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG16",
+    "numero": 852,
+    "nome": "Bukayo Saka",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG17",
+    "numero": 853,
+    "nome": "Harry Kane",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG18",
+    "numero": 854,
+    "nome": "Marcus Rashford",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "ENG19",
+    "numero": 855,
+    "nome": "Ollie Watkins",
+    "selecao": "Inglaterra",
+    "selecao_codigo": "ENG",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO01",
+    "numero": 856,
+    "nome": "Logo Croácia",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "logo"
+  },
+  {
+    "id": "CRO02",
+    "numero": 857,
+    "nome": "Dominik Livaković",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO03",
+    "numero": 858,
+    "nome": "Duje Ćaleta-Car",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO04",
+    "numero": 859,
+    "nome": "Joško Gvardiol",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO05",
+    "numero": 860,
+    "nome": "Josip Stanišić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO06",
+    "numero": 861,
+    "nome": "Luka Vušković",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO07",
+    "numero": 862,
+    "nome": "Josip Šutalo",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO08",
+    "numero": 863,
+    "nome": "Kristijan Jakić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO09",
+    "numero": 864,
+    "nome": "Luka Modrić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO10",
+    "numero": 865,
+    "nome": "Mateo Kovačić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO11",
+    "numero": 866,
+    "nome": "Martin Baturina",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO12",
+    "numero": 867,
+    "nome": "Lovro Majer",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO13",
+    "numero": 868,
+    "nome": "Mario Pašalić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO14",
+    "numero": 869,
+    "nome": "Petar Sučić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO15",
+    "numero": 870,
+    "nome": "Ivan Perišić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO16",
+    "numero": 871,
+    "nome": "Marco Pašalić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO17",
+    "numero": 872,
+    "nome": "Ante Budimir",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO18",
+    "numero": 873,
+    "nome": "Andrej Kramarić",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "CRO19",
+    "numero": 874,
+    "nome": "Franjo Ivanović",
+    "selecao": "Croácia",
+    "selecao_codigo": "CRO",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA01",
+    "numero": 875,
+    "nome": "Logo Gana",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "logo"
+  },
+  {
+    "id": "GHA02",
+    "numero": 876,
+    "nome": "Lawrence Ati Zigi",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA03",
+    "numero": 877,
+    "nome": "Tariq Lamptey",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA04",
+    "numero": 878,
+    "nome": "Mohammed Salisu",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA05",
+    "numero": 879,
+    "nome": "Alidu Seidu",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA06",
+    "numero": 880,
+    "nome": "Alexander Djiku",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA07",
+    "numero": 881,
+    "nome": "Gideon Mensah",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA08",
+    "numero": 882,
+    "nome": "Caleb Yirenkyi",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA09",
+    "numero": 883,
+    "nome": "Abdul Fatawu Issahaku",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA10",
+    "numero": 884,
+    "nome": "Thomas Partey",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA11",
+    "numero": 885,
+    "nome": "Salis Abdul Samed",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA12",
+    "numero": 886,
+    "nome": "Kamaldeen Sulemana",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA13",
+    "numero": 887,
+    "nome": "Mohammed Kudus",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA14",
+    "numero": 888,
+    "nome": "Iñaki Williams",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA15",
+    "numero": 889,
+    "nome": "Jordan Ayew",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA16",
+    "numero": 890,
+    "nome": "André Ayew",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA17",
+    "numero": 891,
+    "nome": "Joseph Paintsil",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA18",
+    "numero": 892,
+    "nome": "Osman Bukari",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "GHA19",
+    "numero": 893,
+    "nome": "Antoine Semenyo",
+    "selecao": "Gana",
+    "selecao_codigo": "GHA",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN01",
+    "numero": 894,
+    "nome": "Logo Panamá",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "logo"
+  },
+  {
+    "id": "PAN02",
+    "numero": 895,
+    "nome": "Orlando Mosquera",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN03",
+    "numero": 896,
+    "nome": "Luis Mejía",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN04",
+    "numero": 897,
+    "nome": "Fidel Escobar",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN05",
+    "numero": 898,
+    "nome": "Andrés Andrade",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN06",
+    "numero": 899,
+    "nome": "Michael Amir Murillo",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN07",
+    "numero": 900,
+    "nome": "Eric Davis",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN08",
+    "numero": 901,
+    "nome": "José Córdoba",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN09",
+    "numero": 902,
+    "nome": "César Blackman",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN10",
+    "numero": 903,
+    "nome": "Cristian Martínez",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN11",
+    "numero": 904,
+    "nome": "Aníbal Godoy",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN12",
+    "numero": 905,
+    "nome": "Adalberto Carrasquilla",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN13",
+    "numero": 906,
+    "nome": "Édgar Bárcenas",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN14",
+    "numero": 907,
+    "nome": "Carlos Harvey",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN15",
+    "numero": 908,
+    "nome": "Ismael Díaz",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN16",
+    "numero": 909,
+    "nome": "José Fajardo",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN17",
+    "numero": 910,
+    "nome": "Cecilio Waterman",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN18",
+    "numero": 911,
+    "nome": "José Luis Rodríguez",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "PAN19",
+    "numero": 912,
+    "nome": "Alberto Quintero",
+    "selecao": "Panamá",
+    "selecao_codigo": "PAN",
+    "grupo": "L",
+    "tipo": "jogador"
+  },
+  {
+    "id": "FWC01",
+    "numero": 913,
+    "nome": "TODO Especial 01",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC02",
+    "numero": 914,
+    "nome": "TODO Especial 02",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC03",
+    "numero": 915,
+    "nome": "TODO Especial 03",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC04",
+    "numero": 916,
+    "nome": "TODO Especial 04",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC05",
+    "numero": 917,
+    "nome": "TODO Especial 05",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC06",
+    "numero": 918,
+    "nome": "TODO Especial 06",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC07",
+    "numero": 919,
+    "nome": "TODO Especial 07",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC08",
+    "numero": 920,
+    "nome": "TODO Especial 08",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC09",
+    "numero": 921,
+    "nome": "TODO Especial 09",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC10",
+    "numero": 922,
+    "nome": "TODO Especial 10",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC11",
+    "numero": 923,
+    "nome": "TODO Especial 11",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC12",
+    "numero": 924,
+    "nome": "TODO Especial 12",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC13",
+    "numero": 925,
+    "nome": "TODO Especial 13",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC14",
+    "numero": 926,
+    "nome": "TODO Especial 14",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC15",
+    "numero": 927,
+    "nome": "TODO Especial 15",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC16",
+    "numero": 928,
+    "nome": "TODO Especial 16",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC17",
+    "numero": 929,
+    "nome": "TODO Especial 17",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC18",
+    "numero": 930,
+    "nome": "TODO Especial 18",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC19",
+    "numero": 931,
+    "nome": "TODO Especial 19",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC20",
+    "numero": 932,
+    "nome": "TODO Especial 20",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC21",
+    "numero": 933,
+    "nome": "TODO Especial 21",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC22",
+    "numero": 934,
+    "nome": "TODO Especial 22",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC23",
+    "numero": 935,
+    "nome": "TODO Especial 23",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC24",
+    "numero": 936,
+    "nome": "TODO Especial 24",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC25",
+    "numero": 937,
+    "nome": "TODO Especial 25",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC26",
+    "numero": 938,
+    "nome": "TODO Especial 26",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC27",
+    "numero": 939,
+    "nome": "TODO Especial 27",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC28",
+    "numero": 940,
+    "nome": "TODO Especial 28",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC29",
+    "numero": 941,
+    "nome": "TODO Especial 29",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC30",
+    "numero": 942,
+    "nome": "TODO Especial 30",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC31",
+    "numero": 943,
+    "nome": "TODO Especial 31",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC32",
+    "numero": 944,
+    "nome": "TODO Especial 32",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC33",
+    "numero": 945,
+    "nome": "TODO Especial 33",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC34",
+    "numero": 946,
+    "nome": "TODO Especial 34",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC35",
+    "numero": 947,
+    "nome": "TODO Especial 35",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC36",
+    "numero": 948,
+    "nome": "TODO Especial 36",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC37",
+    "numero": 949,
+    "nome": "TODO Especial 37",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC38",
+    "numero": 950,
+    "nome": "TODO Especial 38",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC39",
+    "numero": 951,
+    "nome": "TODO Especial 39",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC40",
+    "numero": 952,
+    "nome": "TODO Especial 40",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC41",
+    "numero": 953,
+    "nome": "TODO Especial 41",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC42",
+    "numero": 954,
+    "nome": "TODO Especial 42",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC43",
+    "numero": 955,
+    "nome": "TODO Especial 43",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC44",
+    "numero": 956,
+    "nome": "TODO Especial 44",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC45",
+    "numero": 957,
+    "nome": "TODO Especial 45",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC46",
+    "numero": 958,
+    "nome": "TODO Especial 46",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC47",
+    "numero": 959,
+    "nome": "TODO Especial 47",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC48",
+    "numero": 960,
+    "nome": "TODO Especial 48",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC49",
+    "numero": 961,
+    "nome": "TODO Especial 49",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC50",
+    "numero": 962,
+    "nome": "TODO Especial 50",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC51",
+    "numero": 963,
+    "nome": "TODO Especial 51",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC52",
+    "numero": 964,
+    "nome": "TODO Especial 52",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC53",
+    "numero": 965,
+    "nome": "TODO Especial 53",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC54",
+    "numero": 966,
+    "nome": "TODO Especial 54",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC55",
+    "numero": 967,
+    "nome": "TODO Especial 55",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC56",
+    "numero": 968,
+    "nome": "TODO Especial 56",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC57",
+    "numero": 969,
+    "nome": "TODO Especial 57",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC58",
+    "numero": 970,
+    "nome": "TODO Especial 58",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC59",
+    "numero": 971,
+    "nome": "TODO Especial 59",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC60",
+    "numero": 972,
+    "nome": "TODO Especial 60",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC61",
+    "numero": 973,
+    "nome": "TODO Especial 61",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC62",
+    "numero": 974,
+    "nome": "TODO Especial 62",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC63",
+    "numero": 975,
+    "nome": "TODO Especial 63",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC64",
+    "numero": 976,
+    "nome": "TODO Especial 64",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC65",
+    "numero": 977,
+    "nome": "TODO Especial 65",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC66",
+    "numero": 978,
+    "nome": "TODO Especial 66",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC67",
+    "numero": 979,
+    "nome": "TODO Especial 67",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  },
+  {
+    "id": "FWC68",
+    "numero": 980,
+    "nome": "TODO Especial 68",
+    "selecao": null,
+    "selecao_codigo": "FWC",
+    "grupo": null,
+    "tipo": "especial",
+    "todo": true
+  }
+]

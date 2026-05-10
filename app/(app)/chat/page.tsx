@@ -1,8 +1,9 @@
+import { ChatClient } from "@/components/chat-client";
+
 export default function ChatPage() {
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-semibold">Chat</h1>
-      <p className="text-muted-foreground mt-2 text-sm">Tarefas 12–13.</p>
+    <div className="flex min-h-[calc(100dvh-8.5rem)] flex-col p-4 pb-10 md:min-h-[calc(100dvh-7.5rem)] md:p-6">
+      <ChatClient />
     </div>
   );
 }

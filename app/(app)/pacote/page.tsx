@@ -1,26 +1,25 @@
 import { redirect } from "next/navigation";
 
-import { ColecaoListClient } from "@/components/colecao-list-client";
+import {
+  PacoteModeClient,
+  type PacoteCatalogRow,
+} from "@/components/pacote-mode-client";
 import { createClient } from "@/lib/supabase/server";
-import type { Figurinha } from "@/lib/types";
 
-const FIGURINHA_SELECT =
-  "id, numero, nome, selecao, selecao_codigo, grupo, tipo, posicao, imagem_url";
-
-export default async function FaltasPage() {
+export default async function PacotePage() {
   const supabase = createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect("/login?next=/faltas");
+    redirect("/login?next=/pacote");
   }
 
   const [figRes, colRes] = await Promise.all([
     supabase
       .from("figurinhas")
-      .select(FIGURINHA_SELECT)
+      .select("id, nome, numero")
       .order("numero", { ascending: true, nullsFirst: false }),
     supabase
       .from("colecao")
@@ -35,20 +34,17 @@ export default async function FaltasPage() {
     throw new Error(colRes.error.message);
   }
 
-  const qtyMap = new Map(
+  const catalog = (figRes.data ?? []) as PacoteCatalogRow[];
+  const initialQuantities = Object.fromEntries(
     (colRes.data ?? []).map((r) => [r.figurinha_id, r.quantidade]),
   );
 
-  const items = (figRes.data ?? [])
-    .filter((f) => (qtyMap.get(f.id) ?? 0) === 0)
-    .map((f) => ({
-      ...(f as Figurinha),
-      quantidade: 0,
-    }));
-
   return (
-    <div className="p-4 pb-12 md:p-6">
-      <ColecaoListClient variant="faltas" items={items} />
+    <div className="p-4 pb-12 pt-6 md:p-6">
+      <PacoteModeClient
+        catalog={catalog}
+        initialQuantities={initialQuantities}
+      />
     </div>
   );
 }
