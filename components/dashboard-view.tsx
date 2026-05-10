@@ -122,7 +122,7 @@ export function DashboardView({
           </div>
           <div className="min-w-0 space-y-0.5">
             <h2 className="text-base font-semibold leading-tight">
-              Assistente Albu AI
+              Assistente Albu-AI
             </h2>
             <p className="text-muted-foreground text-sm">
               Pergunte em português quem tem determinada figurinha, melhores

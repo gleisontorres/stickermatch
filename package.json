@@ -15,9 +15,9 @@
     "generate-icons": "tsx scripts/generate-icons.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.95.1",
     "@base-ui/react": "^1.4.1",
     "@ducanh2912/next-pwa": "^10.2.9",
+    "@google/generative-ai": "^0.24.1",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.3",
     "class-variance-authority": "^0.7.1",

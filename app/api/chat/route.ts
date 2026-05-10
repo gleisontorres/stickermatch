@@ -1,17 +1,14 @@
-import { APIError } from "@anthropic-ai/sdk";
+import type { Content } from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import {
-  ANTHROPIC_MODEL,
-  getAnthropicClient,
-  hasAnthropicApiKey,
-} from "@/lib/anthropic";
+import { GEMINI_CHAT_MODEL, hasGeminiApiKey } from "@/lib/gemini";
 import { buildChatDataBlock } from "@/lib/chat-context";
 import { CHAT_SYSTEM_PROMPT_BASE } from "@/lib/chat-prompt";
 import { createRouteHandlerSupabase } from "@/lib/supabase/route-handler";
 
-/** Histórico máximo por requisição (custo / PROMPT_CURSOR.md). */
+/** Histórico máximo por requisição. */
 const MAX_MESSAGES = 10;
 
 /** Limite de caracteres por mensagem (sanidade / abuso). */
@@ -28,57 +25,6 @@ function copyAuthCookies(from: NextResponse, to: NextResponse): void {
   }
 }
 
-/** Extrai `message` aninhada do JSON de erro da Anthropic. */
-function extractAnthropicErrorDetail(raw: unknown): string | null {
-  if (!raw || typeof raw !== "object") {
-    return null;
-  }
-  const o = raw as Record<string, unknown>;
-  if (typeof o.message === "string" && o.message.trim()) {
-    return o.message.trim();
-  }
-  if (o.error !== undefined) {
-    return extractAnthropicErrorDetail(o.error);
-  }
-  return null;
-}
-
-/** Mensagem amigável em pt-BR para erros comuns da API. */
-function localizeAnthropicMessageForUser(english: string): string {
-  const low = english.toLowerCase();
-  if (low.includes("credit balance is too low")) {
-    return (
-      "Saldo de créditos da Anthropic insuficiente para usar a API. " +
-      "Compre créditos ou faça upgrade em Plans & Billing no console da Anthropic."
-    );
-  }
-  if (
-    low.includes("invalid api key") ||
-    low.includes("invalid x-api-key") ||
-    low.includes("authentication")
-  ) {
-    return "Chave da API Anthropic inválida ou sem permissão. Verifique ANTHROPIC_API_KEY.";
-  }
-  if (low.includes("rate_limit")) {
-    return "Limite de uso da API Anthropic atingido. Tente de novo em alguns instantes.";
-  }
-  return english.trim();
-}
-
-function anthropicFailureUserMessage(error: unknown): string {
-  if (error instanceof APIError) {
-    const fromBody = extractAnthropicErrorDetail(error.error);
-    const base = fromBody ?? error.message ?? "";
-    if (base.trim()) {
-      return localizeAnthropicMessageForUser(base);
-    }
-  }
-  if (error instanceof Error && error.message.trim()) {
-    return localizeAnthropicMessageForUser(error.message);
-  }
-  return "Falha ao chamar o modelo de IA.";
-}
-
 interface ChatMessageInput {
   role: unknown;
   content: unknown;
@@ -89,7 +35,112 @@ function isChatRole(role: unknown): role is "user" | "assistant" {
 }
 
 /**
- * POST /api/chat — Claude Haiku + contexto Supabase do usuário autenticado.
+ * Converte histórico interno para o formato Gemini e garante:
+ * - começa com `user`;
+ * - não há duas mensagens consecutivas do mesmo papel (fundindo texto).
+ */
+function toGeminiHistoryContent(
+  messages: { role: "user" | "assistant"; content: string }[],
+): Content[] {
+  const mapped: Content[] = messages.map((m) => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.content }],
+  }));
+
+  let start = 0;
+  while (start < mapped.length && mapped[start].role !== "user") {
+    start += 1;
+  }
+
+  const merged: Content[] = [];
+  for (let i = start; i < mapped.length; i += 1) {
+    const turn = mapped[i];
+    const prev = merged[merged.length - 1];
+    const text = turn.parts?.[0]?.text ?? "";
+    if (prev && prev.role === turn.role && prev.parts?.[0]) {
+      prev.parts[0].text = `${prev.parts[0].text}\n\n${text}`;
+    } else {
+      merged.push({
+        role: turn.role,
+        parts: [{ text }],
+      });
+    }
+  }
+
+  return merged;
+}
+
+/**
+ * Se o histórico terminaria com mensagem `user`, remove esses turns finais e
+ * prefixa o texto na última mensagem enviada via `sendMessage` (exigência do
+ * fluxo user → model alternado).
+ */
+function finalizeHistoryAndLastUserText(
+  tail: { role: "user" | "assistant"; content: string }[],
+): { history: Content[]; lastUserText: string } {
+  const lastUserText = tail[tail.length - 1].content;
+  const history = toGeminiHistoryContent(tail.slice(0, -1));
+
+  let prefix = "";
+  while (
+    history.length > 0 &&
+    history[history.length - 1].role === "user"
+  ) {
+    const popped = history.pop();
+    const t = popped?.parts?.[0]?.text ?? "";
+    prefix = prefix ? `${t}\n\n${prefix}` : t;
+  }
+
+  const combinedLast = prefix ? `${prefix}\n\n${lastUserText}` : lastUserText;
+
+  return { history, lastUserText: combinedLast };
+}
+
+function describeGeminiFailure(error: unknown): { status: number; message: string } {
+  const raw =
+    error instanceof Error ?
+      `${error.message}\n${String(error.cause ?? "")}`
+    : typeof error === "string" ?
+      error
+    : JSON.stringify(error);
+  const low = raw.toLowerCase();
+
+  if (
+    low.includes("resource_exhausted") ||
+    low.includes("quota") ||
+    low.includes("rate limit") ||
+    low.includes("too many requests") ||
+    low.includes(" 429 ")
+  ) {
+    return {
+      status: 429,
+      message:
+        "Limite diário do Albu AI atingido. Tente novamente amanhã.",
+    };
+  }
+
+  if (
+    low.includes("api key") ||
+    low.includes("api_key") ||
+    low.includes("permission_denied") ||
+    low.includes("unauthenticated") ||
+    low.includes("invalid api")
+  ) {
+    return {
+      status: 500,
+      message: "Erro de configuração do Gemini. Avise o admin.",
+    };
+  }
+
+  console.error("[api/chat] Gemini:", error);
+  return {
+    status: 500,
+    message: "Erro ao consultar o Albu AI. Tente novamente.",
+  };
+}
+
+/**
+ * POST /api/chat — Gemini 2.5 Flash + contexto Supabase do usuário autenticado.
  */
 export async function POST(request: NextRequest) {
   const sessionHolder = NextResponse.next({
@@ -108,11 +159,11 @@ export async function POST(request: NextRequest) {
     return denied;
   }
 
-  if (!hasAnthropicApiKey()) {
+  if (!hasGeminiApiKey()) {
     const err = NextResponse.json(
       {
         error:
-          "Serviço de IA indisponível: configure ANTHROPIC_API_KEY no servidor.",
+          "Serviço de IA indisponível: configure GOOGLE_GEMINI_API_KEY no servidor.",
       },
       { status: 503 },
     );
@@ -209,23 +260,24 @@ export async function POST(request: NextRequest) {
 
 ${dataBlock}`;
 
-  const anthropicMessages = tail.map((m) => ({
-    role: m.role,
-    content: m.content,
-  }));
+  const apiKey = process.env.GOOGLE_GEMINI_API_KEY!.trim();
+  const genAI = new GoogleGenerativeAI(apiKey);
+
+  const model = genAI.getGenerativeModel({
+    model: GEMINI_CHAT_MODEL,
+    systemInstruction: fullSystem,
+    generationConfig: {
+      temperature: 0.7,
+      maxOutputTokens: 1024,
+    },
+  });
+
+  const { history, lastUserText } = finalizeHistoryAndLastUserText(tail);
 
   try {
-    const client = getAnthropicClient();
-    const completion = await client.messages.create({
-      model: ANTHROPIC_MODEL,
-      max_tokens: 4096,
-      system: fullSystem,
-      messages: anthropicMessages,
-    });
-
-    const textBlock = completion.content.find((b) => b.type === "text");
-    const assistantText =
-      textBlock && textBlock.type === "text" ? textBlock.text : "";
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(lastUserText);
+    const assistantText = result.response.text();
 
     if (!assistantText.trim()) {
       const err = NextResponse.json(
@@ -240,11 +292,8 @@ ${dataBlock}`;
     copyAuthCookies(sessionHolder, ok);
     return ok;
   } catch (e) {
-    console.error("[api/chat] Anthropic:", e);
-    const err = NextResponse.json(
-      { error: anthropicFailureUserMessage(e) },
-      { status: 502 },
-    );
+    const { status, message } = describeGeminiFailure(e);
+    const err = NextResponse.json({ error: message }, { status });
     copyAuthCookies(sessionHolder, err);
     return err;
   }

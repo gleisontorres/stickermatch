@@ -15,16 +15,16 @@ A aplicação deve ser **simples, gratuita de hospedar e fácil de usar via celu
 - **Frontend:** Next.js 14+ (App Router) + TypeScript + Tailwind CSS + shadcn/ui
 - **Banco de dados:** Supabase (PostgreSQL)
 - **Auth:** Supabase Auth com Google OAuth
-- **IA conversacional:** Anthropic Claude API (modelo `claude-haiku-4-5-20251001`) via API Routes do Next.js
+- **IA conversacional:** Google Gemini API (modelo `gemini-2.5-flash`) via API Routes do Next.js (`@google/generative-ai`)
 - **Deploy:** Vercel (free tier)
-- **Sem backend separado.** Use API Routes do Next.js para qualquer lógica server-side (chamadas à API da Anthropic, etc). Supabase resolve o resto via cliente JS direto + RLS.
+- **Sem backend separado.** Use API Routes do Next.js para qualquer lógica server-side (chamadas à API do Gemini, etc). Supabase resolve o resto via cliente JS direto + RLS.
 
 ### Variáveis de ambiente (.env.local)
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
-ANTHROPIC_API_KEY=
+GOOGLE_GEMINI_API_KEY=
 ```
 
 ---
@@ -178,7 +178,7 @@ app/
     chat/page.tsx               # chat com a IA
     perfil/page.tsx             # editar perfil + whatsapp
   api/
-    chat/route.ts               # endpoint que chama Anthropic API
+    chat/route.ts               # endpoint que chama Gemini API
 components/
   figurinha-card.tsx
   qty-selector.tsx              # +/- pra ajustar quantidade
@@ -190,7 +190,7 @@ lib/
     client.ts                   # browser client
     server.ts                   # server client (pra route handlers)
     middleware.ts               # middleware de sessão
-  anthropic.ts                  # cliente da Anthropic
+  gemini.ts                     # constantes / helpers Gemini (opcional)
   types.ts
 data/
   figurinhas.json               # catálogo seed
@@ -243,7 +243,7 @@ Interface de chat (estilo ChatGPT). O usuário digita perguntas em linguagem nat
 - "Qual a melhor troca que posso fazer com o João?"
 - "Quem tem mais figurinhas em comum comigo?"
 
-A rota `/api/chat` recebe o histórico de mensagens, busca contexto relevante no Supabase (coleção do usuário, faltas, repetidas, matches), monta um system prompt com esses dados e chama a API da Anthropic.
+A rota `/api/chat` recebe o histórico de mensagens, busca contexto relevante no Supabase (coleção do usuário, faltas, repetidas, matches), monta um system prompt com esses dados e chama a API do Gemini (`systemInstruction` + histórico).
 
 **System prompt da IA:**
 ```
@@ -261,7 +261,7 @@ nome do outro usuário, figurinhas de cada lado e link de WhatsApp se disponíve
 Não invente figurinhas que não existem no catálogo. Responda em português.
 ```
 
-**Importante:** No backend (route handler), antes de chamar a API da Anthropic, busque os dados do usuário autenticado e os matches dele, e injete como contexto na primeira mensagem ou no system prompt. Não confie só no que o LLM "lembra".
+**Importante:** No backend (route handler), antes de chamar a API do Gemini, busque os dados do usuário autenticado e os matches dele, e injete como contexto no system prompt (ou `systemInstruction`). Não confie só no que o LLM "lembra".
 
 ### 8. Perfil
 Editar nome, foto e WhatsApp.
@@ -307,7 +307,7 @@ Mostre primeiro as trocas mútuas (eu_dou > 0 E eu_recebo > 0). Depois as unidir
 9. Tela Matches usando a view do Supabase
 10. Tela Dashboard agregando os números
 11. Modo pacote rápido (input com autofocus que incrementa por código)
-12. Rota `/api/chat` integrando com Anthropic
+12. Rota `/api/chat` integrando com Gemini
 13. Tela Chat
 14. Tela Perfil + WhatsApp
 15. Deploy na Vercel + configurar OAuth no Google Cloud Console e Supabase
@@ -318,8 +318,8 @@ Mostre primeiro as trocas mútuas (eu_dou > 0 E eu_recebo > 0). Depois as unidir
 
 - **Não use service_role key no client.** Só em route handlers/server.
 - **RLS ligado em tudo.** Verifique que um usuário não consegue editar a coleção de outro.
-- **Não armazene a API key da Anthropic no frontend.** Sempre via route handler.
-- **Custos:** Anthropic Haiku é barato (~$1/M tokens input). Limite o histórico do chat a últimas 10 mensagens pra controlar gasto.
+- **Não armazene a API key do Gemini no frontend.** Sempre via route handler.
+- **Custos:** use `gemini-2.5-flash` com quota gratuita quando possível; limite o histórico do chat a últimas 10 mensagens pra reduzir uso.
 - **Não invente dados de jogadores.** Quando criar o seed, use só os dados que eu fornecer. Crie um placeholder claro.
 - **Código em português** para variáveis de domínio (figurinha, colecao, troca), inglês pra termos técnicos.
 
