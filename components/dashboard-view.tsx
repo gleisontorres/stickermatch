@@ -44,7 +44,7 @@ export function DashboardView({
         aria-labelledby="dash-progress-heading"
       >
         <div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_80%_at_85%_0%,oklch(0.72_0.14_145_/_0.14),transparent_52%)]"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.14] via-transparent to-accent/[0.08]"
           aria-hidden
         />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -91,7 +91,7 @@ export function DashboardView({
           }
           href="/repetidas"
           hrefLabel="Ver lista"
-          accent="amber"
+          accent="secondary"
         />
         <StatCard
           title="Faltas"
@@ -111,7 +111,7 @@ export function DashboardView({
           }
           href="/matches"
           hrefLabel="Abrir matches"
-          accent="emerald"
+          accent="primary"
         />
       </section>
 
@@ -122,7 +122,7 @@ export function DashboardView({
           </div>
           <div className="min-w-0 space-y-0.5">
             <h2 className="text-base font-semibold leading-tight">
-              Assistente (IA)
+              Assistente Albu AI
             </h2>
             <p className="text-muted-foreground text-sm">
               Pergunte em português quem tem determinada figurinha, melhores
@@ -206,13 +206,13 @@ function StatCard({
   hint: string;
   href: string;
   hrefLabel: string;
-  accent: "amber" | "zinc" | "emerald";
+  accent: "secondary" | "zinc" | "primary";
 }) {
   const ring =
-    accent === "amber"
-      ? "ring-amber-500/15"
-      : accent === "emerald"
-        ? "ring-emerald-500/15"
+    accent === "secondary"
+      ? "ring-secondary/20"
+      : accent === "primary"
+        ? "ring-primary/20"
         : "ring-border";
 
   return (
@@ -299,14 +299,14 @@ function TopMatchRow({ entry }: { entry: MatchPartnerEntry }) {
       </div>
       <div className="text-muted-foreground mt-2 grid gap-1 font-mono text-[11px] leading-relaxed sm:grid-cols-2">
         <p>
-          <span className="text-amber-700/90 dark:text-amber-400/90">
+          <span className="text-secondary-foreground font-medium">
             Você dá:
           </span>{" "}
           {previewDou.join(", ")}
           {extraDou > 0 ? ` +${extraDou}` : ""}
         </p>
         <p>
-          <span className="text-emerald-700/90 dark:text-emerald-400/90">
+          <span className="text-primary font-medium">
             Você recebe:
           </span>{" "}
           {previewRec.join(", ")}

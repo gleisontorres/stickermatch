@@ -24,17 +24,17 @@ const highlights = [
 
 export default function HomePage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden bg-zinc-50/80">
+    <div className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden bg-muted/40">
       <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_70%_at_50%_-15%,oklch(0.94_0.04_240_/_0.55),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-accent/18 via-muted/30 to-transparent"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -left-24 top-1/3 -z-10 h-72 w-72 rounded-full bg-emerald-400/15 blur-3xl sm:-left-16"
+        className="pointer-events-none absolute -left-24 top-1/3 -z-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl sm:-left-16"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-20 bottom-0 -z-10 h-80 w-80 rounded-full bg-red-500/10 blur-3xl sm:-right-12"
+        className="pointer-events-none absolute -right-20 bottom-0 -z-10 h-80 w-80 rounded-full bg-destructive/10 blur-3xl sm:-right-12"
         aria-hidden
       />
 
@@ -87,7 +87,7 @@ export default function HomePage() {
             {highlights.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="bg-background/70 flex gap-3 rounded-2xl border border-border/70 p-4 shadow-[0_1px_0_0_oklch(0_0_0_/_0.03)] backdrop-blur-sm transition-colors hover:border-border"
+                className="bg-background/70 flex gap-3 rounded-2xl border border-border/70 p-4 shadow-sm backdrop-blur-sm transition-colors hover:border-border"
               >
                 <span className="bg-primary/8 text-primary flex size-10 shrink-0 items-center justify-center rounded-xl border border-primary/10">
                   <Icon className="size-[18px]" strokeWidth={1.75} aria-hidden />

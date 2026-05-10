@@ -125,7 +125,7 @@ function EmptyState({ variant }: { variant: "repetidas" | "faltas" }) {
   }
 
   return (
-    <div className="border-emerald-500/30 bg-emerald-500/10 rounded-xl border px-4 py-10 text-center">
+    <div className="border-primary/35 bg-primary/[0.10] rounded-xl border px-4 py-10 text-center">
       <p className="text-foreground text-sm font-medium">
         Parabéns — parece que não falta nenhuma figurinha (todas com pelo menos 1
         cópia).
@@ -156,7 +156,7 @@ function ColecaoListRow({
     <div
       className={cn(
         "flex flex-wrap items-center justify-between gap-2 px-3 py-3 sm:px-4",
-        variant === "repetidas" && "bg-amber-400/[0.06]",
+        variant === "repetidas" && "bg-secondary/[0.08]",
       )}
     >
       <div className="min-w-0 flex-1 space-y-0.5">
@@ -181,7 +181,7 @@ function ColecaoListRow({
       </div>
       {variant === "repetidas" ? (
         <span
-          className="bg-amber-500/20 text-amber-950 dark:text-amber-100 shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold tabular-nums"
+          className="bg-secondary/25 text-secondary-foreground shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold tabular-nums"
           title={`${row.quantidade} cópias`}
         >
           ×{row.quantidade}

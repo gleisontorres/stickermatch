@@ -293,7 +293,7 @@ export function PacoteModeClient({
                   key={line.key}
                   className={cn(
                     "break-all",
-                    line.ok ? "text-emerald-700 dark:text-emerald-400" : "text-destructive",
+                    line.ok ? "text-primary" : "text-destructive",
                   )}
                 >
                   {line.message}

@@ -17,9 +17,9 @@ function cardToneClass(quantidade: number): string {
     return "border-border bg-muted/35";
   }
   if (quantidade === 1) {
-    return "border-emerald-500/35 bg-emerald-500/[0.09]";
+    return "border-primary/40 bg-primary/[0.11]";
   }
-  return "border-amber-500/45 bg-amber-400/[0.14]";
+  return "border-secondary/45 bg-secondary/[0.14]";
 }
 
 /**

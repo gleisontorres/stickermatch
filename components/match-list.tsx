@@ -109,13 +109,13 @@ function PartnerCard({ entry }: { entry: MatchPartnerEntry }) {
           title="Você dá (tem repetida / parceiro precisa)"
           items={entry.eu_dou}
           empty="Nenhuma neste sentido"
-          tone="amber"
+          tone="give"
         />
         <MatchColumn
           title="Você recebe (parceiro tem repetida / você precisa)"
           items={entry.eu_recebo}
           empty="Nenhuma neste sentido"
-          tone="emerald"
+          tone="receive"
         />
       </div>
     </article>
@@ -131,12 +131,12 @@ function MatchColumn({
   title: string;
   items: { id: string; label: string }[];
   empty: string;
-  tone: "amber" | "emerald";
+  tone: "give" | "receive";
 }) {
   const toneClass =
-    tone === "amber"
-      ? "bg-amber-500/[0.07] border-amber-500/25"
-      : "bg-emerald-500/[0.07] border-emerald-500/25";
+    tone === "give"
+      ? "border-secondary/30 bg-secondary/[0.10]"
+      : "border-primary/30 bg-primary/[0.10]";
 
   if (items.length === 0) {
     return (

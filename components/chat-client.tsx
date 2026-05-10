@@ -103,7 +103,7 @@ export function ChatClient() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 md:gap-5">
       <header className="shrink-0 space-y-1">
-        <h1 className="text-xl font-semibold tracking-tight">Chat</h1>
+        <h1 className="text-xl font-semibold tracking-tight">Albu AI</h1>
         <p className="text-muted-foreground text-sm">
           Pergunte sobre sua coleção, faltas, repetidas e trocas. Usamos seus
           dados atuais em cada resposta (até {MAX_MESSAGES_API} mensagens no
