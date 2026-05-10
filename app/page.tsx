@@ -75,7 +75,7 @@ export default function HomePage() {
                 <ArrowRight className="size-4 opacity-90" aria-hidden />
               </Link>
               <p className="text-muted-foreground max-w-xs text-center text-xs leading-relaxed sm:text-left md:max-w-none">
-                Sem cadastro manual: um toque e você entra.
+                Sem burocracia: um toque e você entra.
               </p>
             </div>
           </header>
