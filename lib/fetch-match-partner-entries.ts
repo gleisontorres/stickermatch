@@ -41,17 +41,30 @@ export async function fetchMatchPartnerEntries(
 
   const figIdsArr = [...allFigIds];
 
-  const [{ data: perfisRows }, { data: figurinhasRows }] = await Promise.all([
-    partnerIds.length > 0
-      ? supabase
-          .from("perfis")
-          .select("id, nome, email, whatsapp")
-          .in("id", partnerIds)
-      : Promise.resolve({ data: [] as const }),
-    figIdsArr.length > 0
-      ? supabase.from("figurinhas").select("id, nome").in("id", figIdsArr)
-      : Promise.resolve({ data: [] as const }),
-  ]);
+  const [{ data: perfisRows }, { data: figurinhasRows }, { data: colecaoCountRows }] =
+    await Promise.all([
+      partnerIds.length > 0
+        ? supabase
+            .from("perfis")
+            .select("id, nome, email, whatsapp")
+            .in("id", partnerIds)
+        : Promise.resolve({ data: [] as const }),
+      figIdsArr.length > 0
+        ? supabase.from("figurinhas").select("id, nome").in("id", figIdsArr)
+        : Promise.resolve({ data: [] as const }),
+      partnerIds.length > 0
+        ? supabase
+            .from("colecao")
+            .select("user_id")
+            .in("user_id", partnerIds)
+        : Promise.resolve({ data: [] as const }),
+    ]);
+
+  const partnerRowCounts = new Map<string, number>();
+  for (const row of colecaoCountRows ?? []) {
+    const id = row.user_id as string;
+    partnerRowCounts.set(id, (partnerRowCounts.get(id) ?? 0) + 1);
+  }
 
   const perfilById = new Map(
     (perfisRows ?? []).map((p) => [
@@ -79,6 +92,7 @@ export async function fetchMatchPartnerEntries(
       partnerId: m.partnerId,
       displayName,
       whatsapp: perfil?.whatsapp ?? null,
+      partnerColecaoRowCount: partnerRowCounts.get(m.partnerId) ?? 0,
       eu_dou: m.eu_dou.map((id) => ({
         id,
         label: figLabel(id, nomePorId),

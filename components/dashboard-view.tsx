@@ -3,25 +3,36 @@ import Link from "next/link";
 import { MessageSquareText, Sparkles } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { DashboardMatchesTipBanner } from "@/components/dashboard-matches-tip-banner";
 import type { MatchPartnerEntry } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface DashboardViewProps {
-  completionPercent: number;
+  /** Trecho antes do símbolo % (ex.: 99,9 ou 100). */
+  completionPercentDisplay: string;
+  /** Largura da barra (0–100, valor cru). */
+  completionBarPercent: number;
+  /** Álbum completo no catálogo (owned ≥ denom). */
+  albumComplete: boolean;
   ownedCount: number;
+  /** Total de figurinhas no catálogo usado no denominador. */
   albumTotal: number;
   surplusCopies: number;
   repetidasTypes: number;
   faltasCount: number;
   matchPartnersCount: number;
   topMatches: MatchPartnerEntry[];
+  /** Mostra banner de dica de matches (servidor + localStorage). */
+  showMatchesOnboardingTip?: boolean;
 }
 
 /**
  * Painel principal do dashboard: progresso, KPIs, preview de matches e atalho ao chat.
  */
 export function DashboardView({
-  completionPercent,
+  completionPercentDisplay,
+  completionBarPercent,
+  albumComplete,
   ownedCount,
   albumTotal,
   surplusCopies,
@@ -29,6 +40,7 @@ export function DashboardView({
   faltasCount,
   matchPartnersCount,
   topMatches,
+  showMatchesOnboardingTip = false,
 }: DashboardViewProps) {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-12">
@@ -38,6 +50,10 @@ export function DashboardView({
           Resumo da sua coleção e dos melhores matches do grupo.
         </p>
       </header>
+
+      {showMatchesOnboardingTip ?
+        <DashboardMatchesTipBanner />
+      : null}
 
       <section
         className="border-border relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm"
@@ -49,29 +65,52 @@ export function DashboardView({
         />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
-            <p
-              id="dash-progress-heading"
-              className="text-muted-foreground text-xs font-semibold uppercase tracking-wide"
-            >
-              Álbum
-            </p>
-            <p className="text-foreground text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl">
-              {completionPercent}
-              <span className="text-muted-foreground text-2xl font-normal sm:text-3xl">
-                %
-              </span>
-            </p>
-            <p className="text-muted-foreground text-sm">
-              <span className="text-foreground font-medium">{ownedCount}</span>{" "}
-              de {albumTotal} figurinhas com pelo menos uma cópia cadastrada.
-            </p>
+              <p
+                id="dash-progress-heading"
+                className="text-muted-foreground text-xs font-semibold uppercase tracking-wide"
+              >
+                Álbum
+              </p>
+              <p
+                className="flex flex-wrap items-baseline gap-x-1 gap-y-1 text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl"
+              >
+                <span
+                  className={cn(
+                    albumComplete ?
+                      "text-amber-600 dark:text-amber-400"
+                    : "text-foreground",
+                  )}
+                >
+                  {completionPercentDisplay}
+                </span>
+                <span className="text-muted-foreground text-2xl font-normal sm:text-3xl">
+                  %
+                </span>
+                {albumComplete ?
+                  <span className="text-2xl sm:text-3xl" aria-hidden>
+                    🏆
+                  </span>
+                : null}
+              </p>
+              <p className="text-muted-foreground text-sm">
+                <span className="text-foreground font-medium">{ownedCount}</span>{" "}
+                de {albumTotal} figurinhas com pelo menos uma cópia cadastrada.
+              </p>
+              {albumComplete ?
+                <p className="text-amber-700 dark:text-amber-400 text-sm font-medium">
+                  Álbum completo! Parabéns!
+                </p>
+              : null}
           </div>
           <div className="bg-muted/80 h-3 w-full max-w-xs shrink-0 overflow-hidden rounded-full sm:w-48">
             <div
-              className="bg-primary h-full rounded-full transition-[width]"
-              style={{ width: `${Math.min(100, completionPercent)}%` }}
+              className={cn(
+                "h-full rounded-full transition-[width]",
+                albumComplete ? "bg-amber-500 dark:bg-amber-400" : "bg-primary",
+              )}
+              style={{ width: `${completionBarPercent}%` }}
               role="progressbar"
-              aria-valuenow={completionPercent}
+              aria-valuenow={Math.round(completionBarPercent * 10) / 10}
               aria-valuemin={0}
               aria-valuemax={100}
               aria-label="Percentual de conclusão do álbum"
@@ -299,7 +338,7 @@ function TopMatchRow({ entry }: { entry: MatchPartnerEntry }) {
       </div>
       <div className="text-muted-foreground mt-2 grid gap-1 font-mono text-[11px] leading-relaxed sm:grid-cols-2">
         <p>
-          <span className="text-secondary-foreground font-medium">
+          <span className="text-primary font-medium">
             Você dá:
           </span>{" "}
           {previewDou.join(", ")}

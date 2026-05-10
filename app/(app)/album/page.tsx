@@ -4,7 +4,11 @@ import { AlbumView } from "@/components/album-view";
 import { createClient } from "@/lib/supabase/server";
 import type { Figurinha } from "@/lib/types";
 
-export default async function AlbumPage() {
+export default async function AlbumPage({
+  searchParams,
+}: {
+  searchParams: { bulk?: string };
+}) {
   const supabase = createClient();
 
   const {
@@ -43,7 +47,11 @@ export default async function AlbumPage() {
 
   return (
     <div className="p-4 pb-12 md:p-6">
-      <AlbumView figurinhas={figurinhas} initialQuantities={initialQuantities} />
+      <AlbumView
+        figurinhas={figurinhas}
+        initialQuantities={initialQuantities}
+        initialMassDialogOpen={searchParams.bulk === "1"}
+      />
     </div>
   );
 }

@@ -56,6 +56,13 @@ function PartnerCard({ entry }: { entry: MatchPartnerEntry }) {
           <h2 className="text-base font-semibold leading-tight">
             {entry.displayName}
           </h2>
+          {entry.partnerColecaoRowCount < 100 ?
+            <p className="text-amber-700 dark:text-amber-400 mt-1 text-xs leading-snug">
+              ⚠️ Perfil em construção · {entry.partnerColecaoRowCount} figurinha
+              {entry.partnerColecaoRowCount === 1 ? "" : "s"} cadastrada
+              {entry.partnerColecaoRowCount === 1 ? "" : "s"}
+            </p>
+          : null}
           <p className="text-muted-foreground text-sm">
             {entry.isMutual ? (
               <>
