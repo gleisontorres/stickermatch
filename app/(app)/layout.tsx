@@ -1,14 +1,52 @@
-import { Nav } from "@/components/nav";
+import { AppShell } from "@/components/nav/app-shell";
+import { createClient } from "@/lib/supabase/server";
 
-export default function AuthenticatedLayout({
+export default async function AuthenticatedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const meta = user?.user_metadata as Record<string, unknown> | undefined;
+  const metaNome =
+    typeof meta?.full_name === "string" ? meta.full_name.trim() : "";
+  const metaAvatar =
+    typeof meta?.avatar_url === "string" ? meta.avatar_url.trim() : "";
+
+  let perfilNome = "";
+  let perfilEmail = "";
+  let perfilAvatar = "";
+  if (user) {
+    const { data: perfil } = await supabase
+      .from("perfis")
+      .select("nome, email, avatar_url")
+      .eq("id", user.id)
+      .maybeSingle();
+    perfilNome = perfil?.nome?.trim() ?? "";
+    perfilEmail = perfil?.email?.trim() ?? "";
+    perfilAvatar = perfil?.avatar_url?.trim() ?? "";
+  }
+
+  const displayName =
+    perfilNome ||
+    metaNome ||
+    user?.email?.split("@")[0] ||
+    user?.email ||
+    "Conta";
+
+  const email = perfilEmail || user?.email || "";
+
+  const avatarUrl = perfilAvatar || metaAvatar;
+
+  const userNav = { displayName, email, avatarUrl };
+
   return (
-    <div className="flex min-h-full flex-1 flex-col">
-      <Nav />
-      <main className="flex-1">{children}</main>
+    <div className="bg-background min-h-screen">
+      <AppShell user={userNav}>{children}</AppShell>
     </div>
   );
 }
