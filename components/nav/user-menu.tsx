@@ -2,8 +2,12 @@
 
 import Link from "next/link";
 import {
+  Check,
   LogOut,
-  UserRound,
+  Monitor,
+  Moon,
+  Sun,
+  User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
@@ -13,12 +17,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,8 @@ export interface UserMenuUser {
 
 interface UserMenuProps {
   user: UserMenuUser;
-  variant: "header" | "sidebar-footer";
+  /** Rodapé da sidebar (desktop) ou só avatar no header (mobile). */
+  variant: "sidebar-footer" | "mobile";
   className?: string;
 }
 
@@ -80,7 +81,8 @@ function AvatarImage({
 }
 
 /**
- * Menu da conta com DropdownMenu (Radix): perfil, tema e logout.
+ * Menu da conta: cabeçalho com usuário, perfil, tema (lista com check) e sair.
+ * Opções de tema só renderizam após mount para evitar mismatch de hidratação.
  */
 export function UserMenu({ user, variant, className }: UserMenuProps) {
   const router = useRouter();
@@ -98,76 +100,117 @@ export function UserMenu({ user, variant, className }: UserMenuProps) {
     router.refresh();
   }
 
-  const triggerClass =
-    variant === "header" ?
-      "size-10 shrink-0 justify-center rounded-lg p-0 hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-    : "hover:bg-muted flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+  const isMobile = variant === "mobile";
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        type="button"
-        className={cn(triggerClass, className)}
-        aria-label="Menu da conta"
-      >
-        {variant === "header" ? (
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            "outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring",
+            isMobile ?
+              "border-border hover:bg-muted/80 flex size-10 shrink-0 items-center justify-center rounded-full border border-transparent p-0"
+            : "border-border hover:bg-muted flex w-full items-center gap-3 rounded-lg border border-transparent px-3 py-3 text-left",
+            className,
+          )}
+          aria-label="Menu da conta"
+        >
           <AvatarImage
             avatarUrl={user.avatarUrl}
             name={user.displayName}
-            sizeClass="size-10"
+            sizeClass={cn(isMobile ? "size-10" : "size-10 shrink-0")}
           />
-        ) : (
-          <>
-            <AvatarImage
-              avatarUrl={user.avatarUrl}
-              name={user.displayName}
-              sizeClass="size-10 shrink-0"
-            />
+          {!isMobile ?
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium">{user.displayName}</p>
               <p className="text-muted-foreground truncate text-xs">{user.email}</p>
             </div>
-          </>
-        )}
+          : null}
+        </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
         className="w-56"
-        align={variant === "header" ? "end" : "start"}
-        side={variant === "sidebar-footer" ? "top" : "bottom"}
-        sideOffset={variant === "sidebar-footer" ? 8 : 6}
+        align={isMobile ? "end" : "start"}
+        side={isMobile ? "bottom" : "top"}
+        sideOffset={isMobile ? 8 : 10}
       >
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex items-start gap-2">
+            <AvatarImage
+              avatarUrl={user.avatarUrl}
+              name={user.displayName}
+              sizeClass="size-9 shrink-0"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm leading-tight font-semibold">
+                {user.displayName}
+              </p>
+              <p className="text-muted-foreground mt-0.5 truncate text-xs">
+                {user.email}
+              </p>
+            </div>
+          </div>
+        </DropdownMenuLabel>
+
+        <DropdownMenuSeparator />
+
         <DropdownMenuItem asChild>
           <Link href="/perfil" className="flex cursor-pointer items-center gap-2">
-            <UserRound className="size-4 shrink-0 opacity-80" aria-hidden />
+            <User className="size-4 shrink-0 opacity-80" aria-hidden />
             Ver perfil
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
+        <DropdownMenuLabel className="text-muted-foreground text-xs font-normal">
+          Tema
+        </DropdownMenuLabel>
+
         {mounted ?
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="gap-2">
-              <span>Tema</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className="w-48">
-              <DropdownMenuRadioGroup
-                value={theme ?? "dark"}
-                onValueChange={(v) => setTheme(v)}
-              >
-                <DropdownMenuRadioItem value="light">
-                  Claro ☀️
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="dark">
-                  Escuro 🌙
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="system">
-                  Sistema 💻
-                </DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
+          <>
+            <DropdownMenuItem
+              className="gap-2"
+              onSelect={(e) => {
+                e.preventDefault();
+                setTheme("light");
+              }}
+            >
+              <Sun className="size-4 shrink-0 opacity-80" aria-hidden />
+              <span className="flex-1">Claro</span>
+              {theme === "light" ?
+                <Check className="text-primary size-4 shrink-0" aria-hidden />
+              : null}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2"
+              onSelect={(e) => {
+                e.preventDefault();
+                setTheme("dark");
+              }}
+            >
+              <Moon className="size-4 shrink-0 opacity-80" aria-hidden />
+              <span className="flex-1">Escuro</span>
+              {theme === "dark" ?
+                <Check className="text-primary size-4 shrink-0" aria-hidden />
+              : null}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="gap-2"
+              onSelect={(e) => {
+                e.preventDefault();
+                setTheme("system");
+              }}
+            >
+              <Monitor className="size-4 shrink-0 opacity-80" aria-hidden />
+              <span className="flex-1">Sistema</span>
+              {theme === "system" ?
+                <Check className="text-primary size-4 shrink-0" aria-hidden />
+              : null}
+            </DropdownMenuItem>
+          </>
         : (
           <DropdownMenuItem disabled>Carregando tema…</DropdownMenuItem>
         )}
@@ -175,7 +218,7 @@ export function UserMenu({ user, variant, className }: UserMenuProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem
-          className="text-destructive focus:bg-destructive/10 focus:text-destructive flex items-center gap-2"
+          className="text-destructive focus:bg-destructive/10 focus:text-destructive gap-2"
           onSelect={(e) => {
             e.preventDefault();
             void handleSignOut();

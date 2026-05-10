@@ -31,7 +31,7 @@ export function MobileHeader({ user, className }: MobileHeaderProps) {
         <Ticket className="text-primary size-7 shrink-0" aria-hidden />
         <span className="truncate">Stickermatch</span>
       </Link>
-      <UserMenu user={user} variant="header" />
+      <UserMenu user={user} variant="mobile" />
     </header>
   );
 }
