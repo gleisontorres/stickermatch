@@ -338,7 +338,7 @@ function TopMatchRow({ entry }: { entry: MatchPartnerEntry }) {
       </div>
       <div className="text-muted-foreground mt-2 grid gap-1 font-mono text-[11px] leading-relaxed sm:grid-cols-2">
         <p>
-          <span className="text-secondary-foreground font-medium">
+          <span className="text-primary font-medium">
             Você dá:
           </span>{" "}
           {previewDou.join(", ")}
