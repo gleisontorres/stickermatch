@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MessageSquareText, Sparkles } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { DashboardMatchesTipBanner } from "@/components/dashboard-matches-tip-banner";
 import type { MatchPartnerEntry } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +16,8 @@ interface DashboardViewProps {
   faltasCount: number;
   matchPartnersCount: number;
   topMatches: MatchPartnerEntry[];
+  /** Mostra banner de dica de matches (servidor + localStorage). */
+  showMatchesOnboardingTip?: boolean;
 }
 
 /**
@@ -29,6 +32,7 @@ export function DashboardView({
   faltasCount,
   matchPartnersCount,
   topMatches,
+  showMatchesOnboardingTip = false,
 }: DashboardViewProps) {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 pb-12">
@@ -38,6 +42,10 @@ export function DashboardView({
           Resumo da sua coleção e dos melhores matches do grupo.
         </p>
       </header>
+
+      {showMatchesOnboardingTip ?
+        <DashboardMatchesTipBanner />
+      : null}
 
       <section
         className="border-border relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm"

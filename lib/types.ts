@@ -27,6 +27,8 @@ export interface MatchPartnerEntry {
   partnerId: string;
   displayName: string;
   whatsapp: string | null;
+  /** Quantidade de linhas em `colecao` do parceiro (para badge de perfil incompleto). */
+  partnerColecaoRowCount: number;
   eu_dou: MatchStickerLabel[];
   eu_recebo: MatchStickerLabel[];
   scoreMutual: number;

@@ -60,6 +60,7 @@ export default async function DashboardPage() {
         faltasCount={aggregates.faltasCount}
         matchPartnersCount={partnerEntries.length}
         topMatches={topMatches}
+        showMatchesOnboardingTip={(colRes.data ?? []).length < 50}
       />
     </div>
   );

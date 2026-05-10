@@ -41,6 +41,8 @@ import { cn } from "@/lib/utils";
 interface AlbumViewProps {
   figurinhas: Figurinha[];
   initialQuantities: Record<string, number>;
+  /** Abre o modal "Ações em massa" (ex.: /album?bulk=1). */
+  initialMassDialogOpen?: boolean;
 }
 
 const MAX_UNDO_RECORDS = 100;
@@ -55,7 +57,11 @@ function minNumero(items: Figurinha[]): number {
 /**
  * Álbum completo: filtros, busca, acordeão e ações em massa.
  */
-export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
+export function AlbumView({
+  figurinhas,
+  initialQuantities,
+  initialMassDialogOpen = false,
+}: AlbumViewProps) {
   const [quantities, setQuantities] =
     useState<Record<string, number>>(initialQuantities);
   const qtyRef = useRef<Record<string, number>>(initialQuantities);
@@ -70,7 +76,7 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
   } | null>(null);
   const [quickRegistrationMode, setQuickRegistrationMode] = useState(false);
   const [quickPrepLoading, setQuickPrepLoading] = useState(false);
-  const [massDialogOpen, setMassDialogOpen] = useState(false);
+  const [massDialogOpen, setMassDialogOpen] = useState(initialMassDialogOpen);
   const [quickConfirmOpen, setQuickConfirmOpen] = useState(false);
   const [resetCollectionOpen, setResetCollectionOpen] = useState(false);
   const [resetPhrase, setResetPhrase] = useState("");
