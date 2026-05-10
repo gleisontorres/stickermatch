@@ -2,6 +2,10 @@ import { redirect } from "next/navigation";
 
 import { DashboardView } from "@/components/dashboard-view";
 import { ALBUM_TOTAL_FIGURINHAS } from "@/lib/album-constants";
+import {
+  albumCompletionBarPercent,
+  formatAlbumCompletionPercentDisplay,
+} from "@/lib/album-completion-percent";
 import { computeColecaoAggregates } from "@/lib/colecao-stats";
 import { fetchMatchPartnerEntries } from "@/lib/fetch-match-partner-entries";
 import { createClient } from "@/lib/supabase/server";
@@ -42,19 +46,26 @@ export default async function DashboardPage() {
   const aggregates = computeColecaoAggregates(catalogIds, qtyByFigurinhaId);
 
   const denom = Math.max(ALBUM_TOTAL_FIGURINHAS, catalogIds.length);
-  const completionPercent = Math.min(
-    100,
-    Math.round((aggregates.ownedCount / denom) * 100),
+  const completionPercentDisplay = formatAlbumCompletionPercentDisplay(
+    aggregates.ownedCount,
+    denom,
   );
+  const completionBarPercent = albumCompletionBarPercent(
+    aggregates.ownedCount,
+    denom,
+  );
+  const albumComplete = denom > 0 && aggregates.ownedCount >= denom;
 
   const topMatches = partnerEntries.slice(0, 5);
 
   return (
     <div className="p-4 pt-6 md:p-6">
       <DashboardView
-        completionPercent={completionPercent}
+        completionPercentDisplay={completionPercentDisplay}
+        completionBarPercent={completionBarPercent}
+        albumComplete={albumComplete}
         ownedCount={aggregates.ownedCount}
-        albumTotal={ALBUM_TOTAL_FIGURINHAS}
+        albumTotal={denom}
         surplusCopies={aggregates.surplusCopies}
         repetidasTypes={aggregates.repetidasTypes}
         faltasCount={aggregates.faltasCount}
