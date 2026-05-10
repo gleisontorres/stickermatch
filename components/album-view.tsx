@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { MoreVertical } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -9,32 +10,50 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
+import { toast } from "sonner";
 
 import { FigurinhaCard } from "@/components/figurinha-card";
 import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { albumGroupTitle } from "@/lib/album/group-title";
+import {
+  chunkedColecaoDelete,
+  chunkedColecaoUpsert,
+} from "@/lib/colecao/chunked-write";
 import type { AlbumFilterMode, Figurinha } from "@/lib/types";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 interface AlbumViewProps {
   figurinhas: Figurinha[];
-  /** Mapa figurinha_id → quantidade já persistida no servidor. */
   initialQuantities: Record<string, number>;
 }
 
-function groupTitle(figurinha: Figurinha): string {
-  if (figurinha.tipo === "especial") {
-    return "Especiais";
-  }
-  return figurinha.selecao ?? "Outros";
-}
+const MAX_UNDO_RECORDS = 100;
+const HIDE_BULK_TIP_KEY = "hide_bulk_tip";
+
+type UndoEntry = { figurinha_id: string; quantidade: number };
 
 function minNumero(items: Figurinha[]): number {
   return Math.min(...items.map((i) => i.numero ?? 999999));
 }
 
 /**
- * Álbum completo: filtros, busca e acordeão por seleção / especiais.
+ * Álbum completo: filtros, busca, acordeão e ações em massa.
  */
 export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
   const [quantities, setQuantities] =
@@ -44,6 +63,33 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
   const [search, setSearch] = useState("");
   const [busyId, setBusyId] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [busyGroupTitle, setBusyGroupTitle] = useState<string | null>(null);
+  const [bulkProgress, setBulkProgress] = useState<{
+    done: number;
+    total: number;
+  } | null>(null);
+  const [quickRegistrationMode, setQuickRegistrationMode] = useState(false);
+  const [quickPrepLoading, setQuickPrepLoading] = useState(false);
+  const [massDialogOpen, setMassDialogOpen] = useState(false);
+  const [quickConfirmOpen, setQuickConfirmOpen] = useState(false);
+  const [resetCollectionOpen, setResetCollectionOpen] = useState(false);
+  const [resetPhrase, setResetPhrase] = useState("");
+  const [globalBusy, setGlobalBusy] = useState(false);
+
+  const [faltaModal, setFaltaModal] = useState<{
+    title: string;
+    ids: string[];
+    marcadas: number;
+    repetidas: number;
+  } | null>(null);
+
+  const [resetSelModal, setResetSelModal] = useState<{
+    title: string;
+    ids: string[];
+  } | null>(null);
+
+  const [bulkTipReady, setBulkTipReady] = useState(false);
+  const [bulkTipHidden, setBulkTipHidden] = useState(false);
 
   useEffect(() => {
     setQuantities(initialQuantities);
@@ -53,6 +99,106 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
   useEffect(() => {
     qtyRef.current = quantities;
   }, [quantities]);
+
+  useEffect(() => {
+    try {
+      setBulkTipHidden(localStorage.getItem(HIDE_BULK_TIP_KEY) === "1");
+    } catch {
+      setBulkTipHidden(false);
+    }
+    setBulkTipReady(true);
+  }, []);
+
+  const markedCount = useMemo(
+    () => Object.values(quantities).filter((q) => q >= 1).length,
+    [quantities],
+  );
+
+  const applyPatch = useCallback((patch: Record<string, number>) => {
+    setQuantities((prev) => ({ ...prev, ...patch }));
+    qtyRef.current = { ...qtyRef.current, ...patch };
+  }, []);
+
+  const removeKeys = useCallback((ids: string[]) => {
+    setQuantities((prev) => {
+      const next = { ...prev };
+      for (const id of ids) {
+        delete next[id];
+      }
+      return next;
+    });
+    const r = { ...qtyRef.current };
+    for (const id of ids) {
+      delete r[id];
+    }
+    qtyRef.current = r;
+  }, []);
+
+  const getSession = useCallback(async () => {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return { supabase, user };
+  }, []);
+
+  const runRestore = useCallback(
+    async (entries: UndoEntry[]) => {
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada. Entre novamente.");
+        return;
+      }
+      try {
+        await chunkedColecaoUpsert(
+          supabase,
+          user.id,
+          entries.map((e) => ({
+            figurinha_id: e.figurinha_id,
+            quantidade: e.quantidade,
+          })),
+        );
+        const patch = Object.fromEntries(
+          entries.map((e) => [e.figurinha_id, e.quantidade]),
+        );
+        applyPatch(patch);
+        toast.success("Alteração desfeita.");
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "Falha ao desfazer.");
+      }
+    },
+    [applyPatch, getSession],
+  );
+
+  const toastSuccessMaybeUndo = useCallback(
+    (message: string, snapshot: UndoEntry[] | null) => {
+      const canUndo =
+        snapshot !== null &&
+        snapshot.length > 0 &&
+        snapshot.length <= MAX_UNDO_RECORDS;
+
+      if (!canUndo) {
+        toast.success(message, {
+          duration: snapshot && snapshot.length > MAX_UNDO_RECORDS ? 6000 : 4000,
+          description:
+            snapshot && snapshot.length > MAX_UNDO_RECORDS ?
+              "Desfazer não está disponível para operações muito grandes."
+            : undefined,
+        });
+        return;
+      }
+
+      const snap = snapshot;
+      toast.success(message, {
+        duration: 10_000,
+        action: {
+          label: "Desfazer",
+          onClick: () => void runRestore(snap),
+        },
+      });
+    },
+    [runRestore],
+  );
 
   const persistQty = useCallback(
     async (figurinhaId: string, oldVal: number, newVal: number) => {
@@ -108,6 +254,337 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
     [persistQty],
   );
 
+  const handleQuickTap = useCallback(
+    (figurinhaId: string) => {
+      const q = qtyRef.current[figurinhaId] ?? 0;
+      if (q <= 0) {
+        return;
+      }
+      handleQtyChange(figurinhaId, q - 1);
+    },
+    [handleQtyChange],
+  );
+
+  const idsForGroupTitle = useCallback(
+    (title: string) =>
+      figurinhas.filter((f) => albumGroupTitle(f) === title).map((f) => f.id),
+    [figurinhas],
+  );
+
+  const applyMarkHaveOneForIds = useCallback(
+    async (ids: string[], messagePrefix: string) => {
+      const targetIds = ids.filter((id) => (qtyRef.current[id] ?? 0) === 0);
+      if (targetIds.length === 0) {
+        toast.info("Todas as figurinhas alvo já estão marcadas como tenho.");
+        return;
+      }
+
+      const snapshot: UndoEntry[] = targetIds.map((id) => ({
+        figurinha_id: id,
+        quantidade: 0,
+      }));
+
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada.");
+        return;
+      }
+
+      await chunkedColecaoUpsert(
+        supabase,
+        user.id,
+        targetIds.map((id) => ({ figurinha_id: id, quantidade: 1 })),
+      );
+
+      const patch = Object.fromEntries(targetIds.map((id) => [id, 1]));
+      applyPatch(patch);
+
+      toastSuccessMaybeUndo(
+        `✅ ${targetIds.length} figurinha${targetIds.length === 1 ? "" : "s"} ${messagePrefix}`,
+        snapshot.length <= MAX_UNDO_RECORDS ? snapshot : null,
+      );
+    },
+    [applyPatch, getSession, toastSuccessMaybeUndo],
+  );
+
+  const onSelectionMarkHave1 = useCallback(
+    async (title: string) => {
+      const ids = idsForGroupTitle(title);
+      setBusyGroupTitle(title);
+      setSaveError(null);
+      try {
+        await applyMarkHaveOneForIds(ids, `marcada${ids.length === 1 ? "" : "s"} na seleção «${title}».`);
+      } catch (e) {
+        toast.error(e instanceof Error ? e.message : "Falha ao marcar seleção.");
+      } finally {
+        setBusyGroupTitle(null);
+      }
+    },
+    [applyMarkHaveOneForIds, idsForGroupTitle],
+  );
+
+  const onSelectionMarkFaltaRequest = useCallback(
+    (title: string) => {
+      const ids = idsForGroupTitle(title);
+      const marcadas = ids.filter((id) => (qtyRef.current[id] ?? 0) >= 1).length;
+      const repetidas = ids.filter((id) => (qtyRef.current[id] ?? 0) > 1).length;
+
+      if (marcadas >= 1) {
+        setFaltaModal({ title, ids, marcadas, repetidas });
+        return;
+      }
+
+      void (async () => {
+        setBusyGroupTitle(title);
+        try {
+          const snapshot: UndoEntry[] = ids.map((id) => ({
+            figurinha_id: id,
+            quantidade: qtyRef.current[id] ?? 0,
+          }));
+          const { supabase, user } = await getSession();
+          if (!user) {
+            toast.error("Sessão expirada.");
+            return;
+          }
+          await chunkedColecaoUpsert(
+            supabase,
+            user.id,
+            ids.map((id) => ({ figurinha_id: id, quantidade: 0 })),
+          );
+          const patch = Object.fromEntries(ids.map((id) => [id, 0]));
+          applyPatch(patch);
+          toastSuccessMaybeUndo(
+            `✅ ${ids.length} figurinha${ids.length === 1 ? "" : "s"} de ${title} marcadas como falta.`,
+            snapshot.length <= MAX_UNDO_RECORDS ? snapshot : null,
+          );
+        } catch (e) {
+          toast.error(e instanceof Error ? e.message : "Falha.");
+        } finally {
+          setBusyGroupTitle(null);
+        }
+      })();
+    },
+    [
+      applyPatch,
+      getSession,
+      idsForGroupTitle,
+      toastSuccessMaybeUndo,
+    ],
+  );
+
+  const confirmFaltaModal = useCallback(async () => {
+    if (!faltaModal) {
+      return;
+    }
+    const { title, ids } = faltaModal;
+    setFaltaModal(null);
+    setBusyGroupTitle(title);
+    try {
+      const snapshot: UndoEntry[] = ids.map((id) => ({
+        figurinha_id: id,
+        quantidade: qtyRef.current[id] ?? 0,
+      }));
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada.");
+        return;
+      }
+      await chunkedColecaoUpsert(
+        supabase,
+        user.id,
+        ids.map((id) => ({ figurinha_id: id, quantidade: 0 })),
+      );
+      const patch = Object.fromEntries(ids.map((id) => [id, 0]));
+      applyPatch(patch);
+      toastSuccessMaybeUndo(
+        `✅ ${ids.length} figurinha${ids.length === 1 ? "" : "s"} de ${title} marcadas como falta.`,
+        snapshot.length <= MAX_UNDO_RECORDS ? snapshot : null,
+      );
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Falha.");
+    } finally {
+      setBusyGroupTitle(null);
+    }
+  }, [applyPatch, faltaModal, getSession, toastSuccessMaybeUndo]);
+
+  const onSelectionResetRequest = useCallback((title: string) => {
+    const ids = idsForGroupTitle(title);
+    setResetSelModal({ title, ids });
+  }, [idsForGroupTitle]);
+
+  const confirmResetSelection = useCallback(async () => {
+    if (!resetSelModal) {
+      return;
+    }
+    const { title, ids } = resetSelModal;
+    setResetSelModal(null);
+    setBusyGroupTitle(title);
+    try {
+      const snapshot: UndoEntry[] = ids.map((id) => ({
+        figurinha_id: id,
+        quantidade: qtyRef.current[id] ?? 0,
+      }));
+
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada.");
+        return;
+      }
+
+      await chunkedColecaoDelete(supabase, user.id, ids);
+      removeKeys(ids);
+
+      toastSuccessMaybeUndo(
+        `🗑️ Seleção «${title}» resetada (${ids.length} itens).`,
+        snapshot.length <= MAX_UNDO_RECORDS ? snapshot : null,
+      );
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Falha ao resetar.");
+    } finally {
+      setBusyGroupTitle(null);
+    }
+  }, [getSession, removeKeys, resetSelModal, toastSuccessMaybeUndo]);
+
+  const onGlobalMarkHave1 = useCallback(async () => {
+    const ids = figurinhas.map((f) => f.id);
+    setGlobalBusy(true);
+    setSaveError(null);
+    try {
+      const targetIds = ids.filter((id) => (qtyRef.current[id] ?? 0) === 0);
+      setBulkProgress({ done: 0, total: targetIds.length });
+      if (targetIds.length === 0) {
+        toast.info("Todas as figurinhas já estão marcadas.");
+        return;
+      }
+
+      const snapshot: UndoEntry[] = targetIds.map((id) => ({
+        figurinha_id: id,
+        quantidade: 0,
+      }));
+
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada.");
+        return;
+      }
+
+      await chunkedColecaoUpsert(
+        supabase,
+        user.id,
+        targetIds.map((id) => ({ figurinha_id: id, quantidade: 1 })),
+        {
+          onProgress: (done, total) => setBulkProgress({ done, total }),
+        },
+      );
+
+      const patch = Object.fromEntries(targetIds.map((id) => [id, 1]));
+      applyPatch(patch);
+
+      toastSuccessMaybeUndo(
+        `✅ ${targetIds.length} figurinha${targetIds.length === 1 ? "" : "s"} marcadas no álbum.`,
+        snapshot.length <= MAX_UNDO_RECORDS ? snapshot : null,
+      );
+      setMassDialogOpen(false);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Falha.");
+    } finally {
+      setGlobalBusy(false);
+      setBulkProgress(null);
+    }
+  }, [
+    applyPatch,
+    figurinhas,
+    getSession,
+    toastSuccessMaybeUndo,
+  ]);
+
+  const runQuickRegistrationPrep = useCallback(async () => {
+    setQuickConfirmOpen(false);
+    setMassDialogOpen(false);
+    setQuickPrepLoading(true);
+    setSaveError(null);
+
+    try {
+      const ids = figurinhas.map((f) => f.id);
+      const targetIds = ids.filter((id) => (qtyRef.current[id] ?? 0) === 0);
+
+      if (targetIds.length === 0) {
+        toast.info(
+          "Todas as figurinhas já estão marcadas — modo rápido ativo para ajustes.",
+        );
+        setQuickRegistrationMode(true);
+        return;
+      }
+
+      const snapshot: UndoEntry[] = targetIds.map((id) => ({
+        figurinha_id: id,
+        quantidade: 0,
+      }));
+
+      setBulkProgress({ done: 0, total: targetIds.length });
+
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada.");
+        return;
+      }
+
+      await chunkedColecaoUpsert(
+        supabase,
+        user.id,
+        targetIds.map((id) => ({ figurinha_id: id, quantidade: 1 })),
+        {
+          onProgress: (done, total) => setBulkProgress({ done, total }),
+        },
+      );
+
+      const patch = Object.fromEntries(targetIds.map((id) => [id, 1]));
+      applyPatch(patch);
+
+      toastSuccessMaybeUndo(
+        `Álbum preparado: ${targetIds.length} figurinha${targetIds.length === 1 ? "" : "s"} marcadas como tenho.`,
+        snapshot.length <= MAX_UNDO_RECORDS ? snapshot : null,
+      );
+
+      setQuickRegistrationMode(true);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Falha ao preparar álbum.");
+    } finally {
+      setQuickPrepLoading(false);
+      setBulkProgress(null);
+    }
+  }, [applyPatch, figurinhas, getSession, toastSuccessMaybeUndo]);
+
+  const onResetCollection = useCallback(async () => {
+    if (resetPhrase.trim() !== "RESETAR") {
+      return;
+    }
+    setResetCollectionOpen(false);
+    setResetPhrase("");
+    setGlobalBusy(true);
+    try {
+      const { supabase, user } = await getSession();
+      if (!user) {
+        toast.error("Sessão expirada.");
+        return;
+      }
+      const { error } = await supabase
+        .from("colecao")
+        .delete()
+        .eq("user_id", user.id);
+      if (error) {
+        throw new Error(error.message);
+      }
+      removeKeys(figurinhas.map((f) => f.id));
+      toast.success("Coleção resetada. Não há como desfazer esta ação.");
+      setMassDialogOpen(false);
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Falha ao resetar.");
+    } finally {
+      setGlobalBusy(false);
+    }
+  }, [figurinhas, getSession, removeKeys, resetPhrase]);
+
   const filteredFigurinhas = useMemo(() => {
     const needle = search.trim().toLowerCase();
     return figurinhas.filter((f) => {
@@ -136,7 +613,7 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
   const grouped = useMemo(() => {
     const map = new Map<string, Figurinha[]>();
     for (const f of filteredFigurinhas) {
-      const key = groupTitle(f);
+      const key = albumGroupTitle(f);
       const list = map.get(key) ?? [];
       list.push(f);
       map.set(key, list);
@@ -165,34 +642,113 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
     }
   };
 
+  const dismissBulkTip = useCallback(() => {
+    try {
+      localStorage.setItem(HIDE_BULK_TIP_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    setBulkTipHidden(true);
+  }, []);
+
+  const showBulkTip =
+    bulkTipReady && !bulkTipHidden && markedCount < 50 && !quickRegistrationMode;
+
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6">
+      {quickPrepLoading ?
+        <div
+          className="bg-background/90 fixed inset-0 z-[280] flex flex-col items-center justify-center gap-4 p-6 backdrop-blur-sm"
+          role="alertdialog"
+          aria-busy="true"
+          aria-label="Preparando álbum"
+        >
+          <div className="border-primary size-10 animate-spin rounded-full border-2 border-t-transparent" />
+          <p className="max-w-sm text-center text-sm font-medium">
+            Preparando seu álbum… Isso leva alguns segundos.
+          </p>
+          {bulkProgress ?
+            <p className="text-muted-foreground text-xs">
+              Marcando {bulkProgress.done}/{bulkProgress.total}…
+            </p>
+          : null}
+        </div>
+      : null}
+
+      {quickRegistrationMode ?
+        <div
+          className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-orange-500/40 bg-orange-500/15 px-4 py-3 text-sm text-orange-950 dark:text-orange-50"
+          role="status"
+        >
+          <p className="min-w-0 flex-1 font-medium">
+            🎯 Modo Cadastro Rápido ativo — toque nas figurinhas que você{" "}
+            <span className="underline">não</span> tem.
+          </p>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="border-orange-600/50 shrink-0 bg-background/80"
+            onClick={() => setQuickRegistrationMode(false)}
+          >
+            Sair do modo
+          </Button>
+        </div>
+      : null}
+
+      {showBulkTip ?
+        <div className="border-border bg-muted/40 flex flex-wrap items-start justify-between gap-3 rounded-xl border px-4 py-3 text-sm">
+          <p className="text-muted-foreground min-w-0 max-w-xl">
+            💡 <span className="text-foreground font-medium">Já tem várias figurinhas?</span>{" "}
+            Use os menus ⋯ em cada seleção pra marcar em lote, ou clique em{" "}
+            <span className="text-foreground font-medium">Ações em massa</span> pra um cadastro
+            mais rápido.
+          </p>
+          <Button type="button" variant="ghost" size="sm" onClick={dismissBulkTip}>
+            Não mostrar mais
+          </Button>
+        </div>
+      : null}
+
       <header className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
         <div className="space-y-1">
           <h1 className="text-xl font-semibold tracking-tight">Álbum</h1>
           <p className="text-muted-foreground text-sm">
-            Toque em + ou − para atualizar a coleção (salvo automaticamente).
+            {quickRegistrationMode ?
+              "Toque nas figurinhas que faltam para marcar como não tenho."
+            : "Toque em + ou − para atualizar a coleção (salvo automaticamente)."}
           </p>
         </div>
-        <Link
-          href="/pacote"
-          className={cn(
-            buttonVariants({ variant: "outline", size: "sm" }),
-            "shrink-0 self-start",
-          )}
-        >
-          Modo pacote rápido
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="shrink-0"
+            onClick={() => setMassDialogOpen(true)}
+          >
+            Ações em massa
+          </Button>
+          <Link
+            href="/pacote"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "shrink-0 self-start",
+            )}
+          >
+            Modo pacote rápido
+          </Link>
+        </div>
       </header>
 
-      {saveError ? (
+      {saveError ?
         <p
           className="border-destructive/40 bg-destructive/10 text-destructive rounded-lg border px-3 py-2 text-sm"
           role="alert"
         >
           {saveError}
         </p>
-      ) : null}
+      : null}
 
       <div className="bg-background/80 supports-[backdrop-filter]:bg-background/70 sticky top-0 z-10 flex flex-col gap-3 border-b pb-4 pt-1 backdrop-blur-md md:flex-row md:flex-wrap md:items-center md:justify-between">
         <div className="flex flex-wrap gap-2">
@@ -235,11 +791,11 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
         de {figurinhas.length} figurinhas
       </p>
 
-      {grouped.length === 0 ? (
+      {grouped.length === 0 ?
         <p className="text-muted-foreground py-12 text-center text-sm">
           Nenhuma figurinha neste filtro. Ajuste a busca ou os filtros acima.
         </p>
-      ) : (
+      : (
         <div className="flex flex-col gap-4">
           {grouped.map(([title, items]) => (
             <details key={title} className="group border-border rounded-xl border">
@@ -250,9 +806,77 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
                 )}
               >
                 <span className="flex items-center justify-between gap-2">
-                  <span>{title}</span>
-                  <span className="text-muted-foreground text-xs font-normal">
-                    {items.length} figurinha{items.length === 1 ? "" : "s"}
+                  <span className="min-w-0">{title}</span>
+                  <span className="flex shrink-0 items-center gap-2">
+                    {busyGroupTitle === title ?
+                      <span
+                        className="border-primary inline-block size-4 animate-spin rounded-full border-2 border-t-transparent"
+                        aria-hidden
+                      />
+                    : null}
+                    <span className="text-muted-foreground text-xs font-normal whitespace-nowrap">
+                      {items.length} figurinha{items.length === 1 ? "" : "s"}
+                    </span>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-sm"
+                          className="text-muted-foreground hover:text-foreground shrink-0"
+                          disabled={
+                            busyGroupTitle === title ||
+                            quickPrepLoading ||
+                            globalBusy
+                          }
+                          aria-label={`Ações em massa da seleção ${title}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }}
+                          onPointerDown={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          <MoreVertical className="size-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="end"
+                        className="w-56"
+                        onCloseAutoFocus={(e) => e.preventDefault()}
+                      >
+                        <DropdownMenuItem
+                          disabled={busyGroupTitle === title || globalBusy}
+                          onSelect={(e) => {
+                            e.preventDefault();
+                            void onSelectionMarkHave1(title);
+                          }}
+                        >
+                          ✅ Marcar todas como &quot;tenho 1&quot;
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          disabled={busyGroupTitle === title || globalBusy}
+                          onSelect={(e) => {
+                            e.preventDefault();
+                            onSelectionMarkFaltaRequest(title);
+                          }}
+                        >
+                          ❌ Marcar todas como faltas (0)
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          disabled={busyGroupTitle === title || globalBusy}
+                          className="text-destructive focus:bg-destructive/10 focus:text-destructive"
+                          onSelect={(e) => {
+                            e.preventDefault();
+                            onSelectionResetRequest(title);
+                          }}
+                        >
+                          🗑️ Resetar seleção
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </span>
                 </span>
               </summary>
@@ -262,7 +886,15 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
                     key={f.id}
                     figurinha={f}
                     quantidade={quantities[f.id] ?? 0}
-                    disabled={busyId === f.id}
+                    disabled={
+                      busyId === f.id ||
+                      quickPrepLoading ||
+                      globalBusy ||
+                      (busyGroupTitle !== null &&
+                        albumGroupTitle(f) === busyGroupTitle)
+                    }
+                    quickTapMode={quickRegistrationMode}
+                    onQuickTap={() => handleQuickTap(f.id)}
                     onQuantidadeChange={handleQtyChange}
                   />
                 ))}
@@ -271,6 +903,187 @@ export function AlbumView({ figurinhas, initialQuantities }: AlbumViewProps) {
           ))}
         </div>
       )}
+
+      <Dialog open={massDialogOpen} onOpenChange={setMassDialogOpen}>
+        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Ações em massa</DialogTitle>
+            <DialogDescription>
+              ⚠️ Cuidado: estas ações podem afetar o álbum inteiro (
+              {figurinhas.length} figurinhas).
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex flex-col gap-4 py-2">
+            <div className="border-border space-y-3 rounded-xl border p-4">
+              <p className="text-sm font-medium">Marcar todo o álbum como &quot;tenho 1&quot;</p>
+              <p className="text-muted-foreground text-xs leading-relaxed">
+                Só afeta figurinhas que ainda não tem (quantidade 0). Repetidas não são
+                alteradas.
+              </p>
+              {bulkProgress && globalBusy ?
+                <p className="text-muted-foreground text-xs">
+                  Marcando {bulkProgress.done}/{bulkProgress.total}…
+                </p>
+              : null}
+              <Button
+                type="button"
+                size="sm"
+                className="w-full sm:w-auto"
+                disabled={globalBusy || quickPrepLoading}
+                onClick={() => void onGlobalMarkHave1()}
+              >
+                Aplicar
+              </Button>
+            </div>
+
+            <div className="border-border space-y-3 rounded-xl border p-4">
+              <p className="text-sm font-medium">Modo de Cadastro Rápido</p>
+              <p className="text-muted-foreground text-xs leading-relaxed">
+                Para quem já tem o álbum quase completo. Marca tudo como &quot;tenho&quot; e você
+                só toca nas que estão faltando.
+              </p>
+              <Button
+                type="button"
+                size="sm"
+                variant="secondary"
+                className="w-full sm:w-auto"
+                disabled={globalBusy || quickPrepLoading}
+                onClick={() => setQuickConfirmOpen(true)}
+              >
+                Iniciar
+              </Button>
+            </div>
+
+            <div className="border-border space-y-3 rounded-xl border border-destructive/30 bg-destructive/5 p-4">
+              <p className="text-sm font-medium text-destructive">Resetar coleção inteira</p>
+              <p className="text-muted-foreground text-xs leading-relaxed">
+                Apaga todos os registros de figurinhas do seu usuário. Esta ação não pode ser
+                desfeita pelo app.
+              </p>
+              <Button
+                type="button"
+                size="sm"
+                variant="destructive"
+                className="w-full sm:w-auto"
+                disabled={globalBusy || quickPrepLoading}
+                onClick={() => {
+                  setMassDialogOpen(false);
+                  setResetCollectionOpen(true);
+                }}
+              >
+                Resetar
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={quickConfirmOpen} onOpenChange={setQuickConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Modo Cadastro Rápido</DialogTitle>
+            <DialogDescription className="text-left">
+              Vamos marcar todas as figurinhas que ainda estão em falta como &quot;tenho 1&quot;
+              (preservando repetidas). Depois você toca só nas que não tem. Confirma?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button type="button" variant="outline" onClick={() => setQuickConfirmOpen(false)}>
+              Cancelar
+            </Button>
+            <Button type="button" onClick={() => void runQuickRegistrationPrep()}>
+              Confirmar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={resetCollectionOpen} onOpenChange={setResetCollectionOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Resetar coleção inteira</DialogTitle>
+            <DialogDescription className="text-left">
+              Digite <strong>RESETAR</strong> para apagar todos os registros da sua coleção.
+              Isso não pode ser desfeito.
+            </DialogDescription>
+          </DialogHeader>
+          <input
+            type="text"
+            value={resetPhrase}
+            onChange={(e) => setResetPhrase(e.target.value)}
+            placeholder="RESETAR"
+            autoCapitalize="characters"
+            className="border-input bg-background focus-visible:ring-ring h-10 w-full rounded-lg border px-3 text-sm outline-none focus-visible:ring-2"
+          />
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setResetCollectionOpen(false);
+                setResetPhrase("");
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={resetPhrase.trim() !== "RESETAR" || globalBusy}
+              onClick={() => void onResetCollection()}
+            >
+              Apagar tudo
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={Boolean(faltaModal)} onOpenChange={(o) => !o && setFaltaModal(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Marcar todas como faltas?</DialogTitle>
+            <DialogDescription className="text-left">
+              Você tem{" "}
+              <strong>{faltaModal?.marcadas ?? 0}</strong> figurinha
+              {(faltaModal?.marcadas ?? 0) === 1 ? "" : "s"} marcada
+              {(faltaModal?.marcadas ?? 0) === 1 ? "" : "s"} nesta seleção (
+              <strong>{faltaModal?.repetidas ?? 0}</strong>{" "}
+              {(faltaModal?.repetidas ?? 0) === 1 ? "é repetida" : "são repetidas"}).
+              Confirma marcar todas como faltas?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button type="button" variant="outline" onClick={() => setFaltaModal(null)}>
+              Cancelar
+            </Button>
+            <Button type="button" variant="destructive" onClick={() => void confirmFaltaModal()}>
+              Confirmar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={Boolean(resetSelModal)} onOpenChange={(o) => !o && setResetSelModal(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Resetar seleção?</DialogTitle>
+            <DialogDescription className="text-left">
+              Remove todos os registros de figurinhas do grupo{" "}
+              <strong>{resetSelModal?.title}</strong> ({resetSelModal?.ids.length ?? 0} itens).
+              Deseja continuar?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button type="button" variant="outline" onClick={() => setResetSelModal(null)}>
+              Cancelar
+            </Button>
+            <Button type="button" variant="destructive" onClick={() => void confirmResetSelection()}>
+              Resetar seleção
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

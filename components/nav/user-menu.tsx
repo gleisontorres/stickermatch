@@ -1,17 +1,26 @@
 "use client";
 
+import Link from "next/link";
 import {
   LogOut,
-  Monitor,
-  Moon,
-  Sun,
   UserRound,
 } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 
@@ -23,7 +32,6 @@ export interface UserMenuUser {
 
 interface UserMenuProps {
   user: UserMenuUser;
-  /** `header`: só avatar. `sidebar-footer`: avatar + nome + email. */
   variant: "header" | "sidebar-footer";
   className?: string;
 }
@@ -72,64 +80,35 @@ function AvatarImage({
 }
 
 /**
- * Menu do usuário: perfil, tema (3 opções) e logout.
+ * Menu da conta com DropdownMenu (Radix): perfil, tema e logout.
  */
 export function UserMenu({ user, variant, className }: UserMenuProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    function handlePointerDown(event: MouseEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-    if (open) {
-      document.addEventListener("mousedown", handlePointerDown);
-    }
-    return () => document.removeEventListener("mousedown", handlePointerDown);
-  }, [open]);
-
   async function handleSignOut() {
-    setOpen(false);
     const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/login");
     router.refresh();
   }
 
-  const themeItems = [
-    { id: "light" as const, label: "Claro", glyph: Sun },
-    { id: "dark" as const, label: "Escuro", glyph: Moon },
-    { id: "system" as const, label: "Sistema", glyph: Monitor },
-  ];
-
-  const menuPosition =
+  const triggerClass =
     variant === "header" ?
-      "right-0 top-full mt-1 min-w-[13rem]"
-    : "bottom-full left-2 right-2 mb-2 min-w-0";
+      "size-10 shrink-0 justify-center rounded-lg p-0 hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    : "hover:bg-muted flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
   return (
-    <div className={cn("relative", className)} ref={rootRef}>
-      <button
+    <DropdownMenu>
+      <DropdownMenuTrigger
         type="button"
-        className={cn(
-          "transition-colors duration-150 flex items-center gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          variant === "header" ?
-            "size-10 shrink-0 justify-center hover:bg-muted/80"
-          : "hover:bg-muted w-full px-3 py-3 text-left",
-        )}
+        className={cn(triggerClass, className)}
         aria-label="Menu da conta"
-        aria-expanded={open}
-        aria-haspopup="menu"
-        onClick={() => setOpen((v) => !v)}
       >
         {variant === "header" ? (
           <AvatarImage
@@ -150,70 +129,62 @@ export function UserMenu({ user, variant, className }: UserMenuProps) {
             </div>
           </>
         )}
-      </button>
+      </DropdownMenuTrigger>
 
-      {open ? (
-        <div
-          role="menu"
-          aria-orientation="vertical"
-          className={cn(
-            "border-border bg-popover text-popover-foreground absolute z-[60] overflow-hidden rounded-lg border py-1 shadow-md",
-            menuPosition,
-          )}
-        >
-          <Link
-            href="/perfil"
-            role="menuitem"
-            className="hover:bg-muted flex items-center gap-2 px-3 py-2 text-sm"
-            onClick={() => setOpen(false)}
-          >
+      <DropdownMenuContent
+        className="w-56"
+        align={variant === "header" ? "end" : "start"}
+        side={variant === "sidebar-footer" ? "top" : "bottom"}
+        sideOffset={variant === "sidebar-footer" ? 8 : 6}
+      >
+        <DropdownMenuItem asChild>
+          <Link href="/perfil" className="flex cursor-pointer items-center gap-2">
             <UserRound className="size-4 shrink-0 opacity-80" aria-hidden />
             Ver perfil
           </Link>
+        </DropdownMenuItem>
 
-          <div className="border-border my-1 border-t" role="separator" />
+        <DropdownMenuSeparator />
 
-          <p className="text-muted-foreground px-3 py-1 text-xs font-medium tracking-wide uppercase">
-            Tema
-          </p>
-          {mounted ?
-            themeItems.map(({ id, label, glyph: Glyph }) => (
-              <button
-                key={id}
-                type="button"
-                role="menuitemradio"
-                aria-checked={theme === id}
-                className={cn(
-                  "hover:bg-muted flex w-full items-center gap-2 px-3 py-2 text-left text-sm outline-none",
-                  theme === id && "bg-muted/80",
-                )}
-                onClick={() => {
-                  setTheme(id);
-                }}
+        {mounted ?
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger className="gap-2">
+              <span>Tema</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent className="w-48">
+              <DropdownMenuRadioGroup
+                value={theme ?? "dark"}
+                onValueChange={(v) => setTheme(v)}
               >
-                <Glyph className="size-4 shrink-0 opacity-80" aria-hidden />
-                <span>{label}</span>
-              </button>
-            ))
-          : (
-            <p className="text-muted-foreground px-3 py-2 text-xs">
-              Carregando tema…
-            </p>
-          )}
+                <DropdownMenuRadioItem value="light">
+                  Claro ☀️
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="dark">
+                  Escuro 🌙
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="system">
+                  Sistema 💻
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        : (
+          <DropdownMenuItem disabled>Carregando tema…</DropdownMenuItem>
+        )}
 
-          <div className="border-border my-1 border-t" role="separator" />
+        <DropdownMenuSeparator />
 
-          <button
-            type="button"
-            role="menuitem"
-            className="text-destructive hover:bg-destructive/10 flex w-full items-center gap-2 px-3 py-2 text-left text-sm outline-none"
-            onClick={() => void handleSignOut()}
-          >
-            <LogOut className="size-4 shrink-0" aria-hidden />
-            Sair
-          </button>
-        </div>
-      ) : null}
-    </div>
+        <DropdownMenuItem
+          className="text-destructive focus:bg-destructive/10 focus:text-destructive flex items-center gap-2"
+          onSelect={(e) => {
+            e.preventDefault();
+            void handleSignOut();
+          }}
+        >
+          <LogOut className="size-4 shrink-0" aria-hidden />
+          Sair
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
