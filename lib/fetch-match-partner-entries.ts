@@ -11,8 +11,24 @@ function figLabel(id: string, nomePorId: Map<string, string>): string {
   return nome ? `${id} · ${nome}` : id;
 }
 
+interface RpcPartnerRow {
+  id: string;
+  nome: string | null;
+  email: string | null;
+  whatsapp: string | null;
+  distancia_km: number | string | null;
+}
+
+function coerceKm(raw: number | string | null | undefined): number | null {
+  if (raw === null || raw === undefined) {
+    return null;
+  }
+  const n = typeof raw === "number" ? raw : Number(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
 /**
- * Busca linhas da view `matches`, agrega por parceiro e enriquece nomes.
+ * Busca linhas da view `matches`, agrega por parceiro e enriquece nomes + distância (RPC segura).
  */
 export async function fetchMatchPartnerEntries(
   supabase: SupabaseClient,
@@ -41,14 +57,13 @@ export async function fetchMatchPartnerEntries(
 
   const figIdsArr = [...allFigIds];
 
-  const [{ data: perfisRows }, { data: figurinhasRows }, { data: colecaoCountRows }] =
+  const [{ data: rpcRows, error: rpcError }, { data: figurinhasRows }, { data: colecaoCountRows }] =
     await Promise.all([
       partnerIds.length > 0
-        ? supabase
-            .from("perfis")
-            .select("id, nome, email, whatsapp")
-            .in("id", partnerIds)
-        : Promise.resolve({ data: [] as const }),
+        ? supabase.rpc("partner_profiles_for_matches", {
+            partner_ids: partnerIds,
+          })
+        : Promise.resolve({ data: [] as RpcPartnerRow[], error: null }),
       figIdsArr.length > 0
         ? supabase.from("figurinhas").select("id, nome").in("id", figIdsArr)
         : Promise.resolve({ data: [] as const }),
@@ -60,6 +75,12 @@ export async function fetchMatchPartnerEntries(
         : Promise.resolve({ data: [] as const }),
     ]);
 
+  if (rpcError) {
+    throw new Error(
+      `${rpcError.message} — rode a migration de localização (006_localizacao.sql) e conceda execute em partner_profiles_for_matches.`,
+    );
+  }
+
   const partnerRowCounts = new Map<string, number>();
   for (const row of colecaoCountRows ?? []) {
     const id = row.user_id as string;
@@ -67,12 +88,13 @@ export async function fetchMatchPartnerEntries(
   }
 
   const perfilById = new Map(
-    (perfisRows ?? []).map((p) => [
+    ((rpcRows ?? []) as RpcPartnerRow[]).map((p) => [
       p.id,
       {
         nome: p.nome,
         email: p.email,
         whatsapp: p.whatsapp,
+        distanciaKm: coerceKm(p.distancia_km),
       },
     ]),
   );
@@ -92,6 +114,7 @@ export async function fetchMatchPartnerEntries(
       partnerId: m.partnerId,
       displayName,
       whatsapp: perfil?.whatsapp ?? null,
+      distanciaKm: perfil?.distanciaKm ?? null,
       partnerColecaoRowCount: partnerRowCounts.get(m.partnerId) ?? 0,
       eu_dou: m.eu_dou.map((id) => ({
         id,

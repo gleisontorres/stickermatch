@@ -22,11 +22,13 @@ export interface MatchStickerLabel {
   label: string;
 }
 
-/** Match agregado por parceiro (server monta para a UI). */
+/** Match agregado por parceiro de troca (server monta para a UI). */
 export interface MatchPartnerEntry {
   partnerId: string;
   displayName: string;
   whatsapp: string | null;
+  /** Distância aproximada quando ambos têm localização; caso contrário null (sem badge). */
+  distanciaKm: number | null;
   /** Quantidade de linhas em `colecao` do parceiro (para badge de perfil incompleto). */
   partnerColecaoRowCount: number;
   eu_dou: MatchStickerLabel[];

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { PerfilLocalizacaoSection } from "@/components/perfil-localizacao-section";
 import { PerfilForm, type PerfilFormInitial } from "@/components/perfil-form";
 import { createClient } from "@/lib/supabase/server";
 
@@ -16,7 +17,9 @@ export default async function PerfilPage() {
 
   const { data: perfil, error } = await supabase
     .from("perfis")
-    .select("nome, avatar_url, whatsapp, email")
+    .select(
+      "nome, avatar_url, whatsapp, email, latitude, longitude, localizacao_atualizada_em",
+    )
     .eq("id", user.id)
     .maybeSingle();
 
@@ -37,9 +40,21 @@ export default async function PerfilPage() {
     whatsapp: perfil?.whatsapp?.trim() ?? "",
   };
 
+  const temLocalizacao =
+    perfil?.latitude != null &&
+    perfil?.longitude != null &&
+    Number.isFinite(perfil.latitude) &&
+    Number.isFinite(perfil.longitude);
+
   return (
     <div className="p-4 pb-12 pt-6 md:p-6">
-      <PerfilForm userId={user.id} initial={initial} />
+      <div className="mx-auto flex max-w-lg flex-col gap-8">
+        <PerfilForm userId={user.id} initial={initial} />
+        <PerfilLocalizacaoSection
+          initialTemLocalizacao={temLocalizacao}
+          initialAtualizadaEm={perfil?.localizacao_atualizada_em ?? null}
+        />
+      </div>
     </div>
   );
 }
