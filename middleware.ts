@@ -1,3 +1,4 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { updateSession } from "@/lib/supabase/middleware";
@@ -12,9 +13,16 @@ const PROTECTED_PREFIXES = [
   "/matches",
   "/chat",
   "/perfil",
+  "/admin",
 ] as const;
 
-function isProtectedPath(pathname: string): boolean {
+function requiresAuth(pathname: string): boolean {
+  if (
+    pathname === "/aguardando-aprovacao" ||
+    pathname === "/acesso-negado"
+  ) {
+    return true;
+  }
   return PROTECTED_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
@@ -33,15 +41,71 @@ function forwardAuthCookies(from: NextResponse, to: NextResponse): void {
   }
 }
 
+function redirectWithSessionCookies(
+  request: NextRequest,
+  sessionResponse: NextResponse,
+  pathname: string,
+): NextResponse {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  url.searchParams.delete("next");
+  const redirectResponse = NextResponse.redirect(url);
+  forwardAuthCookies(sessionResponse, redirectResponse);
+  return redirectResponse;
+}
+
+async function fetchPerfilAccess(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<{ status: string; is_admin: boolean } | null> {
+  const { data, error } = await supabase
+    .from("perfis")
+    .select("status, is_admin")
+    .eq("id", userId)
+    .maybeSingle();
+
+  if (process.env.NODE_ENV === "development") {
+    if (error) {
+      console.warn(
+        "[stickermatch] middleware perfis:",
+        error.code ?? "",
+        error.message,
+      );
+    } else if (!data) {
+      console.warn(
+        "[stickermatch] middleware perfis: nenhuma linha para auth.uid (verifique se perfis.id = auth.users.id)",
+        userId,
+      );
+    }
+  }
+
+  if (error || !data) {
+    return null;
+  }
+
+  const rawStatus =
+    typeof data.status === "string" ? data.status.trim() : "pendente";
+
+  return {
+    status: rawStatus || "pendente",
+    is_admin: Boolean(data.is_admin),
+  };
+}
+
 export async function middleware(request: NextRequest) {
-  const { response, user } = await updateSession(request);
+  const { response, supabase, user } = await updateSession(request);
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/api")) {
     return response;
   }
 
-  if (isProtectedPath(pathname) && !user) {
+  // Troca OAuth precisa rodar sem bloqueio de status (cookies da sessão).
+  if (pathname === "/callback" || pathname.startsWith("/callback/")) {
+    return response;
+  }
+
+  if (requiresAuth(pathname) && !user) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     loginUrl.searchParams.set("next", pathname);
@@ -50,21 +114,91 @@ export async function middleware(request: NextRequest) {
     return redirectResponse;
   }
 
-  if (pathname === "/login" && user) {
+  if (!user || !supabase) {
+    return response;
+  }
+
+  const access = await fetchPerfilAccess(supabase, user.id);
+  const isAdmin = access?.is_admin ?? false;
+  const rawStatus =
+    typeof access?.status === "string" ? access.status.trim() : "";
+  const normalizedStatus = rawStatus || "pendente";
+  // Admin deve entrar mesmo se só `is_admin` foi atualizado no SQL e `status` ficou pendente.
+  const effectiveStatus = isAdmin && access ? "aprovado" : normalizedStatus;
+
+  // Landing: usuário logado segue o mesmo status que o restante do app.
+  if (pathname === "/") {
+    if (effectiveStatus === "rejeitado") {
+      return redirectWithSessionCookies(request, response, "/acesso-negado");
+    }
+    if (effectiveStatus === "pendente") {
+      return redirectWithSessionCookies(
+        request,
+        response,
+        "/aguardando-aprovacao",
+      );
+    }
+    return response;
+  }
+
+  if (pathname === "/login") {
+    if (effectiveStatus === "rejeitado") {
+      return redirectWithSessionCookies(request, response, "/acesso-negado");
+    }
+    if (effectiveStatus === "pendente") {
+      return redirectWithSessionCookies(
+        request,
+        response,
+        "/aguardando-aprovacao",
+      );
+    }
+
     const nextParam = request.nextUrl.searchParams.get("next");
     let destination =
-      nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//")
-        ? nextParam
-        : "/dashboard";
+      nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ?
+        nextParam
+      : "/dashboard";
     if (destination === "/login") {
       destination = "/dashboard";
     }
+
     const destUrl = request.nextUrl.clone();
     destUrl.pathname = destination;
     destUrl.searchParams.delete("next");
     const redirectResponse = NextResponse.redirect(destUrl);
     forwardAuthCookies(response, redirectResponse);
     return redirectResponse;
+  }
+
+  if (effectiveStatus === "rejeitado") {
+    if (pathname === "/acesso-negado") {
+      return response;
+    }
+    return redirectWithSessionCookies(request, response, "/acesso-negado");
+  }
+
+  if (effectiveStatus === "pendente") {
+    if (pathname === "/aguardando-aprovacao") {
+      return response;
+    }
+    return redirectWithSessionCookies(
+      request,
+      response,
+      "/aguardando-aprovacao",
+    );
+  }
+
+  if (
+    pathname === "/aguardando-aprovacao" ||
+    pathname === "/acesso-negado"
+  ) {
+    return redirectWithSessionCookies(request, response, "/dashboard");
+  }
+
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    if (!isAdmin) {
+      return redirectWithSessionCookies(request, response, "/dashboard");
+    }
   }
 
   return response;

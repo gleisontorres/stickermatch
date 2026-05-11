@@ -20,15 +20,17 @@ export default async function AuthenticatedLayout({
   let perfilNome = "";
   let perfilEmail = "";
   let perfilAvatar = "";
+  let perfilIsAdmin = false;
   if (user) {
     const { data: perfil } = await supabase
       .from("perfis")
-      .select("nome, email, avatar_url")
+      .select("nome, email, avatar_url, is_admin")
       .eq("id", user.id)
       .maybeSingle();
     perfilNome = perfil?.nome?.trim() ?? "";
     perfilEmail = perfil?.email?.trim() ?? "";
     perfilAvatar = perfil?.avatar_url?.trim() ?? "";
+    perfilIsAdmin = Boolean(perfil?.is_admin);
   }
 
   const displayName =
@@ -42,7 +44,12 @@ export default async function AuthenticatedLayout({
 
   const avatarUrl = perfilAvatar || metaAvatar;
 
-  const userNav = { displayName, email, avatarUrl };
+  const userNav = {
+    displayName,
+    email,
+    avatarUrl,
+    isAdmin: perfilIsAdmin,
+  };
 
   return (
     <div className="bg-background min-h-screen">

@@ -1,5 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
-import type { User } from "@supabase/supabase-js";
+import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
 
 import {
@@ -9,6 +9,7 @@ import {
 
 export type UpdateSessionResult = {
   response: NextResponse;
+  supabase: SupabaseClient | null;
   user: User | null;
 };
 
@@ -22,6 +23,7 @@ export async function updateSession(
   if (!hasSupabasePublicEnv()) {
     return {
       response: NextResponse.next({ request }),
+      supabase: null,
       user: null,
     };
   }
@@ -49,5 +51,5 @@ export async function updateSession(
     data: { user },
   } = await supabase.auth.getUser();
 
-  return { response, user };
+  return { response, supabase, user };
 }
