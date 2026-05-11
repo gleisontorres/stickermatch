@@ -215,7 +215,7 @@ Página simples explicando o projeto e botão grande "Entrar com Google". Após 
 - Acesso rápido pro chat da IA
 
 ### 3. Álbum (visualização completa)
-- Grid responsivo agrupado por seleção (sanfonas/accordion por seleção)
+- Grid responsivo agrupado por seleção (sanfonas/accordion por oes)
 - Cada figurinha mostra: número, nome, e um seletor de quantidade (`-` `0` `+`)
 - Clicar em `+` ou `-` faz upsert na tabela `colecao` em tempo real (otimistic UI)
 - Filtros: "só faltas", "só repetidas", "só tenho", busca por nome
