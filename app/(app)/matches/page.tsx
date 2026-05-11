@@ -14,7 +14,20 @@ export default async function MatchesPage() {
     redirect("/login?next=/matches");
   }
 
-  const entries = await fetchMatchPartnerEntries(supabase, user.id);
+  const [{ data: meuPerfil }, entries] = await Promise.all([
+    supabase
+      .from("perfis")
+      .select("latitude, longitude")
+      .eq("id", user.id)
+      .maybeSingle(),
+    fetchMatchPartnerEntries(supabase, user.id),
+  ]);
+
+  const viewerHasLocation =
+    meuPerfil?.latitude != null &&
+    meuPerfil?.longitude != null &&
+    Number.isFinite(meuPerfil.latitude) &&
+    Number.isFinite(meuPerfil.longitude);
 
   return (
     <div className="p-4 pb-12 md:p-6">
@@ -26,7 +39,10 @@ export default async function MatchesPage() {
             aparecem primeiro.
           </p>
         </header>
-        <MatchesGroupedList entries={entries} />
+        <MatchesGroupedList
+          entries={entries}
+          viewerHasLocation={viewerHasLocation}
+        />
       </div>
     </div>
   );
