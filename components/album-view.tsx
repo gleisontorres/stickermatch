@@ -1074,6 +1074,35 @@ export function AlbumView({
                               </DropdownMenu>
                             </span>
                           </span>
+
+                          {(() => {
+                            const total = items.length;
+                            const tendo = items.filter(
+                              (f) => (quantities[f.id] ?? 0) >= 1,
+                            ).length;
+                            if (tendo === 0) return null;
+                            const pct = (tendo / total) * 100;
+                            const accentHex =
+                              tendo === total ? "#10b981" : grupoCor;
+                            return (
+                              <div className="px-4 pb-2 pt-1">
+                                <div className="mb-1 flex items-center justify-between">
+                                  <span className="text-muted-foreground text-xs">
+                                    {tendo}/{total} figurinhas
+                                  </span>
+                                </div>
+                                <div className="bg-muted h-1 w-full overflow-hidden rounded-full">
+                                  <div
+                                    className="h-1 rounded-full transition-all duration-300"
+                                    style={{
+                                      width: `${pct}%`,
+                                      backgroundColor: accentHex,
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })()}
                         </summary>
                         <div className="border-border grid gap-2 border-t p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                           {items.map((f) => (
