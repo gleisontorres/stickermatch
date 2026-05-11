@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MoreVertical } from "lucide-react";
+import { ChevronDown, ChevronRight, MoreVertical } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -29,6 +29,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  copaBucketForFigurinha,
+  copaGroupAccentHex,
+  copaSectionLabel,
+  ESPECIAIS_BUCKET,
+  GRUPOS_ORDEM,
+} from "@/lib/album/copa-groups";
 import { albumGroupTitle } from "@/lib/album/group-title";
 import {
   chunkedColecaoDelete,
@@ -54,6 +61,31 @@ function minNumero(items: Figurinha[]): number {
   return Math.min(...items.map((i) => i.numero ?? 999999));
 }
 
+/** Agrupa figurinhas filtradas por seleção (acordeão interno), mesma regra do álbum antes do agrupamento por grupo da Copa. */
+function buildSelectionGroups(items: Figurinha[]): [string, Figurinha[]][] {
+  const map = new Map<string, Figurinha[]>();
+  for (const f of items) {
+    const key = albumGroupTitle(f);
+    const list = map.get(key) ?? [];
+    list.push(f);
+    map.set(key, list);
+  }
+  for (const [, list] of map) {
+    list.sort((a, b) => (a.numero ?? 0) - (b.numero ?? 0));
+  }
+  return [...map.entries()].sort((a, b) => {
+    if (a[0] === "Especiais") return 1;
+    if (b[0] === "Especiais") return -1;
+    return minNumero(a[1]) - minNumero(b[1]);
+  });
+}
+
+interface CopaAlbumSection {
+  copaKey: string;
+  headerTitle: string;
+  selections: [string, Figurinha[]][];
+}
+
 /**
  * Álbum completo: filtros, busca, acordeão e ações em massa.
  */
@@ -67,6 +99,7 @@ export function AlbumView({
   const qtyRef = useRef<Record<string, number>>(initialQuantities);
   const [filterMode, setFilterMode] = useState<AlbumFilterMode>("all");
   const [search, setSearch] = useState("");
+  const [openCopaGroups, setOpenCopaGroups] = useState<string[]>([]);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [busyGroupTitle, setBusyGroupTitle] = useState<string | null>(null);
@@ -616,24 +649,104 @@ export function AlbumView({
     });
   }, [figurinhas, quantities, search, filterMode]);
 
-  const grouped = useMemo(() => {
-    const map = new Map<string, Figurinha[]>();
+  const groupedByCopa = useMemo((): CopaAlbumSection[] => {
+    const byBucket = new Map<string, Figurinha[]>();
     for (const f of filteredFigurinhas) {
-      const key = albumGroupTitle(f);
-      const list = map.get(key) ?? [];
+      const bucket = copaBucketForFigurinha(f);
+      const list = byBucket.get(bucket) ?? [];
       list.push(f);
-      map.set(key, list);
+      byBucket.set(bucket, list);
     }
-    for (const [, list] of map) {
-      list.sort((a, b) => (a.numero ?? 0) - (b.numero ?? 0));
+
+    const sections: CopaAlbumSection[] = [];
+    for (const letter of GRUPOS_ORDEM) {
+      const items = byBucket.get(letter);
+      if (items && items.length > 0) {
+        sections.push({
+          copaKey: letter,
+          headerTitle: copaSectionLabel(letter),
+          selections: buildSelectionGroups(items),
+        });
+      }
     }
-    const entries = [...map.entries()].sort((a, b) => {
-      if (a[0] === "Especiais") return 1;
-      if (b[0] === "Especiais") return -1;
-      return minNumero(a[1]) - minNumero(b[1]);
-    });
-    return entries;
+
+    const espItems = byBucket.get(ESPECIAIS_BUCKET);
+    if (espItems && espItems.length > 0) {
+      sections.push({
+        copaKey: ESPECIAIS_BUCKET,
+        headerTitle: copaSectionLabel(ESPECIAIS_BUCKET),
+        selections: buildSelectionGroups(espItems),
+      });
+    }
+
+    return sections;
   }, [filteredFigurinhas]);
+
+  const visibleCopaKeyList = useMemo(
+    () => groupedByCopa.map((s) => s.copaKey),
+    [groupedByCopa],
+  );
+
+  const statsByCopa = useMemo(() => {
+    const map = new Map<string, { total: number; owned: number }>();
+    for (const f of figurinhas) {
+      const k = copaBucketForFigurinha(f);
+      const cur = map.get(k) ?? { total: 0, owned: 0 };
+      cur.total += 1;
+      if ((quantities[f.id] ?? 0) >= 1) {
+        cur.owned += 1;
+      }
+      map.set(k, cur);
+    }
+    return map;
+  }, [figurinhas, quantities]);
+
+  const filterSignature = `${filterMode}|${search.trim()}`;
+  const visibleCopaKeysRef = useRef(visibleCopaKeyList);
+  visibleCopaKeysRef.current = visibleCopaKeyList;
+  const prevFilterSignatureRef = useRef(filterSignature);
+  const prevNarrowFilterRef = useRef(false);
+
+  useEffect(() => {
+    const narrow = search.trim() !== "" || filterMode !== "all";
+
+    if (!narrow) {
+      if (prevNarrowFilterRef.current) {
+        setOpenCopaGroups([]);
+      }
+      prevNarrowFilterRef.current = false;
+      prevFilterSignatureRef.current = filterSignature;
+      return;
+    }
+
+    prevNarrowFilterRef.current = true;
+
+    if (prevFilterSignatureRef.current !== filterSignature) {
+      prevFilterSignatureRef.current = filterSignature;
+      setOpenCopaGroups(visibleCopaKeysRef.current);
+    } else {
+      setOpenCopaGroups((prev) =>
+        prev.filter((k) => visibleCopaKeysRef.current.includes(k)),
+      );
+    }
+  }, [filterSignature, visibleCopaKeyList, filterMode, search]);
+
+  const isNarrowFilter = search.trim() !== "" || filterMode !== "all";
+
+  const toggleCopaGroup = useCallback(
+    (key: string) => {
+      if (isNarrowFilter) {
+        setOpenCopaGroups((prev) =>
+          prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+        );
+      } else {
+        setOpenCopaGroups((prev) =>
+          prev.length === 1 && prev[0] === key ? [] : [key],
+        );
+      }
+    },
+    [isNarrowFilter],
+  );
 
   const filterButtons: { mode: AlbumFilterMode; label: string }[] = [
     { mode: "all", label: "Todas" },
@@ -797,116 +910,197 @@ export function AlbumView({
         de {figurinhas.length} figurinhas
       </p>
 
-      {grouped.length === 0 ?
+      {groupedByCopa.length === 0 ?
         <p className="text-muted-foreground py-12 text-center text-sm">
           Nenhuma figurinha neste filtro. Ajuste a busca ou os filtros acima.
         </p>
       : (
-        <div className="flex flex-col gap-4">
-          {grouped.map(([title, items]) => (
-            <details key={title} className="group border-border rounded-xl border">
-              <summary
-                className={cn(
-                  "cursor-pointer list-none px-4 py-3 font-medium outline-none",
-                  "[&::-webkit-details-marker]:hidden",
-                )}
+        <div className="flex flex-col gap-3">
+          {groupedByCopa.map((section) => {
+            const isOpen = openCopaGroups.includes(section.copaKey);
+            const selectionCount = section.selections.length;
+            const copaStats = statsByCopa.get(section.copaKey);
+            const showProgress =
+              copaStats !== undefined &&
+              copaStats.owned >= 1 &&
+              copaStats.total > 0;
+            const progressPct = showProgress ?
+              (copaStats.owned / copaStats.total) * 100
+            : 0;
+            const grupoCor = copaGroupAccentHex(section.copaKey);
+
+            return (
+              <div
+                key={section.copaKey}
+                className="border-border overflow-hidden rounded-xl border"
               >
-                <span className="flex items-center justify-between gap-2">
-                  <span className="min-w-0">{title}</span>
-                  <span className="flex shrink-0 items-center gap-2">
-                    {busyGroupTitle === title ?
-                      <span
-                        className="border-primary inline-block size-4 animate-spin rounded-full border-2 border-t-transparent"
-                        aria-hidden
-                      />
-                    : null}
-                    <span className="text-muted-foreground text-xs font-normal whitespace-nowrap">
-                      {items.length} figurinha{items.length === 1 ? "" : "s"}
-                    </span>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon-sm"
-                          className="text-muted-foreground hover:text-foreground shrink-0"
-                          disabled={
-                            busyGroupTitle === title ||
-                            quickPrepLoading ||
-                            globalBusy
-                          }
-                          aria-label={`Ações em massa da seleção ${title}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                          }}
-                          onPointerDown={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          <MoreVertical className="size-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent
-                        align="end"
-                        className="w-56"
-                        onCloseAutoFocus={(e) => e.preventDefault()}
-                      >
-                        <DropdownMenuItem
-                          disabled={busyGroupTitle === title || globalBusy}
-                          onSelect={(e) => {
-                            e.preventDefault();
-                            void onSelectionMarkHave1(title);
-                          }}
-                        >
-                          ✅ Marcar todas como &quot;tenho 1&quot;
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                          disabled={busyGroupTitle === title || globalBusy}
-                          onSelect={(e) => {
-                            e.preventDefault();
-                            onSelectionMarkFaltaRequest(title);
-                          }}
-                        >
-                          ❌ Marcar todas como faltas (0)
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          disabled={busyGroupTitle === title || globalBusy}
-                          className="text-destructive focus:bg-destructive/10 focus:text-destructive"
-                          onSelect={(e) => {
-                            e.preventDefault();
-                            onSelectionResetRequest(title);
-                          }}
-                        >
-                          🗑️ Resetar seleção
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                <button
+                  type="button"
+                  className={cn(
+                    "flex w-full items-start gap-3 px-4 py-3 text-left outline-none transition-[filter]",
+                    "hover:brightness-[0.98] dark:hover:brightness-[1.04]",
+                    "focus-visible:ring-ring focus-visible:ring-2",
+                  )}
+                  style={{
+                    borderLeft: `4px solid ${grupoCor}`,
+                    background: `linear-gradient(to right, ${grupoCor}14, transparent)`,
+                  }}
+                  onClick={() => toggleCopaGroup(section.copaKey)}
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-muted-foreground mt-0.5 shrink-0" aria-hidden>
+                    {isOpen ?
+                      <ChevronDown className="size-5" />
+                    : <ChevronRight className="size-5" />}
                   </span>
-                </span>
-              </summary>
-              <div className="border-border grid gap-2 border-t p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {items.map((f) => (
-                  <FigurinhaCard
-                    key={f.id}
-                    figurinha={f}
-                    quantidade={quantities[f.id] ?? 0}
-                    disabled={
-                      busyId === f.id ||
-                      quickPrepLoading ||
-                      globalBusy ||
-                      (busyGroupTitle !== null &&
-                        albumGroupTitle(f) === busyGroupTitle)
-                    }
-                    quickTapMode={quickRegistrationMode}
-                    onQuickTap={() => handleQuickTap(f.id)}
-                    onQuantidadeChange={handleQtyChange}
-                  />
-                ))}
+                  <span className="min-w-0 flex-1 space-y-1.5">
+                    <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                      <span className="font-semibold">{section.headerTitle}</span>
+                      <span className="text-muted-foreground text-sm">
+                        {selectionCount}{" "}
+                        {selectionCount === 1 ? "seleção" : "seleções"}
+                      </span>
+                    </span>
+                    {showProgress ?
+                      <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span className="text-muted-foreground text-xs tabular-nums">
+                          {copaStats.owned}/{copaStats.total} figurinhas
+                        </span>
+                        <span
+                          className="bg-muted/80 inline-flex h-1.5 w-20 max-w-[40%] overflow-hidden rounded-full sm:w-24"
+                          role="progressbar"
+                          aria-valuenow={copaStats.owned}
+                          aria-valuemin={0}
+                          aria-valuemax={copaStats.total}
+                          aria-label={`Figurinhas no ${section.headerTitle}: ${copaStats.owned} de ${copaStats.total}`}
+                        >
+                          <span
+                            className="h-full rounded-full transition-all duration-300"
+                            style={{
+                              width: `${progressPct}%`,
+                              backgroundColor: grupoCor,
+                            }}
+                          />
+                        </span>
+                      </span>
+                    : null}
+                  </span>
+                </button>
+
+                {isOpen ?
+                  <div className="border-border flex flex-col gap-3 border-t px-2 py-3 sm:px-3">
+                    {section.selections.map(([title, items]) => (
+                      <details
+                        key={`${section.copaKey}-${title}`}
+                        className="group border-border rounded-xl border"
+                      >
+                        <summary
+                          className={cn(
+                            "cursor-pointer list-none px-4 py-3 font-medium outline-none",
+                            "[&::-webkit-details-marker]:hidden",
+                          )}
+                        >
+                          <span className="flex items-center justify-between gap-2">
+                            <span className="min-w-0">{title}</span>
+                            <span className="flex shrink-0 items-center gap-2">
+                              {busyGroupTitle === title ?
+                                <span
+                                  className="border-primary inline-block size-4 animate-spin rounded-full border-2 border-t-transparent"
+                                  aria-hidden
+                                />
+                              : null}
+                              <span className="text-muted-foreground text-xs font-normal whitespace-nowrap">
+                                {items.length} figurinha{items.length === 1 ? "" : "s"}
+                              </span>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon-sm"
+                                    className="text-muted-foreground hover:text-foreground shrink-0"
+                                    disabled={
+                                      busyGroupTitle === title ||
+                                      quickPrepLoading ||
+                                      globalBusy
+                                    }
+                                    aria-label={`Ações em massa da seleção ${title}`}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                    }}
+                                    onPointerDown={(e) => {
+                                      e.stopPropagation();
+                                    }}
+                                  >
+                                    <MoreVertical className="size-4" />
+                                  </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent
+                                  align="end"
+                                  className="w-56"
+                                  onCloseAutoFocus={(e) => e.preventDefault()}
+                                >
+                                  <DropdownMenuItem
+                                    disabled={busyGroupTitle === title || globalBusy}
+                                    onSelect={(e) => {
+                                      e.preventDefault();
+                                      void onSelectionMarkHave1(title);
+                                    }}
+                                  >
+                                    ✅ Marcar todas como &quot;tenho 1&quot;
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    disabled={busyGroupTitle === title || globalBusy}
+                                    onSelect={(e) => {
+                                      e.preventDefault();
+                                      onSelectionMarkFaltaRequest(title);
+                                    }}
+                                  >
+                                    ❌ Marcar todas como faltas (0)
+                                  </DropdownMenuItem>
+                                  <DropdownMenuSeparator />
+                                  <DropdownMenuItem
+                                    disabled={busyGroupTitle === title || globalBusy}
+                                    className="text-destructive focus:bg-destructive/10 focus:text-destructive"
+                                    onSelect={(e) => {
+                                      e.preventDefault();
+                                      onSelectionResetRequest(title);
+                                    }}
+                                  >
+                                    🗑️ Resetar seleção
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
+                            </span>
+                          </span>
+                        </summary>
+                        <div className="border-border grid gap-2 border-t p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                          {items.map((f) => (
+                            <FigurinhaCard
+                              key={f.id}
+                              figurinha={f}
+                              quantidade={quantities[f.id] ?? 0}
+                              disabled={
+                                busyId === f.id ||
+                                quickPrepLoading ||
+                                globalBusy ||
+                                (busyGroupTitle !== null &&
+                                  albumGroupTitle(f) === busyGroupTitle)
+                              }
+                              quickTapMode={quickRegistrationMode}
+                              onQuickTap={() => handleQuickTap(f.id)}
+                              onQuantidadeChange={handleQtyChange}
+                            />
+                          ))}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                : null}
               </div>
-            </details>
-          ))}
+            );
+          })}
         </div>
       )}
 
