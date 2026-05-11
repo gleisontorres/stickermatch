@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   MessageCircle,
   PackagePlus,
+  Settings,
   Ticket,
 } from "lucide-react";
 import Link from "next/link";
@@ -114,6 +115,22 @@ export function Sidebar({ user, className }: SidebarProps) {
             </div>
           </div>
         ))}
+
+        {user.isAdmin ?
+          <>
+            <p className="text-muted-foreground mb-2 mt-4 px-3 text-xs font-medium tracking-wide uppercase">
+              Admin
+            </p>
+            <div className="flex flex-col gap-0.5">
+              <SidebarNavItem
+                href="/admin"
+                label="Painel Admin"
+                icon={Settings}
+                ariaLabel="Painel administrativo"
+              />
+            </div>
+          </>
+        : null}
       </nav>
 
       <div className="border-border mt-auto shrink-0 border-t">

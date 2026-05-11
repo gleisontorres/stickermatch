@@ -6,6 +6,7 @@ import {
   LogOut,
   Monitor,
   Moon,
+  Settings,
   Sun,
   User,
 } from "lucide-react";
@@ -28,6 +29,8 @@ export interface UserMenuUser {
   displayName: string;
   email: string;
   avatarUrl: string;
+  /** Quando verdadeiro, exibe atalho para o painel `/admin`. */
+  isAdmin?: boolean;
 }
 
 interface UserMenuProps {
@@ -162,6 +165,21 @@ export function UserMenu({ user, variant, className }: UserMenuProps) {
             Ver perfil
           </Link>
         </DropdownMenuItem>
+
+        {user.isAdmin ?
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link
+                href="/admin"
+                className="flex cursor-pointer items-center gap-2"
+              >
+                <Settings className="size-4 shrink-0 opacity-80" aria-hidden />
+                Painel Admin
+              </Link>
+            </DropdownMenuItem>
+          </>
+        : null}
 
         <DropdownMenuSeparator />
 
