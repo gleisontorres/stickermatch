@@ -19,7 +19,75 @@ export const GRUPOS_ORDEM = [
 /** Chave da seção externa para especiais e itens fora de A–L. */
 export const ESPECIAIS_BUCKET = "Especiais";
 
-/** Cor de destaque por grupo (hex) — usar com `style` para não depender de classes Tailwind dinâmicas. */
+/** Slug do pacote lipis/flag-icons (flags/4x3/{slug}.svg) por `selecao_codigo` do catálogo. FWC omitido. */
+export const SELECAO_CODIGO_FLAG_SLUG: Record<string, string> = {
+  ALG: "dz",
+  ARG: "ar",
+  AUS: "au",
+  AUT: "at",
+  BEL: "be",
+  BIH: "ba",
+  BRA: "br",
+  CAN: "ca",
+  CIV: "ci",
+  COD: "cd",
+  COL: "co",
+  CPV: "cv",
+  CRO: "hr",
+  CUW: "cw",
+  CZE: "cz",
+  ECU: "ec",
+  EGY: "eg",
+  ENG: "gb-eng",
+  ESP: "es",
+  FRA: "fr",
+  GER: "de",
+  GHA: "gh",
+  HAI: "ht",
+  IRN: "ir",
+  IRQ: "iq",
+  JOR: "jo",
+  JPN: "jp",
+  KOR: "kr",
+  KSA: "sa",
+  MAR: "ma",
+  MEX: "mx",
+  NED: "nl",
+  NOR: "no",
+  NZL: "nz",
+  PAN: "pa",
+  PAR: "py",
+  POR: "pt",
+  QAT: "qa",
+  RSA: "za",
+  /** Alias legado se algum registro tiver ISO2 em vez do código Panini. */
+  ZA: "za",
+  SCO: "gb-sct",
+  SEN: "sn",
+  SUI: "ch",
+  SWE: "se",
+  TUN: "tn",
+  TUR: "tr",
+  URU: "uy",
+  USA: "us",
+  UZB: "uz",
+};
+
+const FLAG_ICONS_BASE =
+  "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3";
+
+/**
+ * URL do SVG da bandeira (flag-icons) para `selecao_codigo`, ou null se não houver (ex.: FWC).
+ */
+export function flagIconSrcForSelecaoCodigo(
+  selecaoCodigo: string | null | undefined,
+): string | null {
+  const key = (selecaoCodigo ?? "").trim().toUpperCase();
+  if (!key) return null;
+  const slug = SELECAO_CODIGO_FLAG_SLUG[key];
+  if (!slug) return null;
+  return `${FLAG_ICONS_BASE}/${slug}.svg`;
+}
 export const GRUPO_CORES: Record<string, string> = {
   A: "#10b981",
   B: "#3b82f6",
