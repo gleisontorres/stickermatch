@@ -34,6 +34,7 @@ import {
   copaGroupAccentHex,
   copaSectionLabel,
   ESPECIAIS_BUCKET,
+  flagIconSrcForSelecaoCodigo,
   GRUPOS_ORDEM,
 } from "@/lib/album/copa-groups";
 import { albumGroupTitle } from "@/lib/album/group-title";
@@ -928,6 +929,28 @@ export function AlbumView({
               (copaStats.owned / copaStats.total) * 100
             : 0;
             const grupoCor = copaGroupAccentHex(section.copaKey);
+            const bandeiraImagens = section.selections
+              .map(([title, items]) => {
+                const codigo = items[0]?.selecao_codigo ?? "";
+                const src = flagIconSrcForSelecaoCodigo(codigo);
+                if (!src) return null;
+                return (
+                  // Bandeiras via SVG (flag-icons): emojis de bandeira viram "MX ZA KR" no Windows.
+                  // eslint-disable-next-line @next/next/no-img-element -- asset externo versionado no jsDelivr
+                  <img
+                    key={`${section.copaKey}-${codigo}-${title}`}
+                    src={src}
+                    alt=""
+                    title={title}
+                    width={28}
+                    height={21}
+                    loading="lazy"
+                    decoding="async"
+                    className="inline-block h-[1.125rem] w-auto shrink-0 rounded-sm object-cover shadow-sm ring-1 ring-black/10 dark:ring-white/15"
+                  />
+                );
+              })
+              .filter(Boolean);
 
             return (
               <div
@@ -961,6 +984,11 @@ export function AlbumView({
                         {selectionCount === 1 ? "seleção" : "seleções"}
                       </span>
                     </span>
+                    {bandeiraImagens.length > 0 ?
+                      <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
+                        {bandeiraImagens}
+                      </div>
+                    : null}
                     {showProgress ?
                       <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         <span className="text-muted-foreground text-xs tabular-nums">
