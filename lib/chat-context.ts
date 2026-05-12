@@ -65,6 +65,21 @@ export async function buildChatDataBlock(
   const aggregates = computeColecaoAggregates(catalogIds, qtyByFigurinhaId);
   const nomePorFig = new Map(figurinhasRows.map((r) => [r.id, r.nome]));
 
+  const repetidasUsuario = figurinhasRows
+    .filter((f) => (qtyByFigurinhaId.get(f.id) ?? 0) > 1)
+    .map((f) => ({
+      id: f.id,
+      nome: f.nome,
+      q: qtyByFigurinhaId.get(f.id) ?? 0,
+    }));
+
+  const blocoRepetidasUsuario =
+    repetidasUsuario.length === 0 ?
+      "_Nenhuma figurinha com quantidade > 1._"
+    : repetidasUsuario
+        .map((r) => `${r.q}× ${r.nome} (${r.id})`)
+        .join("\n");
+
   const colecaoCompact = figurinhasRows.map((f) => ({
     id: f.id,
     nome: f.nome,
@@ -140,6 +155,11 @@ export async function buildChatDataBlock(
   return [
     "### Perfil do usuário autenticado",
     JSON.stringify(payloadResumo),
+    "",
+    "### Repetidas do usuário (lista fechada — obedeça ao listar repetidas)",
+    `Tipos com quantidade > 1 no cadastro: **${repetidasUsuario.length}** (igual a metricas.repetidasTypes).`,
+    blocoRepetidasUsuario,
+    "Cada linha acima deve aparecer na sua resposta quando o usuário pedir repetidas (nomes e ids como estão); não omita linhas nem substitua por resumos.",
     "",
     "### Coleção no catálogo (uma linha JSON por figurinha: id, nome, selecao, tipo, q)",
     "Use `q` como quantidade cadastrada (0 = falta).",
