@@ -9,7 +9,7 @@ export interface Figurinha {
   selecao: string | null;
   selecao_codigo: string | null;
   grupo: string | null;
-  tipo: "jogador" | "logo" | "especial";
+  tipo: "jogador" | "logo" | "especial" | "selecao";
   posicao: string | null;
   imagem_url: string | null;
 }

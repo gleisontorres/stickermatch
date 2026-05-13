@@ -7,7 +7,12 @@
 import { readFileSync, existsSync } from "fs";
 import path from "path";
 
-const VALID_TIPOS = new Set<string>(["jogador", "logo", "especial"]);
+const VALID_TIPOS = new Set<string>([
+  "jogador",
+  "logo",
+  "especial",
+  "selecao",
+]);
 
 /** Entrada bruta do catálogo JSON (inclui `todo`, ignorado no payload do banco). */
 interface FigurinhaJson {
@@ -31,7 +36,7 @@ interface FigurinhaRow {
   selecao: string | null;
   selecao_codigo: string | null;
   grupo: string | null;
-  tipo: "jogador" | "logo" | "especial";
+  tipo: "jogador" | "logo" | "especial" | "selecao";
   posicao: string | null;
   imagem_url: string | null;
 }
@@ -123,6 +128,35 @@ async function upsertFigurinhasBatch(
 }
 
 /**
+ * Conta linhas na tabela via PostgREST (`Prefer: count=exact`).
+ */
+async function countFigurinhasRows(
+  supabaseUrl: string,
+  serviceRoleKey: string,
+): Promise<number> {
+  const base = supabaseUrl.replace(/\/+$/, "");
+  const res = await fetch(`${base}/rest/v1/figurinhas?select=id`, {
+    headers: {
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      Prefer: "count=exact",
+      Range: "0-0",
+    },
+  });
+
+  const range = res.headers.get("content-range");
+  if (!range) {
+    throw new Error("Resposta sem Content-Range ao contar figurinhas.");
+  }
+  const parts = range.split("/");
+  const totalStr = parts.length >= 2 ? parts[1] : "";
+  if (!totalStr || totalStr === "*") {
+    throw new Error(`Content-Range inesperado: ${range}`);
+  }
+  return Number.parseInt(totalStr, 10);
+}
+
+/**
  * Carrega `data/figurinhas.json` e faz upsert na tabela `figurinhas` com service role.
  */
 async function main(): Promise<void> {
@@ -172,6 +206,13 @@ async function main(): Promise<void> {
         hint =
           " Rode antes o SQL em supabase/migrations/002_add_grupo.sql no SQL Editor (coluna grupo + índice).";
       }
+      if (
+        msg.includes("figurinhas_tipo_check") ||
+        msg.includes("violates check constraint")
+      ) {
+        hint =
+          " Rode supabase/migrations/007_figurinha_tipo_selecao.sql no SQL Editor (tipo selecao).";
+      }
       throw new Error(
         `Upsert falhou no lote ${i}-${i + batch.length}: ${msg}.${hint}`,
       );
@@ -180,7 +221,12 @@ async function main(): Promise<void> {
     console.log(`Seed: ${processed}/${rows.length} figurinhas sincronizadas.`);
   }
 
-  console.log(`Concluído. Total: ${rows.length} registros (idempotente por upsert em id).`);
+  console.log(
+    `Concluído. JSON: ${rows.length} registros enviados (upsert PostgREST ?on_conflict=id + Prefer: resolution=merge-duplicates).`,
+  );
+
+  const totalDb = await countFigurinhasRows(supabaseUrl, serviceRoleKey);
+  console.log(`Verificação no banco: tabela figurinhas tem ${totalDb} linha(s).`);
 }
 
 main().catch((err: unknown) => {
