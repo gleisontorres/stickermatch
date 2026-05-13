@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:migrate": "node scripts/run-initial-migration.cjs",
+    "migrate:sql": "node scripts/run-sql-migration.cjs",
     "seed": "tsx scripts/seed-figurinhas.ts",
     "generate-icons": "tsx scripts/generate-icons.ts"
   },
