@@ -71,7 +71,9 @@ export function FigurinhaCard({
       <div className="min-w-0 space-y-0.5">
         <div className="text-muted-foreground flex items-center justify-between gap-2 text-[11px] font-medium uppercase tracking-wide">
           <span>{numLabel}</span>
-          <span className="truncate normal-case">{figurinha.tipo}</span>
+          <span className="brand-badge-gradient max-w-[52%] truncate rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide normal-case">
+            {figurinha.tipo}
+          </span>
         </div>
         <h3 className="line-clamp-2 text-sm font-medium leading-snug">
           {figurinha.nome}

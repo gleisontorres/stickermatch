@@ -254,6 +254,7 @@ export function PacoteModeClient({
         <div className="mt-3 flex flex-wrap gap-2">
           <Button
             type="button"
+            variant="gradient"
             size="sm"
             disabled={busy || !draft.trim()}
             onClick={() => void submitCurrent()}

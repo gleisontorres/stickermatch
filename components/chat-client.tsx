@@ -153,12 +153,7 @@ export function ChatClient() {
           {loading ? (
             <div className="flex justify-start" aria-busy="true" aria-label="Gerando resposta">
               <div className="border-border bg-card max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-3 shadow-sm">
-                <div className="flex gap-1.5">
-                  <span className="bg-muted-foreground/50 size-2 animate-pulse rounded-full" />
-                  <span className="bg-muted-foreground/50 size-2 animate-pulse rounded-full delay-75" />
-                  <span className="bg-muted-foreground/50 size-2 animate-pulse rounded-full delay-150" />
-                </div>
-                <p className="text-muted-foreground mt-2 text-xs">
+                <p className="loading-gradient-text text-sm font-semibold">
                   Pensando…
                 </p>
               </div>
@@ -190,6 +185,7 @@ export function ChatClient() {
           </p>
           <Button
             type="button"
+            variant="gradient"
             disabled={loading || !draft.trim()}
             onClick={() => void send()}
           >

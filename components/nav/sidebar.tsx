@@ -84,7 +84,9 @@ export function Sidebar({ user, className }: SidebarProps) {
           aria-label="CollectHub — ir para o painel"
         >
           <Ticket className="text-primary size-8 shrink-0" aria-hidden />
-          <span>CollectHub</span>
+          <span className="brand-gradient-text font-bold text-lg leading-none">
+            CollectHub
+          </span>
         </Link>
       </div>
 

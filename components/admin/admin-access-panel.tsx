@@ -117,8 +117,8 @@ export function AdminAccessPanel({ initialPerfis }: AdminAccessPanelProps) {
         className={cn(
           "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
           selected ?
-            "border-primary bg-primary text-primary-foreground"
-          : "border-border bg-background hover:bg-muted/60 text-muted-foreground",
+            "border-transparent bg-[linear-gradient(135deg,#10b981,#f59e0b)] font-semibold text-[#0a0a0a] shadow-sm hover:brightness-[0.93]"
+          : "border-border bg-background text-muted-foreground hover:bg-muted/60",
         )}
       >
         {label}{" "}
@@ -199,10 +199,11 @@ export function AdminAccessPanel({ initialPerfis }: AdminAccessPanelProps) {
                     </div>
                   </div>
                   <div className="flex shrink-0 flex-wrap gap-2 sm:justify-end">
-                    <Button
-                      type="button"
-                      size="sm"
-                      className="gap-1"
+      <Button
+        type="button"
+        size="sm"
+        variant="gradient"
+        className="gap-1"
                       disabled={pendingId === row.id}
                       onClick={() =>
                         void setStatus(row.id, "aprovado", "Usuário aprovado.")

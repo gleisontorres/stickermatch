@@ -181,7 +181,7 @@ function ColecaoListRow({
       </div>
       {variant === "repetidas" ? (
         <span
-          className="bg-secondary/25 text-secondary-foreground shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold tabular-nums"
+          className="brand-badge-gradient shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold tabular-nums"
           title={`${row.quantidade} cópias`}
         >
           ×{row.quantidade}

@@ -43,6 +43,7 @@ import {
   chunkedColecaoUpsert,
 } from "@/lib/colecao/chunked-write";
 import type { AlbumFilterMode, Figurinha } from "@/lib/types";
+import { brandProgressBarStyle } from "@/lib/brand-progress";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
@@ -783,9 +784,15 @@ export function AlbumView({
           aria-busy="true"
           aria-label="Preparando álbum"
         >
-          <div className="border-primary size-10 animate-spin rounded-full border-2 border-t-transparent" />
-          <p className="max-w-sm text-center text-sm font-medium">
-            Preparando seu álbum… Isso leva alguns segundos.
+          <div
+            className="loading-spinner-gradient animate-spin"
+            aria-hidden
+          />
+          <p className="loading-gradient-text max-w-sm text-center text-base font-semibold">
+            Preparando seu álbum…
+          </p>
+          <p className="text-muted-foreground max-w-sm text-center text-xs">
+            Isso leva alguns segundos.
           </p>
           {bulkProgress ?
             <p className="text-muted-foreground text-xs">
@@ -1004,10 +1011,12 @@ export function AlbumView({
                         >
                           <span
                             className="h-full rounded-full transition-all duration-300"
-                            style={{
-                              width: `${progressPct}%`,
-                              backgroundColor: grupoCor,
-                            }}
+                            style={
+                              copaStats.total > 0 &&
+                              copaStats.owned >= copaStats.total
+                                ? brandProgressBarStyle(100)
+                                : brandProgressBarStyle(progressPct)
+                            }
                           />
                         </span>
                       </span>
@@ -1033,7 +1042,7 @@ export function AlbumView({
                             <span className="flex shrink-0 items-center gap-2">
                               {busyGroupTitle === title ?
                                 <span
-                                  className="border-primary inline-block size-4 animate-spin rounded-full border-2 border-t-transparent"
+                                  className="loading-spinner-gradient-sm inline-block animate-spin"
                                   aria-hidden
                                 />
                               : null}
@@ -1110,8 +1119,7 @@ export function AlbumView({
                             ).length;
                             if (tendo === 0) return null;
                             const pct = (tendo / total) * 100;
-                            const accentHex =
-                              tendo === total ? "#10b981" : grupoCor;
+                            const selComplete = tendo === total && total > 0;
                             return (
                               <div className="px-4 pb-2 pt-1">
                                 <div className="mb-1 flex items-center justify-between">
@@ -1122,10 +1130,11 @@ export function AlbumView({
                                 <div className="bg-muted h-1 w-full overflow-hidden rounded-full">
                                   <div
                                     className="h-1 rounded-full transition-all duration-300"
-                                    style={{
-                                      width: `${pct}%`,
-                                      backgroundColor: accentHex,
-                                    }}
+                                    style={
+                                      selComplete
+                                        ? brandProgressBarStyle(100)
+                                        : brandProgressBarStyle(pct)
+                                    }
                                   />
                                 </div>
                               </div>
@@ -1185,6 +1194,7 @@ export function AlbumView({
               : null}
               <Button
                 type="button"
+                variant="gradient"
                 size="sm"
                 className="w-full sm:w-auto"
                 disabled={globalBusy || quickPrepLoading}
@@ -1249,7 +1259,7 @@ export function AlbumView({
             <Button type="button" variant="outline" onClick={() => setQuickConfirmOpen(false)}>
               Cancelar
             </Button>
-            <Button type="button" onClick={() => void runQuickRegistrationPrep()}>
+            <Button type="button" variant="gradient" onClick={() => void runQuickRegistrationPrep()}>
               Confirmar
             </Button>
           </DialogFooter>
