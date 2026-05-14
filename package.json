@@ -13,7 +13,7 @@
     "db:migrate": "node scripts/run-initial-migration.cjs",
     "migrate:sql": "node scripts/run-sql-migration.cjs",
     "seed": "tsx scripts/seed-figurinhas.ts",
-    "generate-icons": "tsx scripts/generate-icons.ts"
+    "generate-icons": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
