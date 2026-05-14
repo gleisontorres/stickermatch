@@ -1,11 +1,28 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { computeColecaoAggregates } from "@/lib/colecao-stats";
+import { displayNameForAiPrompt } from "@/lib/display-name-for-ai-prompt";
 import { fetchMatchPartnerEntries } from "@/lib/fetch-match-partner-entries";
 import type { MatchPartnerEntry } from "@/lib/types";
 
 const MAX_MATCH_PARTNERS_IN_PROMPT = 35;
 const MAX_OTHERS_REPETIDAS_ROWS = 1200;
+
+/** Padrão UUID — redigido no texto enviado ao modelo. */
+const USER_UUID_IN_PROMPT =
+  /\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi;
+
+function waMeSuffix(raw: string | null | undefined): string {
+  const digits = raw?.replace(/\D/g, "") ?? "";
+  if (!digits) {
+    return "";
+  }
+  return ` · WhatsApp: https://wa.me/${digits}`;
+}
+
+function redactUserUuids(text: string): string {
+  return text.replace(USER_UUID_IN_PROMPT, "[id omitido]");
+}
 
 /**
  * Monta o bloco de dados injetados no system prompt do chat (tempo real).
@@ -89,20 +106,21 @@ export async function buildChatDataBlock(
   }));
 
   const perfil = perfilRes.data;
-  const nomeUsuario =
-    perfil?.nome?.trim() ||
-    perfil?.email?.trim() ||
-    "colecionador(a)";
+  const nomeUsuario = displayNameForAiPrompt(perfil?.nome, perfil?.email);
 
   const outrosRows = outrosRepRes.data ?? [];
   const outrosUserIds = [...new Set(outrosRows.map((r) => r.user_id))];
 
-  let outrosPerfisRows: { id: string; nome: string | null; email: string | null }[] =
-    [];
+  let outrosPerfisRows: {
+    id: string;
+    nome: string | null;
+    email: string | null;
+    whatsapp: string | null;
+  }[] = [];
   if (outrosUserIds.length > 0) {
     const { data: perfisBatch, error: perfisBatchError } = await supabase
       .from("perfis")
-      .select("id, nome, email")
+      .select("id, nome, email, whatsapp")
       .in("id", outrosUserIds);
 
     if (perfisBatchError) {
@@ -115,15 +133,20 @@ export async function buildChatDataBlock(
   const nomePorUsuario = new Map(
     outrosPerfisRows.map((p) => [
       p.id,
-      p.nome?.trim() || p.email?.trim() || p.id.slice(0, 8),
+      displayNameForAiPrompt(p.nome, p.email),
     ]),
+  );
+
+  const whatsappPorUsuarioId = new Map(
+    outrosPerfisRows.map((p) => [p.id, p.whatsapp?.trim() || null]),
   );
 
   const outrosLinhas = outrosRows.map((row) => {
     const nomeFig = nomePorFig.get(row.figurinha_id) ?? row.figurinha_id;
     const nomeUser =
-      nomePorUsuario.get(row.user_id) ?? `${row.user_id.slice(0, 8)}…`;
-    return `${nomeUser}\t${row.figurinha_id}\t${nomeFig}\tqty ${row.quantidade}`;
+      nomePorUsuario.get(row.user_id) ?? "Usuário desconhecido";
+    const wa = whatsappPorUsuarioId.get(row.user_id);
+    return `${nomeUser}${waMeSuffix(wa)}\t${row.figurinha_id}\t${nomeFig}\tqty ${row.quantidade}`;
   });
 
   const matchesSlice = matchEntries.slice(0, MAX_MATCH_PARTNERS_IN_PROMPT);
@@ -145,43 +168,44 @@ export async function buildChatDataBlock(
     .join("\n\n");
 
   const payloadResumo = {
-    usuarioId: uid,
     nomeExibicao: nomeUsuario,
     whatsappUsuario: perfil?.whatsapp ?? null,
     catalogoTotal: catalogIds.length,
     metricas: aggregates,
   };
 
-  return [
-    "### Perfil do usuário autenticado",
-    JSON.stringify(payloadResumo),
-    "",
-    "### Repetidas do usuário (lista fechada — obedeça ao listar repetidas)",
-    `Tipos com quantidade > 1 no cadastro: **${repetidasUsuario.length}** (igual a metricas.repetidasTypes).`,
-    blocoRepetidasUsuario,
-    "Cada linha acima deve aparecer na sua resposta quando o usuário pedir repetidas (nomes e ids como estão); não omita linhas nem substitua por resumos.",
-    "",
-    "### Coleção no catálogo (uma linha JSON por figurinha: id, nome, selecao, tipo, q)",
-    "Use `q` como quantidade cadastrada (0 = falta).",
-    JSON.stringify(colecaoCompact),
-    "",
-    "### Matches agregados (prioridade: mútuos primeiro; até "
-      + String(MAX_MATCH_PARTNERS_IN_PROMPT)
-      + " parceiros)",
-    matchEntries.length === 0 ?
-      "_Nenhum match na view ou falha ao carregar._"
-    : blocoMatches || "_Lista vazia._",
-    "",
-    "### Repetidas de outras pessoas (amostra até "
-      + String(MAX_OTHERS_REPETIDAS_ROWS)
-      + " linhas)",
-    "Formato por linha: NomeOuId\tFIG_ID\tNome figurinha\tqty N",
-    outrosLinhas.length ?
-      outrosLinhas.join("\n")
-    : "_Nenhuma repetida de outros usuários nesta amostra._",
-    "",
-    "### Notas",
-    `- Total de parceiros com match (lista completa truncada no prompt): ${matchEntries.length}.`,
-    `- Linhas de repetidas de terceiros neste bloco: ${outrosLinhas.length}.`,
-  ].join("\n");
+  return redactUserUuids(
+    [
+      "### Perfil do usuário autenticado",
+      JSON.stringify(payloadResumo),
+      "",
+      "### Repetidas do usuário (lista fechada — obedeça ao listar repetidas)",
+      `Tipos com quantidade > 1 no cadastro: **${repetidasUsuario.length}** (igual a metricas.repetidasTypes).`,
+      blocoRepetidasUsuario,
+      "Cada linha acima deve aparecer na sua resposta quando o usuário pedir repetidas (nomes e ids como estão); não omita linhas nem substitua por resumos.",
+      "",
+      "### Coleção no catálogo (uma linha JSON por figurinha: id, nome, selecao, tipo, q)",
+      "Use `q` como quantidade cadastrada (0 = falta).",
+      JSON.stringify(colecaoCompact),
+      "",
+      "### Matches agregados (prioridade: mútuos primeiro; até "
+        + String(MAX_MATCH_PARTNERS_IN_PROMPT)
+        + " parceiros)",
+      matchEntries.length === 0 ?
+        "_Nenhum match na view ou falha ao carregar._"
+      : blocoMatches || "_Lista vazia._",
+      "",
+      "### Repetidas de outras pessoas (amostra até "
+        + String(MAX_OTHERS_REPETIDAS_ROWS)
+        + " linhas)",
+      "Formato por linha: Nome [opcional WhatsApp wa.me]\tFIG_ID\tNome figurinha\tqty N",
+      outrosLinhas.length ?
+        outrosLinhas.join("\n")
+      : "_Nenhuma repetida de outros usuários nesta amostra._",
+      "",
+      "### Notas",
+      `- Total de parceiros com match (lista completa truncada no prompt): ${matchEntries.length}.`,
+      `- Linhas de repetidas de terceiros neste bloco: ${outrosLinhas.length}.`,
+    ].join("\n"),
+  );
 }

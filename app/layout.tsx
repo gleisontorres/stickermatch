@@ -26,8 +26,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "CollectHub",
-  description:
-    "Cadastre suas figurinhas, encontre matches de troca e complete sua coleção.",
+  description: "Troque colecionáveis com quem está perto de você.",
   metadataBase: new URL("https://collecthub.app"),
   manifest: "/manifest.json",
   openGraph: {
@@ -35,6 +34,22 @@ export const metadata: Metadata = {
     description: "Troque colecionáveis com quem está perto de você.",
     url: "https://collecthub.app",
     siteName: "CollectHub",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CollectHub — Trocas de colecionáveis",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CollectHub",
+    description: "Troque colecionáveis com quem está perto de você.",
+    images: ["/og-image.png"],
   },
   appleWebApp: {
     capable: true,

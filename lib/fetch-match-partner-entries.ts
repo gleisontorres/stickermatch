@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+import { displayNameForAiPrompt } from "@/lib/display-name-for-ai-prompt";
 import {
   buildPartnerMatches,
   type RawMatchRow,
@@ -105,10 +106,7 @@ export async function fetchMatchPartnerEntries(
 
   return aggregated.map((m) => {
     const perfil = perfilById.get(m.partnerId);
-    const displayName =
-      perfil?.nome?.trim() ||
-      perfil?.email?.trim() ||
-      `Usuário ${m.partnerId.slice(0, 8)}…`;
+    const displayName = displayNameForAiPrompt(perfil?.nome, perfil?.email);
 
     return {
       partnerId: m.partnerId,
