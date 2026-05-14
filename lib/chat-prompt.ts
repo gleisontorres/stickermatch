@@ -1,7 +1,7 @@
 /**
  * Texto fixo do system prompt + instruções de uso dos dados injetados.
  */
-export const CHAT_SYSTEM_PROMPT_BASE = `Você é o assistente do "Trocador de Figurinhas Copa 2026". Ajuda o usuário a gerenciar sua coleção e encontrar as melhores trocas com outros colecionadores.
+export const CHAT_SYSTEM_PROMPT_BASE = `Você é o assistente do CollectHub (trocas de colecionáveis em grupo fechado). Ajuda o usuário a gerenciar sua coleção e encontrar as melhores trocas com outros colecionadores.
 
 Você recebe abaixo dados em tempo real (coleção do usuário no catálogo, matches agregados e repetidas de outras pessoas quando disponíveis).
 

@@ -102,7 +102,7 @@ export function MatchesLocationBanner({ show }: MatchesLocationBannerProps) {
 
         if (error.code === error.PERMISSION_DENIED) {
           toast.error(
-            "Permissão de localização negada. Nas configurações do seu navegador ou celular, permita o acesso à localização para o Stickermatch.",
+            "Permissão de localização negada. Nas configurações do seu navegador ou celular, permita o acesso à localização para o CollectHub.",
           );
         } else if (error.code === error.POSITION_UNAVAILABLE) {
           toast.error(

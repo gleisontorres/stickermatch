@@ -67,13 +67,13 @@ async function fetchPerfilAccess(
   if (process.env.NODE_ENV === "development") {
     if (error) {
       console.warn(
-        "[stickermatch] middleware perfis:",
+        "[collecthub] middleware perfis:",
         error.code ?? "",
         error.message,
       );
     } else if (!data) {
       console.warn(
-        "[stickermatch] middleware perfis: nenhuma linha para auth.uid (verifique se perfis.id = auth.users.id)",
+        "[collecthub] middleware perfis: nenhuma linha para auth.uid (verifique se perfis.id = auth.users.id)",
         userId,
       );
     }

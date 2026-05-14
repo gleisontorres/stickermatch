@@ -72,7 +72,7 @@ export function LoginForm() {
     <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 py-16">
       <h1 className="text-xl font-semibold">Entrar</h1>
       <p className="text-muted-foreground max-w-sm text-center text-sm">
-        Use sua conta Google para acessar o Stickermatch (mesmo grupo / empresa).
+        Use sua conta Google para acessar o CollectHub (mesmo grupo / empresa).
       </p>
 
       {errorMessage ? (

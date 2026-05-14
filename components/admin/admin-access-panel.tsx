@@ -140,7 +140,7 @@ export function AdminAccessPanel({ initialPerfis }: AdminAccessPanelProps) {
         <div className="flex items-center gap-2 text-primary">
           <Shield className="size-6 shrink-0" aria-hidden />
           <h1 className="text-xl font-semibold tracking-tight md:text-2xl">
-            Painel Admin — Stickermatch
+            Painel Admin — CollectHub
           </h1>
         </div>
         <p className="text-muted-foreground text-sm">

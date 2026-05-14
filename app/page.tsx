@@ -18,7 +18,7 @@ const highlights = [
   {
     icon: Sparkles,
     title: "Assistente",
-    description: "Pergunte em português o que precisar.",
+    description: "Use a IA para achar a melhor troca.",
   },
 ] as const;
 
@@ -43,23 +43,21 @@ export default function HomePage() {
           <header className="space-y-6 text-center md:text-left">
             <p className="text-muted-foreground inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[11px] font-medium uppercase tracking-[0.22em] md:justify-start">
               <span className="bg-foreground/5 inline-flex items-center rounded-full border border-border/60 px-2.5 py-1">
-                Copa 2026
+                Colecionáveis · Grupos Fechados
               </span>
-              <span className="text-border hidden h-px w-8 shrink-0 bg-current md:inline-block" />
-              <span className="hidden md:inline">Panini · grupo fechado</span>
             </p>
 
             <div className="space-y-4">
               <h1 className="text-balance text-[2rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-5xl sm:leading-[1.05] md:text-[3.25rem]">
-                Stickermatch
+                CollectHub
                 <span className="text-muted-foreground font-normal">
                   {" "}
-                  trocas sem planilha.
+                  Trocas de colecionáveis sem planilha.
                 </span>
               </h1>
               <p className="text-muted-foreground mx-auto max-w-md text-pretty text-base leading-relaxed md:mx-0 md:max-w-lg md:text-lg md:leading-relaxed">
-                Cadastre repetidas e faltas do álbum e encontre matches com
-                amigos. Rápido no celular, pensado para grupos pequenos.
+                Cadastre suas repetidas e faltas, encontre matches automáticos e
+                converse com a IA pra achar a melhor troca.
               </p>
             </div>
 
@@ -104,7 +102,7 @@ export default function HomePage() {
         </div>
 
         <footer className="text-muted-foreground mt-auto pt-10 text-center text-[11px] md:text-left">
-          Álbum oficial · 980 figurinhas · MVP em construção
+          CollectHub · MVP em construção
         </footer>
       </main>
     </div>

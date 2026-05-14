@@ -33,7 +33,7 @@ export default function AcessoNegadoPage() {
             Sua solicitação foi recusada
           </h1>
           <p className="text-muted-foreground text-pretty text-sm leading-relaxed">
-            Sua solicitação de acesso ao Stickermatch foi recusada. Se acha que é
+            Sua solicitação de acesso ao CollectHub foi recusada. Se acha que é
             um engano, entre em contato com o administrador.
           </p>
         </div>
