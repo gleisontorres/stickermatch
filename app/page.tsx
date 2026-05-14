@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Layers, RefreshCw, Sparkles } from "lucide-react";
 
+import { LandingHeader } from "@/components/landing-header";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -36,7 +37,8 @@ export default function HomePage() {
         `,
       }}
     >
-      <main className="flex flex-1 flex-col px-5 pb-12 pt-14 sm:px-8 sm:pb-16 sm:pt-20 md:pt-24">
+      <LandingHeader />
+      <main className="flex flex-1 flex-col px-5 pt-20 pb-12 sm:px-8 sm:pt-24 sm:pb-16 md:pt-28">
         <div className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-10 md:max-w-2xl md:gap-14">
           <header className="space-y-6 text-center md:text-left">
             <p className="text-muted-foreground inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[11px] font-medium uppercase tracking-[0.22em] md:justify-start">
