@@ -13,7 +13,7 @@ interface MobileHeaderProps {
 }
 
 /**
- * Cabeçalho fixo no mobile: marca Stickermatch e menu do usuário (avatar).
+ * Cabeçalho fixo no mobile: marca CollectHub e menu do usuário (avatar).
  */
 export function MobileHeader({ user, className }: MobileHeaderProps) {
   return (
@@ -26,10 +26,10 @@ export function MobileHeader({ user, className }: MobileHeaderProps) {
       <Link
         href="/dashboard"
         className="transition-colors duration-150 flex min-w-0 items-center gap-2 font-semibold tracking-tight hover:text-primary"
-        aria-label="Stickermatch — ir para o painel"
+        aria-label="CollectHub — ir para o painel"
       >
         <Ticket className="text-primary size-7 shrink-0" aria-hidden />
-        <span className="truncate">Stickermatch</span>
+        <span className="truncate">CollectHub</span>
       </Link>
       <UserMenu user={user} variant="mobile" />
     </header>

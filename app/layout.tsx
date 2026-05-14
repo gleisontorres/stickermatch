@@ -25,14 +25,21 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Stickermatch — Copa 2026",
+  title: "CollectHub",
   description:
-    "Troca de figurinhas Panini Copa do Mundo 2026 para grupos fechados.",
+    "Cadastre suas figurinhas, encontre matches de troca e complete sua coleção.",
+  metadataBase: new URL("https://collecthub.app"),
   manifest: "/manifest.json",
+  openGraph: {
+    title: "CollectHub",
+    description: "Troque colecionáveis com quem está perto de você.",
+    url: "https://collecthub.app",
+    siteName: "CollectHub",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Stickermatch",
+    title: "CollectHub",
     startupImage: ["/icons/apple-touch-icon.png"],
   },
   icons: {

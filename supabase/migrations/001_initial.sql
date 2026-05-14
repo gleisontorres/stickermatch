@@ -1,4 +1,4 @@
--- Stickermatch — schema inicial (Supabase / Postgres)
+-- CollectHub — schema inicial (Supabase / Postgres)
 -- Catálogo de figurinhas (seed estático, populado uma vez)
 create table figurinhas (
   id text primary key,

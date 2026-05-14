@@ -1,4 +1,4 @@
-# Projeto: Trocador de Figurinhas - Copa do Mundo 2026
+# Projeto: CollectHub — trocas de colecionáveis (grupos fechados)
 
 ## Contexto e objetivo
 
@@ -247,7 +247,7 @@ A rota `/api/chat` recebe o histórico de mensagens, busca contexto relevante no
 
 **System prompt da IA:**
 ```
-Você é o assistente do "Trocador de Figurinhas Copa 2026". Ajuda o usuário a 
+Você é o assistente do CollectHub (trocas de colecionáveis em grupo fechado). Ajuda o usuário a 
 gerenciar sua coleção e encontrar as melhores trocas com outros colecionadores.
 
 Você tem acesso aos dados em tempo real:

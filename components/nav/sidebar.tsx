@@ -81,10 +81,10 @@ export function Sidebar({ user, className }: SidebarProps) {
         <Link
           href="/dashboard"
           className="transition-colors duration-150 flex items-center gap-2 font-semibold tracking-tight hover:text-primary"
-          aria-label="Stickermatch — ir para o painel"
+          aria-label="CollectHub — ir para o painel"
         >
           <Ticket className="text-primary size-8 shrink-0" aria-hidden />
-          <span>Stickermatch</span>
+          <span>CollectHub</span>
         </Link>
       </div>
 

@@ -1,4 +1,4 @@
--- Stickermatch — controle de acesso manual (status + admin)
+-- CollectHub — controle de acesso manual (status + admin)
 
 -- 1. Status do cadastro
 alter table public.perfis

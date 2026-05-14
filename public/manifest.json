@@ -1,8 +1,8 @@
 {
-  "name": "Stickermatch — Trocador de Figurinhas Copa 2026",
-  "short_name": "Stickermatch",
-  "description": "Cadastre suas figurinhas, encontre matches de troca e complete o álbum da Copa 2026",
-  "start_url": "/dashboard",
+  "name": "CollectHub — Trocas de Colecionáveis",
+  "short_name": "CollectHub",
+  "description": "Cadastre suas figurinhas, encontre matches de troca e complete sua coleção.",
+  "start_url": "https://collecthub.app/dashboard",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0a0a0a",
