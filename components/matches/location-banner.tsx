@@ -160,7 +160,7 @@ export function MatchesLocationBanner({ show }: MatchesLocationBannerProps) {
           <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
             <Button
               type="button"
-              variant="default"
+              variant="gradient"
               size="default"
               disabled={geoPending || exiting}
               className="w-full sm:w-auto"

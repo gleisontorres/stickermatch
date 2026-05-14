@@ -3,8 +3,10 @@ import Link from "next/link";
 import { MessageSquareText, Sparkles } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { GradientBorder } from "@/components/ui/gradient-border";
 import { DashboardMatchesTipBanner } from "@/components/dashboard-matches-tip-banner";
 import type { MatchPartnerEntry } from "@/lib/types";
+import { brandProgressBarStyle } from "@/lib/brand-progress";
 import { cn } from "@/lib/utils";
 
 interface DashboardViewProps {
@@ -55,10 +57,14 @@ export function DashboardView({
         <DashboardMatchesTipBanner />
       : null}
 
-      <section
-        className="border-border relative overflow-hidden rounded-2xl border bg-card p-6 shadow-sm"
-        aria-labelledby="dash-progress-heading"
+      <GradientBorder
+        radius="2xl"
+        innerClassName="relative overflow-hidden shadow-sm"
       >
+        <section
+          className="relative p-6"
+          aria-labelledby="dash-progress-heading"
+        >
         <div
           className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.14] via-transparent to-accent/[0.08]"
           aria-hidden
@@ -104,11 +110,10 @@ export function DashboardView({
           </div>
           <div className="bg-muted/80 h-3 w-full max-w-xs shrink-0 overflow-hidden rounded-full sm:w-48">
             <div
-              className={cn(
-                "h-full rounded-full transition-[width]",
-                albumComplete ? "bg-amber-500 dark:bg-amber-400" : "bg-primary",
+              className="h-full rounded-full transition-[width]"
+              style={brandProgressBarStyle(
+                albumComplete ? 100 : completionBarPercent,
               )}
-              style={{ width: `${completionBarPercent}%` }}
               role="progressbar"
               aria-valuenow={Math.round(completionBarPercent * 10) / 10}
               aria-valuemin={0}
@@ -117,7 +122,8 @@ export function DashboardView({
             />
           </div>
         </div>
-      </section>
+        </section>
+      </GradientBorder>
 
       <section className="grid gap-3 sm:grid-cols-3">
         <StatCard
@@ -154,7 +160,8 @@ export function DashboardView({
         />
       </section>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-border bg-gradient-to-br from-primary/[0.06] to-transparent p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+      <GradientBorder radius="2xl" innerClassName="shadow-sm">
+        <section className="flex flex-col gap-3 bg-gradient-to-br from-primary/[0.06] to-transparent p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-3">
           <div className="bg-primary/15 text-primary flex size-11 shrink-0 items-center justify-center rounded-xl">
             <Sparkles className="size-5" aria-hidden />
@@ -179,7 +186,8 @@ export function DashboardView({
           <MessageSquareText className="size-4" aria-hidden />
           Abrir chat
         </Link>
-      </section>
+        </section>
+      </GradientBorder>
 
       <section className="space-y-3">
         <div className="flex flex-wrap items-end justify-between gap-2">
@@ -290,8 +298,8 @@ function TopMatchRow({ entry }: { entry: MatchPartnerEntry }) {
   const waHref =
     digits.length > 0 ? `https://wa.me/${digits}` : null;
 
-  return (
-    <article className="border-border rounded-xl border bg-card px-4 py-3 shadow-sm">
+  const inner = (
+    <>
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
           <p className="truncate font-medium leading-tight">
@@ -352,6 +360,20 @@ function TopMatchRow({ entry }: { entry: MatchPartnerEntry }) {
           {extraRec > 0 ? ` +${extraRec}` : ""}
         </p>
       </div>
+    </>
+  );
+
+  if (entry.isMutual) {
+    return (
+      <GradientBorder radius="xl" innerClassName="shadow-sm">
+        <article className="px-4 py-3">{inner}</article>
+      </GradientBorder>
+    );
+  }
+
+  return (
+    <article className="border-border rounded-xl border bg-card px-4 py-3 shadow-sm">
+      {inner}
     </article>
   );
 }

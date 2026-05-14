@@ -52,7 +52,18 @@ export default async function AuthenticatedLayout({
   };
 
   return (
-    <div className="bg-background min-h-screen">
+    <div
+      className="min-h-screen"
+      style={{
+        background: `
+          radial-gradient(ellipse 80% 50% at 50% -10%,
+            rgba(16, 185, 129, 0.15) 0%,
+            transparent 70%
+          ),
+          #0a0a0a
+        `,
+      }}
+    >
       <AppShell user={userNav}>{children}</AppShell>
     </div>
   );

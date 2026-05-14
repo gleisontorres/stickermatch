@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from "react";
+import Image from "next/image";
+import { Trash2 } from "lucide-react";
 
 import { ChatMessageBubble } from "@/components/chat-message";
 import { Button } from "@/components/ui/button";
@@ -100,15 +102,26 @@ export function ChatClient() {
     }
   };
 
+  const handleLimparConversa = useCallback(() => {
+    setMessages([]);
+  }, []);
+
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-4 md:gap-5">
-      <header className="shrink-0 space-y-1">
-        <h1 className="text-xl font-semibold tracking-tight">Albu-AI</h1>
-        <p className="text-muted-foreground text-sm">
-          Pergunte sobre sua coleção, faltas, repetidas e trocas. Usamos seus
-          dados atuais em cada resposta (até {MAX_MESSAGES_API} mensagens no
-          contexto).
-        </p>
+      <header className="flex shrink-0 items-center gap-3">
+        <Image
+          src="/icons/icon-192.png"
+          alt="CollectHub"
+          width={48}
+          height={48}
+          className="shrink-0 rounded-xl"
+        />
+        <div className="min-w-0">
+          <h1 className="text-xl font-bold tracking-tight">Albu-AI</h1>
+          <p className="text-muted-foreground text-sm">
+            Pergunte sobre sua coleção, faltas, repetidas e trocas.
+          </p>
+        </div>
       </header>
 
       {error ? (
@@ -153,12 +166,7 @@ export function ChatClient() {
           {loading ? (
             <div className="flex justify-start" aria-busy="true" aria-label="Gerando resposta">
               <div className="border-border bg-card max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-3 shadow-sm">
-                <div className="flex gap-1.5">
-                  <span className="bg-muted-foreground/50 size-2 animate-pulse rounded-full" />
-                  <span className="bg-muted-foreground/50 size-2 animate-pulse rounded-full delay-75" />
-                  <span className="bg-muted-foreground/50 size-2 animate-pulse rounded-full delay-150" />
-                </div>
-                <p className="text-muted-foreground mt-2 text-xs">
+                <p className="loading-gradient-text text-sm font-semibold">
                   Pensando…
                 </p>
               </div>
@@ -182,19 +190,36 @@ export function ChatClient() {
           onKeyDown={onKeyDown}
           placeholder="Digite sua pergunta… (Enter envia, Shift+Enter quebra linha)"
           rows={3}
-          className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring mb-3 max-h-40 min-h-[5rem] w-full resize-y rounded-lg border px-3 py-2 text-sm outline-none focus-visible:ring-2 disabled:opacity-60"
+          className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring mb-0 max-h-40 min-h-[5rem] w-full resize-y rounded-lg border px-3 py-2 text-sm outline-none focus-visible:ring-2 disabled:opacity-60"
         />
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-muted-foreground text-[11px] md:text-xs">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-2">
+          <span className="text-muted-foreground text-xs">
             Histórico enviado: últimas {MAX_MESSAGES_API} mensagens.
-          </p>
-          <Button
-            type="button"
-            disabled={loading || !draft.trim()}
-            onClick={() => void send()}
-          >
-            Enviar
-          </Button>
+          </span>
+          <div className="flex items-center gap-2">
+            {messages.length > 0 ?
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={loading}
+                onClick={handleLimparConversa}
+                className="gap-1.5"
+              >
+                <Trash2 className="size-3.5 shrink-0" aria-hidden />
+                Limpar
+              </Button>
+            : null}
+            <Button
+              type="button"
+              variant="gradient"
+              size="sm"
+              disabled={loading || !draft.trim()}
+              onClick={() => void send()}
+            >
+              Enviar
+            </Button>
+          </div>
         </div>
       </div>
     </div>

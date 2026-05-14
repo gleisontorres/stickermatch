@@ -168,7 +168,7 @@ export function PerfilLocalizacaoSection({
       <div className="flex flex-wrap gap-2">
         <Button
           type="button"
-          variant="default"
+          variant="gradient"
           size="sm"
           disabled={loadingLocalizacao}
           onClick={() => void handleCompartilharOuAtualizar()}

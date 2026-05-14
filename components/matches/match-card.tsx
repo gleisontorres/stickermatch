@@ -1,6 +1,7 @@
 import { MapPin } from "lucide-react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
+import { GradientBorder } from "@/components/ui/gradient-border";
 import { formatDistanceKm } from "@/lib/format-distance-km";
 import type { MatchPartnerEntry } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -19,8 +20,8 @@ export function MatchPartnerCard({ entry }: MatchPartnerCardProps) {
   const wa = whatsappHref(entry.whatsapp);
   const distLabel = formatDistanceKm(entry.distanciaKm ?? null);
 
-  return (
-    <article className="border-border rounded-xl border bg-card shadow-sm">
+  const body = (
+    <>
       <div className="border-border flex flex-wrap items-start justify-between gap-3 border-b px-4 py-3">
         <div className="min-w-0 flex-1 space-y-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -105,6 +106,20 @@ export function MatchPartnerCard({ entry }: MatchPartnerCardProps) {
           tone="receive"
         />
       </div>
+    </>
+  );
+
+  if (entry.isMutual) {
+    return (
+      <GradientBorder radius="xl" innerClassName="shadow-sm overflow-hidden">
+        <article>{body}</article>
+      </GradientBorder>
+    );
+  }
+
+  return (
+    <article className="border-border rounded-xl border bg-card shadow-sm">
+      {body}
     </article>
   );
 }

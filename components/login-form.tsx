@@ -87,6 +87,7 @@ export function LoginForm() {
       <Button
         type="button"
         size="lg"
+        variant="gradient"
         className="min-w-[220px]"
         disabled={pending}
         aria-busy={pending}

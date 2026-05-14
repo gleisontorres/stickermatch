@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Layers, RefreshCw, Sparkles } from "lucide-react";
 
+import { LandingHeader } from "@/components/landing-header";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -24,21 +25,20 @@ const highlights = [
 
 export default function HomePage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden bg-muted/40">
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-accent/18 via-muted/30 to-transparent"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -left-24 top-1/3 -z-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl sm:-left-16"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-20 bottom-0 -z-10 h-80 w-80 rounded-full bg-destructive/10 blur-3xl sm:-right-12"
-        aria-hidden
-      />
-
-      <main className="flex flex-1 flex-col px-5 pb-12 pt-14 sm:px-8 sm:pb-16 sm:pt-20 md:pt-24">
+    <div
+      className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden"
+      style={{
+        background: `
+          radial-gradient(ellipse 80% 50% at 50% -10%,
+            rgba(16, 185, 129, 0.15) 0%,
+            transparent 70%
+          ),
+          #0a0a0a
+        `,
+      }}
+    >
+      <LandingHeader />
+      <main className="flex flex-1 flex-col px-5 pt-20 pb-12 sm:px-8 sm:pt-24 sm:pb-16 md:pt-28">
         <div className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-10 md:max-w-2xl md:gap-14">
           <header className="space-y-6 text-center md:text-left">
             <p className="text-muted-foreground inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-[11px] font-medium uppercase tracking-[0.22em] md:justify-start">
@@ -49,7 +49,7 @@ export default function HomePage() {
 
             <div className="space-y-4">
               <h1 className="text-balance text-[2rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-5xl sm:leading-[1.05] md:text-[3.25rem]">
-                CollectHub
+                <span className="brand-gradient-text font-bold">CollectHub</span>
                 <span className="text-muted-foreground font-normal">
                   {" "}
                   Trocas de colecionáveis sem planilha.
@@ -65,7 +65,7 @@ export default function HomePage() {
               <Link
                 href="/login"
                 className={cn(
-                  buttonVariants({ variant: "default", size: "lg" }),
+                  buttonVariants({ variant: "gradient", size: "lg" }),
                   "inline-flex h-11 min-w-[220px] items-center justify-center gap-1 rounded-full px-8 text-[15px] shadow-sm transition-[transform,box-shadow] hover:shadow-md active:scale-[0.98]",
                 )}
               >

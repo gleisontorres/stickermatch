@@ -29,7 +29,9 @@ export function MobileHeader({ user, className }: MobileHeaderProps) {
         aria-label="CollectHub — ir para o painel"
       >
         <Ticket className="text-primary size-7 shrink-0" aria-hidden />
-        <span className="truncate">CollectHub</span>
+        <span className="brand-gradient-text truncate font-bold text-lg leading-none">
+          CollectHub
+        </span>
       </Link>
       <UserMenu user={user} variant="mobile" />
     </header>
