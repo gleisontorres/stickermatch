@@ -1,0 +1,6 @@
+# Config local / deploy CLI — reflete o projeto hospedado.
+project_id = "ubmequaafjnonekoiaxe"
+
+[functions.notify-new-user]
+# Webhooks do Database não enviam JWT do usuário; desativa verificação.
+verify_jwt = false
