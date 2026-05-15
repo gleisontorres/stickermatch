@@ -17,7 +17,7 @@ export default async function MatchesPage() {
   const [{ data: meuPerfil }, entries] = await Promise.all([
     supabase
       .from("perfis")
-      .select("latitude, longitude")
+      .select("latitude, longitude, whatsapp")
       .eq("id", user.id)
       .maybeSingle(),
     fetchMatchPartnerEntries(supabase, user.id),
@@ -28,6 +28,8 @@ export default async function MatchesPage() {
     meuPerfil?.longitude != null &&
     Number.isFinite(meuPerfil.latitude) &&
     Number.isFinite(meuPerfil.longitude);
+
+  const viewerHasWhatsapp = Boolean(meuPerfil?.whatsapp?.trim());
 
   return (
     <div className="p-4 pb-12 md:p-6">
@@ -42,6 +44,7 @@ export default async function MatchesPage() {
         <MatchesGroupedList
           entries={entries}
           viewerHasLocation={viewerHasLocation}
+          viewerHasWhatsapp={viewerHasWhatsapp}
         />
       </div>
     </div>
