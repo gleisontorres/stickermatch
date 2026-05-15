@@ -280,7 +280,7 @@ export function PacoteModeClient({
           Últimas entradas
         </h2>
         <div
-          className="border-border bg-muted/20 max-h-[min(50vh,22rem)] overflow-y-auto rounded-lg border p-3 font-mono text-xs"
+          className="border-border bg-muted text-muted-foreground max-h-[min(50vh,22rem)] overflow-y-auto rounded-lg border p-4 font-mono text-sm"
           aria-live="polite"
         >
           {log.length === 0 ? (

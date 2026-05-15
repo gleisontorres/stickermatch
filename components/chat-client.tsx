@@ -172,7 +172,7 @@ export function ChatClient() {
       ) : null}
 
       <div
-        className="border-border bg-muted/25 flex min-h-[min(420px,55dvh)] flex-1 flex-col overflow-hidden rounded-xl border shadow-inner md:min-h-[min(480px,50dvh)]"
+        className="border-border bg-muted/20 flex min-h-[min(420px,55dvh)] flex-1 flex-col overflow-hidden rounded-xl border shadow-inner md:min-h-[min(480px,50dvh)]"
         aria-label="Histórico da conversa"
       >
         <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 md:p-5">

@@ -26,15 +26,9 @@ const highlights = [
 export default function HomePage() {
   return (
     <div
-      className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden"
+      className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden bg-background"
       style={{
-        background: `
-          radial-gradient(ellipse 80% 50% at 50% -10%,
-            rgba(16, 185, 129, 0.15) 0%,
-            transparent 70%
-          ),
-          #0a0a0a
-        `,
+        backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16, 185, 129, 0.12) 0%, transparent 70%)`,
       }}
     >
       <LandingHeader />

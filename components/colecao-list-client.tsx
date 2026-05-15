@@ -94,7 +94,7 @@ export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
           Nenhum resultado para esta busca.
         </p>
       ) : (
-        <ul className="border-border divide-border divide-y rounded-xl border">
+        <ul className="border-border divide-border bg-card divide-y rounded-xl border">
           {filtered.map((row) => (
             <li key={row.id}>
               <ColecaoListRow variant={variant} row={row} />
