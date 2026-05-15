@@ -15,16 +15,17 @@ A aplicação deve ser **simples, gratuita de hospedar e fácil de usar via celu
 - **Frontend:** Next.js 14+ (App Router) + TypeScript + Tailwind CSS + shadcn/ui
 - **Banco de dados:** Supabase (PostgreSQL)
 - **Auth:** Supabase Auth com Google OAuth
-- **IA conversacional:** Google Gemini API (modelo `gemini-2.5-flash`) via API Routes do Next.js (`@google/generative-ai`)
+- **IA conversacional:** OpenAI Chat Completions (modelo configurável, padrão `gpt-5.4-nano`) via API Routes do Next.js (`openai`), com streaming `text/plain`
 - **Deploy:** Vercel (free tier)
-- **Sem backend separado.** Use API Routes do Next.js para qualquer lógica server-side (chamadas à API do Gemini, etc). Supabase resolve o resto via cliente JS direto + RLS.
+- **Sem backend separado.** Use API Routes do Next.js para qualquer lógica server-side (chamadas à API da OpenAI, etc). Supabase resolve o resto via cliente JS direto + RLS.
 
 ### Variáveis de ambiente (.env.local)
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
-GOOGLE_GEMINI_API_KEY=
+OPENAI_API_KEY=
+# Opcional: OPENAI_CHAT_MODEL=gpt-5.4-nano
 ```
 
 ---

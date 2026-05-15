@@ -1,11 +1,11 @@
-import type { Content } from "@google/generative-ai";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import OpenAI from "openai";
+import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { GEMINI_CHAT_MODEL, hasGeminiApiKey } from "@/lib/gemini";
 import { buildChatDataBlock } from "@/lib/chat-context";
 import { CHAT_SYSTEM_PROMPT_BASE } from "@/lib/chat-prompt";
+import { hasOpenAiApiKey, OPENAI_CHAT_MODEL } from "@/lib/openai-chat";
 import { createRouteHandlerSupabase } from "@/lib/supabase/route-handler";
 
 /** Histórico máximo por requisição. */
@@ -14,7 +14,7 @@ const MAX_MESSAGES = 10;
 /** Limite de caracteres por mensagem (sanidade / abuso). */
 const MAX_MESSAGE_CHARS = 12_000;
 
-/** Copia cookies da resposta de sessão para a resposta JSON final. */
+/** Copia cookies da resposta de sessão para a resposta final. */
 function copyAuthCookies(from: NextResponse, to: NextResponse): void {
   from.cookies.getAll().forEach((cookie) => {
     to.cookies.set(cookie.name, cookie.value);
@@ -35,112 +35,39 @@ function isChatRole(role: unknown): role is "user" | "assistant" {
 }
 
 /**
- * Converte histórico interno para o formato Gemini e garante:
- * - começa com `user`;
- * - não há duas mensagens consecutivas do mesmo papel (fundindo texto).
+ * Funde mensagens consecutivas do mesmo papel (esperado pela API da OpenAI).
  */
-function toGeminiHistoryContent(
-  messages: { role: "user" | "assistant"; content: string }[],
-): Content[] {
-  const mapped: Content[] = messages.map((m) => ({
-    role: m.role === "assistant" ? "model" : "user",
-    parts: [{ text: m.content }],
-  }));
-
-  let start = 0;
-  while (start < mapped.length && mapped[start].role !== "user") {
-    start += 1;
-  }
-
-  const merged: Content[] = [];
-  for (let i = start; i < mapped.length; i += 1) {
-    const turn = mapped[i];
-    const prev = merged[merged.length - 1];
-    const text = turn.parts?.[0]?.text ?? "";
-    if (prev && prev.role === turn.role && prev.parts?.[0]) {
-      prev.parts[0].text = `${prev.parts[0].text}\n\n${text}`;
+function toOpenAiChatMessages(
+  tail: { role: "user" | "assistant"; content: string }[],
+): ChatCompletionMessageParam[] {
+  const out: ChatCompletionMessageParam[] = [];
+  for (const m of tail) {
+    const last = out[out.length - 1];
+    if (
+      last &&
+      last.role === m.role &&
+      typeof last.content === "string"
+    ) {
+      last.content = `${last.content}\n\n${m.content}`;
     } else {
-      merged.push({
-        role: turn.role,
-        parts: [{ text }],
-      });
+      out.push({ role: m.role, content: m.content });
     }
   }
+  return out;
+}
 
-  return merged;
+function jsonError(
+  sessionHolder: NextResponse,
+  message: string,
+  status: number,
+): NextResponse {
+  const err = NextResponse.json({ error: message }, { status });
+  copyAuthCookies(sessionHolder, err);
+  return err;
 }
 
 /**
- * Se o histórico terminaria com mensagem `user`, remove esses turns finais e
- * prefixa o texto na última mensagem enviada via `sendMessage` (exigência do
- * fluxo user → model alternado).
- */
-function finalizeHistoryAndLastUserText(
-  tail: { role: "user" | "assistant"; content: string }[],
-): { history: Content[]; lastUserText: string } {
-  const lastUserText = tail[tail.length - 1].content;
-  const history = toGeminiHistoryContent(tail.slice(0, -1));
-
-  let prefix = "";
-  while (
-    history.length > 0 &&
-    history[history.length - 1].role === "user"
-  ) {
-    const popped = history.pop();
-    const t = popped?.parts?.[0]?.text ?? "";
-    prefix = prefix ? `${t}\n\n${prefix}` : t;
-  }
-
-  const combinedLast = prefix ? `${prefix}\n\n${lastUserText}` : lastUserText;
-
-  return { history, lastUserText: combinedLast };
-}
-
-function describeGeminiFailure(error: unknown): { status: number; message: string } {
-  const raw =
-    error instanceof Error ?
-      `${error.message}\n${String(error.cause ?? "")}`
-    : typeof error === "string" ?
-      error
-    : JSON.stringify(error);
-  const low = raw.toLowerCase();
-
-  if (
-    low.includes("resource_exhausted") ||
-    low.includes("quota") ||
-    low.includes("rate limit") ||
-    low.includes("too many requests") ||
-    low.includes(" 429 ")
-  ) {
-    return {
-      status: 429,
-      message:
-        "Limite diário do Albu AI atingido. Tente novamente amanhã.",
-    };
-  }
-
-  if (
-    low.includes("api key") ||
-    low.includes("api_key") ||
-    low.includes("permission_denied") ||
-    low.includes("unauthenticated") ||
-    low.includes("invalid api")
-  ) {
-    return {
-      status: 500,
-      message: "Erro de configuração do Gemini. Avise o admin.",
-    };
-  }
-
-  console.error("[api/chat] Gemini:", error);
-  return {
-    status: 500,
-    message: "Erro ao consultar o Albu AI. Tente novamente.",
-  };
-}
-
-/**
- * POST /api/chat — Gemini 2.5 Flash + contexto Supabase do usuário autenticado.
+ * POST /api/chat — OpenAI (streaming) + contexto Supabase do usuário autenticado.
  */
 export async function POST(request: NextRequest) {
   const sessionHolder = NextResponse.next({
@@ -154,30 +81,22 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    const denied = NextResponse.json({ error: "Não autenticado." }, { status: 401 });
-    copyAuthCookies(sessionHolder, denied);
-    return denied;
+    return jsonError(sessionHolder, "Não autenticado.", 401);
   }
 
-  if (!hasGeminiApiKey()) {
-    const err = NextResponse.json(
-      {
-        error:
-          "Serviço de IA indisponível: configure GOOGLE_GEMINI_API_KEY no servidor.",
-      },
-      { status: 503 },
+  if (!hasOpenAiApiKey()) {
+    return jsonError(
+      sessionHolder,
+      "Serviço de IA indisponível: configure OPENAI_API_KEY no servidor.",
+      503,
     );
-    copyAuthCookies(sessionHolder, err);
-    return err;
   }
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    const err = NextResponse.json({ error: "JSON inválido." }, { status: 400 });
-    copyAuthCookies(sessionHolder, err);
-    return err;
+    return jsonError(sessionHolder, "JSON inválido.", 400);
   }
 
   if (
@@ -186,12 +105,11 @@ export async function POST(request: NextRequest) {
     !("messages" in body) ||
     !Array.isArray((body as { messages: unknown }).messages)
   ) {
-    const err = NextResponse.json(
-      { error: 'Corpo deve incluir "messages" (array).' },
-      { status: 400 },
+    return jsonError(
+      sessionHolder,
+      'Corpo deve incluir "messages" (array).',
+      400,
     );
-    copyAuthCookies(sessionHolder, err);
-    return err;
   }
 
   const rawMessages = (body as { messages: ChatMessageInput[] }).messages;
@@ -209,12 +127,11 @@ export async function POST(request: NextRequest) {
       continue;
     }
     if (text.length > MAX_MESSAGE_CHARS) {
-      const err = NextResponse.json(
-        { error: `Mensagem excede ${MAX_MESSAGE_CHARS} caracteres.` },
-        { status: 400 },
+      return jsonError(
+        sessionHolder,
+        `Mensagem excede ${MAX_MESSAGE_CHARS} caracteres.`,
+        400,
       );
-      copyAuthCookies(sessionHolder, err);
-      return err;
     }
     normalized.push({ role: m.role, content: text });
   }
@@ -222,21 +139,19 @@ export async function POST(request: NextRequest) {
   const tail = normalized.slice(-MAX_MESSAGES);
 
   if (tail.length === 0) {
-    const err = NextResponse.json(
-      { error: "Envie ao menos uma mensagem de usuário válida." },
-      { status: 400 },
+    return jsonError(
+      sessionHolder,
+      "Envie ao menos uma mensagem de usuário válida.",
+      400,
     );
-    copyAuthCookies(sessionHolder, err);
-    return err;
   }
 
   if (tail[tail.length - 1].role !== "user") {
-    const err = NextResponse.json(
-      { error: "A última mensagem do histórico deve ser do usuário." },
-      { status: 400 },
+    return jsonError(
+      sessionHolder,
+      "A última mensagem do histórico deve ser do usuário.",
+      400,
     );
-    copyAuthCookies(sessionHolder, err);
-    return err;
   }
 
   let dataBlock: string;
@@ -244,12 +159,11 @@ export async function POST(request: NextRequest) {
     dataBlock = await buildChatDataBlock(supabase, user.id);
   } catch (e) {
     console.error("[api/chat] buildChatDataBlock:", e);
-    const err = NextResponse.json(
-      { error: "Falha ao montar contexto da coleção." },
-      { status: 500 },
+    return jsonError(
+      sessionHolder,
+      "Falha ao montar contexto da coleção.",
+      500,
     );
-    copyAuthCookies(sessionHolder, err);
-    return err;
   }
 
   const fullSystem = `${CHAT_SYSTEM_PROMPT_BASE}
@@ -260,41 +174,86 @@ export async function POST(request: NextRequest) {
 
 ${dataBlock}`;
 
-  const apiKey = process.env.GOOGLE_GEMINI_API_KEY!.trim();
-  const genAI = new GoogleGenerativeAI(apiKey);
+  const openaiMessages: ChatCompletionMessageParam[] = [
+    { role: "system", content: fullSystem },
+    ...toOpenAiChatMessages(tail),
+  ];
 
-  const model = genAI.getGenerativeModel({
-    model: GEMINI_CHAT_MODEL,
-    systemInstruction: fullSystem,
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 1024,
-    },
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
   });
 
-  const { history, lastUserText } = finalizeHistoryAndLastUserText(tail);
-
   try {
-    const chat = model.startChat({ history });
-    const result = await chat.sendMessage(lastUserText);
-    const assistantText = result.response.text();
+    const stream = await openai.chat.completions.create({
+      model: OPENAI_CHAT_MODEL,
+      messages: openaiMessages,
+      max_completion_tokens: 1024,
+      temperature: 0.7,
+      stream: true,
+    });
 
-    if (!assistantText.trim()) {
-      const err = NextResponse.json(
-        { error: "Resposta vazia do modelo." },
-        { status: 502 },
+    const encoder = new TextEncoder();
+    const readable = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of stream) {
+            const content = chunk.choices[0]?.delta?.content ?? "";
+            if (content) {
+              controller.enqueue(encoder.encode(content));
+            }
+          }
+        } catch (e) {
+          controller.error(e);
+        } finally {
+          try {
+            controller.close();
+          } catch {
+            /* já fechado */
+          }
+        }
+      },
+    });
+
+    const res = new NextResponse(readable, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store",
+      },
+    });
+    copyAuthCookies(sessionHolder, res);
+    return res;
+  } catch (error: unknown) {
+    const status =
+      error instanceof OpenAI.APIError ? error.status : undefined;
+
+    if (status === 429) {
+      return jsonError(
+        sessionHolder,
+        "Limite de requisições atingido. Tente novamente em alguns segundos.",
+        429,
       );
-      copyAuthCookies(sessionHolder, err);
-      return err;
+    }
+    if (status === 401) {
+      return jsonError(
+        sessionHolder,
+        "Erro de configuração da IA. Avise o administrador.",
+        500,
+      );
+    }
+    if (status === 402) {
+      return jsonError(
+        sessionHolder,
+        "Créditos da IA esgotados. Avise o administrador.",
+        500,
+      );
     }
 
-    const ok = NextResponse.json({ message: assistantText.trim() });
-    copyAuthCookies(sessionHolder, ok);
-    return ok;
-  } catch (e) {
-    const { status, message } = describeGeminiFailure(e);
-    const err = NextResponse.json({ error: message }, { status });
-    copyAuthCookies(sessionHolder, err);
-    return err;
+    console.error("[api/chat] OpenAI:", error);
+    return jsonError(
+      sessionHolder,
+      "Erro ao consultar o Albu AI. Tente novamente.",
+      500,
+    );
   }
 }
