@@ -1,5 +1,5 @@
 -- Matches inclusivos: falta explícita (quantidade = 0) OU falta implícita (sem linha em colecao).
--- Substitui a view que só fazia JOIN com falta explícita.
+-- Cruzamento apenas com perfis cadastrados (public.perfis), não com todos os auth.users.
 
 drop view if exists public.matches;
 
@@ -9,12 +9,12 @@ select
   outro_user.id         as user_precisa,
   repetida.figurinha_id as figurinha_id
 from public.colecao repetida
-cross join (select id from auth.users) as outro_user
+cross join (select id from public.perfis) outro_user
 left join public.colecao falta
   on falta.user_id = outro_user.id
   and falta.figurinha_id = repetida.figurinha_id
 where repetida.quantidade > 1
-  and repetida.user_id <> outro_user.id
+  and repetida.user_id != outro_user.id
   and (falta.quantidade = 0 or falta.figurinha_id is null);
 
 comment on view public.matches is
