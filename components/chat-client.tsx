@@ -152,7 +152,7 @@ export function ChatClient() {
           alt="CollectHub"
           width={48}
           height={48}
-          className="shrink-0 rounded-xl"
+          className="shrink-0"
         />
         <div className="min-w-0">
           <h1 className="text-xl font-bold tracking-tight">Albu-AI</h1>

@@ -69,7 +69,7 @@ export function LandingHeader() {
           alt="CollectHub"
           width={36}
           height={36}
-          className="size-9 shrink-0 rounded-xl"
+          className="size-9 shrink-0"
         />
         <span className="brand-gradient-text truncate font-bold text-lg leading-none">
           CollectHub

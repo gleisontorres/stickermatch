@@ -81,7 +81,7 @@ export function OnboardingForm({ initialEmail }: OnboardingFormProps) {
             alt="CollectHub"
             width={64}
             height={64}
-            className="mx-auto rounded-2xl"
+            className="mx-auto shrink-0"
           />
           <h1 className="text-2xl font-bold">Quase lá!</h1>
           <p className="text-muted-foreground text-sm">
