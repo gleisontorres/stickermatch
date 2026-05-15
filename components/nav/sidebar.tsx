@@ -10,8 +10,8 @@ import {
   MessageCircle,
   PackagePlus,
   Settings,
-  Ticket,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { SidebarNavItem } from "@/components/nav/nav-item";
@@ -83,7 +83,13 @@ export function Sidebar({ user, className }: SidebarProps) {
           className="transition-colors duration-150 flex items-center gap-2 font-semibold tracking-tight hover:text-primary"
           aria-label="CollectHub — ir para o painel"
         >
-          <Ticket className="text-primary size-8 shrink-0" aria-hidden />
+          <Image
+            src="/icons/icon-192.png"
+            alt=""
+            width={32}
+            height={32}
+            className="shrink-0"
+          />
           <span className="brand-gradient-text font-bold text-lg leading-none">
             CollectHub
           </span>

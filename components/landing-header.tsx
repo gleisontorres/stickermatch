@@ -55,13 +55,7 @@ export function LandingHeader() {
 
   return (
     <header
-      className="fixed top-0 right-0 left-0 z-50 flex flex-nowrap items-center justify-between gap-3 px-4 py-4 sm:px-6"
-      style={{
-        background:
-          "linear-gradient(180deg, rgba(10,10,10,0.95) 0%, transparent 100%)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
-      }}
+      className="from-background/90 via-background/55 fixed top-0 right-0 left-0 z-50 flex flex-nowrap items-center justify-between gap-3 bg-gradient-to-b to-transparent px-4 py-4 backdrop-blur-sm sm:px-6"
     >
       <div className="flex min-w-0 shrink items-center gap-2.5">
         <Image
@@ -69,7 +63,7 @@ export function LandingHeader() {
           alt="CollectHub"
           width={36}
           height={36}
-          className="size-9 shrink-0 rounded-xl"
+          className="size-9 shrink-0"
         />
         <span className="brand-gradient-text truncate font-bold text-lg leading-none">
           CollectHub

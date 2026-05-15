@@ -68,10 +68,9 @@ export function OnboardingForm({ initialEmail }: OnboardingFormProps) {
 
   return (
     <div
-      className="flex min-h-screen items-center justify-center p-6"
+      className="flex min-h-screen items-center justify-center bg-background p-6"
       style={{
-        background: `radial-gradient(ellipse 80% 50% at 50% -10%,
-      rgba(16, 185, 129, 0.15) 0%, transparent 70%), #0a0a0a`,
+        backgroundImage: `radial-gradient(ellipse 80% 50% at 50% -10%, rgba(16, 185, 129, 0.15) 0%, transparent 70%)`,
       }}
     >
       <div className="w-full max-w-sm space-y-8">
@@ -81,7 +80,7 @@ export function OnboardingForm({ initialEmail }: OnboardingFormProps) {
             alt="CollectHub"
             width={64}
             height={64}
-            className="mx-auto rounded-2xl"
+            className="mx-auto shrink-0"
           />
           <h1 className="text-2xl font-bold">Quase lá!</h1>
           <p className="text-muted-foreground text-sm">

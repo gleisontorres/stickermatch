@@ -1,7 +1,7 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { Ticket } from "lucide-react";
 
 import type { UserMenuUser } from "@/components/nav/user-menu";
 import { UserMenu } from "@/components/nav/user-menu";
@@ -28,7 +28,13 @@ export function MobileHeader({ user, className }: MobileHeaderProps) {
         className="transition-colors duration-150 flex min-w-0 items-center gap-2 font-semibold tracking-tight hover:text-primary"
         aria-label="CollectHub — ir para o painel"
       >
-        <Ticket className="text-primary size-7 shrink-0" aria-hidden />
+        <Image
+          src="/icons/icon-192.png"
+          alt=""
+          width={28}
+          height={28}
+          className="shrink-0"
+        />
         <span className="brand-gradient-text truncate font-bold text-lg leading-none">
           CollectHub
         </span>
