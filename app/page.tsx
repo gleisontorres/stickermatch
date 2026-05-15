@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Layers, RefreshCw, Sparkles } from "lucide-react";
 
 import { LandingHeader } from "@/components/landing-header";
+import { LandingQrShare } from "@/components/landing-qr-share";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -93,10 +94,12 @@ export default function HomePage() {
               </div>
             ))}
           </section>
+
+          <LandingQrShare />
         </div>
 
         <footer className="text-muted-foreground mt-auto pt-10 text-center text-[11px] md:text-left">
-          CollectHub · MVP em construção
+          CollectHub · MVP em produção
         </footer>
       </main>
     </div>
