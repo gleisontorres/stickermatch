@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { MapPin } from "lucide-react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -6,7 +9,8 @@ import { formatDistanceKm } from "@/lib/format-distance-km";
 import type { MatchPartnerEntry } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-const MAX_IDS_SHOW = 14;
+/** Quantidade inicial de figurinhas antes de exigir expansão. */
+const INITIAL_STICKER_VISIBLE_LIMIT = 10;
 
 interface MatchPartnerCardProps {
   entry: MatchPartnerEntry;
@@ -124,6 +128,9 @@ export function MatchPartnerCard({ entry }: MatchPartnerCardProps) {
   );
 }
 
+/**
+ * Coluna de figurinhas (dá ou recebe) com lista truncada e botão para expandir/recolher.
+ */
 function MatchColumn({
   title,
   items,
@@ -135,6 +142,8 @@ function MatchColumn({
   empty: string;
   tone: "give" | "receive";
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   const toneClass =
     tone === "give"
       ? "border-secondary/30 bg-secondary/[0.10]"
@@ -154,8 +163,13 @@ function MatchColumn({
     );
   }
 
-  const show = items.slice(0, MAX_IDS_SHOW);
-  const rest = items.length - show.length;
+  const visibleItems =
+    expanded ? items : items.slice(0, INITIAL_STICKER_VISIBLE_LIMIT);
+  const remaining =
+    items.length > INITIAL_STICKER_VISIBLE_LIMIT ?
+      items.length - INITIAL_STICKER_VISIBLE_LIMIT
+    : 0;
+  const showToggle = items.length > INITIAL_STICKER_VISIBLE_LIMIT;
 
   return (
     <div className={cn("rounded-lg border px-3 py-3", toneClass)}>
@@ -163,7 +177,7 @@ function MatchColumn({
         {title}
       </p>
       <ul className="flex flex-wrap gap-1.5">
-        {show.map((it) => (
+        {visibleItems.map((it) => (
           <li key={it.id}>
             <span
               className="bg-background/80 inline-block max-w-full truncate rounded-md border px-2 py-1 font-mono text-xs"
@@ -174,8 +188,21 @@ function MatchColumn({
           </li>
         ))}
       </ul>
-      {rest > 0 ?
-        <p className="text-muted-foreground mt-2 text-xs">e mais {rest}…</p>
+      {showToggle ?
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className="text-primary hover:text-primary/90 mt-2 flex items-center gap-1 text-sm underline-offset-4 hover:underline"
+        >
+          {expanded ?
+            <>ver menos ↑</>
+          : remaining === 1 ?
+            <>e mais 1 figurinha ↓</>
+          : (
+            <>e mais {remaining} figurinhas ↓</>
+          )}
+        </button>
       : null}
     </div>
   );
