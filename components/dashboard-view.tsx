@@ -5,6 +5,7 @@ import { MessageSquareText, Sparkles } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { DashboardMatchesTipBanner } from "@/components/dashboard-matches-tip-banner";
+import { DashboardPixBanner } from "@/components/dashboard-pix-banner";
 import type { MatchPartnerEntry } from "@/lib/types";
 import { brandProgressBarStyle } from "@/lib/brand-progress";
 import { cn } from "@/lib/utils";
@@ -159,6 +160,8 @@ export function DashboardView({
           accent="primary"
         />
       </section>
+
+      <DashboardPixBanner />
 
       <GradientBorder radius="2xl" innerClassName="shadow-sm">
         <section className="flex flex-col gap-3 bg-gradient-to-br from-primary/[0.06] to-transparent p-5 sm:flex-row sm:items-center sm:justify-between">
