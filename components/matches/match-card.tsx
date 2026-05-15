@@ -1,12 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { MapPin } from "lucide-react";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { formatDistanceKm } from "@/lib/format-distance-km";
 import type { MatchPartnerEntry } from "@/lib/types";
+import { whatsappExternalHref } from "@/lib/whatsapp-external-href";
 import { cn } from "@/lib/utils";
 
 /** Quantidade inicial de figurinhas antes de exigir expansão. */
@@ -21,7 +23,7 @@ interface MatchPartnerCardProps {
  */
 export function MatchPartnerCard({ entry }: MatchPartnerCardProps) {
   const totalTrocas = entry.eu_dou.length + entry.eu_recebo.length;
-  const wa = whatsappHref(entry.whatsapp);
+  const wa = whatsappExternalHref(entry.whatsapp);
   const distLabel = formatDistanceKm(entry.distanciaKm ?? null);
 
   const body = (
@@ -64,15 +66,12 @@ export function MatchPartnerCard({ entry }: MatchPartnerCardProps) {
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            disabled
-            title="Perfil público do parceiro será adicionado em breve"
+          <Link
+            href={`/perfil/${entry.partnerId}`}
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
             Ver perfil
-          </Button>
+          </Link>
           {wa ?
             <a
               href={wa}
@@ -206,15 +205,4 @@ function MatchColumn({
       : null}
     </div>
   );
-}
-
-function whatsappHref(raw: string | null): string | null {
-  if (!raw?.trim()) {
-    return null;
-  }
-  const digits = raw.replace(/\D/g, "");
-  if (!digits) {
-    return null;
-  }
-  return `https://wa.me/${digits}`;
 }
