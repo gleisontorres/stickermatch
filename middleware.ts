@@ -14,6 +14,7 @@ const PROTECTED_PREFIXES = [
   "/chat",
   "/perfil",
   "/admin",
+  "/onboarding",
 ] as const;
 
 function requiresAuth(pathname: string): boolean {
@@ -57,10 +58,10 @@ function redirectWithSessionCookies(
 async function fetchPerfilAccess(
   supabase: SupabaseClient,
   userId: string,
-): Promise<{ status: string; is_admin: boolean } | null> {
+): Promise<{ status: string; is_admin: boolean; whatsapp: string | null } | null> {
   const { data, error } = await supabase
     .from("perfis")
-    .select("status, is_admin")
+    .select("status, is_admin, whatsapp")
     .eq("id", userId)
     .maybeSingle();
 
@@ -86,9 +87,15 @@ async function fetchPerfilAccess(
   const rawStatus =
     typeof data.status === "string" ? data.status.trim() : "pendente";
 
+  const wa =
+    typeof data.whatsapp === "string" && data.whatsapp.trim() ?
+      data.whatsapp.trim()
+    : null;
+
   return {
     status: rawStatus || "pendente",
     is_admin: Boolean(data.is_admin),
+    whatsapp: wa,
   };
 }
 
@@ -193,6 +200,29 @@ export async function middleware(request: NextRequest) {
     pathname === "/acesso-negado"
   ) {
     return redirectWithSessionCookies(request, response, "/dashboard");
+  }
+
+  const hasWhatsapp = Boolean(access?.whatsapp?.trim());
+
+  const isOnboardingExempt = (path: string): boolean => {
+    const prefixes = [
+      "/onboarding",
+      "/perfil",
+      "/acesso-negado",
+      "/aguardando-aprovacao",
+    ];
+    return prefixes.some((p) => path === p || path.startsWith(`${p}/`));
+  };
+
+  if (pathname === "/onboarding" || pathname.startsWith("/onboarding/")) {
+    if (hasWhatsapp) {
+      return redirectWithSessionCookies(request, response, "/dashboard");
+    }
+    return response;
+  }
+
+  if (!isOnboardingExempt(pathname) && !hasWhatsapp) {
+    return redirectWithSessionCookies(request, response, "/onboarding");
   }
 
   if (pathname === "/admin" || pathname.startsWith("/admin/")) {
