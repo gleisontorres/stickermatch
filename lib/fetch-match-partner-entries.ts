@@ -7,6 +7,20 @@ import {
 } from "@/lib/partner-matches";
 import type { MatchPartnerEntry } from "@/lib/types";
 
+function dedupeMatchRows(rows: RawMatchRow[]): RawMatchRow[] {
+  const seen = new Set<string>();
+  const out: RawMatchRow[] = [];
+  for (const r of rows) {
+    const key = `${r.user_oferta}\0${r.user_precisa}\0${r.figurinha_id}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    out.push(r);
+  }
+  return out;
+}
+
 function figLabel(id: string, nomePorId: Map<string, string>): string {
   const nome = nomePorId.get(id);
   return nome ? `${id} · ${nome}` : id;
@@ -30,24 +44,35 @@ function coerceKm(raw: number | string | null | undefined): number | null {
 
 /**
  * Busca linhas da view `matches`, agrega por parceiro e enriquece nomes + distância (RPC segura).
+ *
+ * Usa duas queries com `.eq()` em vez de `.or(...)` na URL: UUIDs com hífens quebram o parser do
+ * PostgREST no filtro OR embutido, e assim garantimos os dois sentidos (você precisa / você oferta).
  */
 export async function fetchMatchPartnerEntries(
   supabase: SupabaseClient,
   uid: string,
 ): Promise<MatchPartnerEntry[]> {
-  const { data: matchRows, error: matchError } = await supabase
-    .from("matches")
-    .select("user_oferta, user_precisa, figurinha_id")
-    .or(`user_precisa.eq.${uid},user_oferta.eq.${uid}`);
+  const selectCols = "user_oferta, user_precisa, figurinha_id";
 
-  if (matchError) {
-    throw new Error(matchError.message);
+  const [{ data: rowsEuPreciso, error: errPreciso }, { data: rowsEuDou, error: errDou }] =
+    await Promise.all([
+      supabase.from("matches").select(selectCols).eq("user_precisa", uid),
+      supabase.from("matches").select(selectCols).eq("user_oferta", uid),
+    ]);
+
+  if (errPreciso) {
+    throw new Error(errPreciso.message);
+  }
+  if (errDou) {
+    throw new Error(errDou.message);
   }
 
-  const aggregated = buildPartnerMatches(
-    uid,
-    (matchRows ?? []) as RawMatchRow[],
-  );
+  const matchRows = dedupeMatchRows([
+    ...((rowsEuPreciso ?? []) as RawMatchRow[]),
+    ...((rowsEuDou ?? []) as RawMatchRow[]),
+  ]);
+
+  const aggregated = buildPartnerMatches(uid, matchRows);
 
   const partnerIds = aggregated.map((m) => m.partnerId);
   const allFigIds = new Set<string>();

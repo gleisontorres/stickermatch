@@ -15,7 +15,7 @@ interface ChatTurn {
 }
 
 /**
- * Chat com a IA: histórico local (últimas 10 trocas na API) e POST /api/chat.
+ * Chat com a IA: histórico local (últimas 10 trocas na API) e POST /api/chat com streaming.
  */
 export function ChatClient() {
   const [messages, setMessages] = useState<ChatTurn[]>([]);
@@ -56,35 +56,73 @@ export function ChatClient() {
         body: JSON.stringify({ messages: payloadHistory }),
       });
 
-      const data: unknown = await res.json().catch(() => null);
-      const errMsg =
-        data &&
-        typeof data === "object" &&
-        "error" in data &&
-        typeof (data as { error: unknown }).error === "string" ?
-          (data as { error: string }).error
-        : null;
+      const contentType = res.headers.get("content-type") ?? "";
 
       if (!res.ok) {
+        const data: unknown = await res.json().catch(() => null);
+        const errMsg =
+          data &&
+          typeof data === "object" &&
+          "error" in data &&
+          typeof (data as { error: unknown }).error === "string" ?
+            (data as { error: string }).error
+          : null;
         throw new Error(errMsg ?? `Erro HTTP ${res.status}`);
       }
 
-      const message =
-        data &&
-        typeof data === "object" &&
-        "message" in data &&
-        typeof (data as { message: unknown }).message === "string" ?
-          (data as { message: string }).message
-        : null;
-
-      if (!message?.trim()) {
+      if (!res.body || !contentType.includes("text/plain")) {
         throw new Error("Resposta inválida do servidor.");
       }
 
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: message.trim() },
-      ]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulated = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) {
+          const tail = decoder.decode();
+          if (tail) {
+            accumulated += tail;
+            setMessages((prev) => {
+              const next = [...prev];
+              const last = next[next.length - 1];
+              if (last?.role === "assistant") {
+                next[next.length - 1] = {
+                  role: "assistant",
+                  content: last.content + tail,
+                };
+              }
+              return next;
+            });
+          }
+          break;
+        }
+
+        const chunk = decoder.decode(value, { stream: true });
+        if (!chunk) {
+          continue;
+        }
+        accumulated += chunk;
+        setMessages((prev) => {
+          const next = [...prev];
+          const last = next[next.length - 1];
+          if (last?.role === "assistant") {
+            next[next.length - 1] = {
+              role: "assistant",
+              content: last.content + chunk,
+            };
+          }
+          return next;
+        });
+      }
+
+      if (!accumulated.trim()) {
+        setMessages((prev) => prev.slice(0, -1));
+        throw new Error("Resposta vazia do assistente.");
+      }
     } catch (e) {
       const msg =
         e instanceof Error ? e.message : "Não foi possível enviar a mensagem.";
@@ -156,22 +194,20 @@ export function ChatClient() {
           ) : (
             <ul className="flex flex-col gap-4" aria-live="polite">
               {messages.map((m, i) => (
-                <li key={`${i}-${m.role}-${m.content.slice(0, 24)}`}>
-                  <ChatMessageBubble role={m.role} content={m.content} />
+                <li key={`msg-${i}`}>
+                  {m.role === "assistant" && m.content === "" && loading ?
+                    <div className="flex justify-start" aria-busy="true">
+                      <div className="border-border bg-card max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-3 shadow-sm">
+                        <p className="loading-gradient-text text-sm font-semibold">
+                          Pensando…
+                        </p>
+                      </div>
+                    </div>
+                  : <ChatMessageBubble role={m.role} content={m.content} />}
                 </li>
               ))}
             </ul>
           )}
-
-          {loading ? (
-            <div className="flex justify-start" aria-busy="true" aria-label="Gerando resposta">
-              <div className="border-border bg-card max-w-[85%] rounded-2xl rounded-bl-md border px-4 py-3 shadow-sm">
-                <p className="loading-gradient-text text-sm font-semibold">
-                  Pensando…
-                </p>
-              </div>
-            </div>
-          ) : null}
 
           <div ref={scrollAnchorRef} className="h-px shrink-0" aria-hidden />
         </div>

@@ -40,9 +40,11 @@ export function buildPartnerMatches(
   }
 
   for (const row of rows) {
+    // Parceiro tem repetida, você precisa: user_oferta = parceiro, user_precisa = eu.
     if (row.user_precisa === me) {
       bucket(row.user_oferta).eu_recebo.add(row.figurinha_id);
     }
+    // Você tem repetida, parceiro precisa: user_oferta = eu, user_precisa = parceiro.
     if (row.user_oferta === me) {
       bucket(row.user_precisa).eu_dou.add(row.figurinha_id);
     }
