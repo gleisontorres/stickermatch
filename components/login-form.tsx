@@ -71,9 +71,6 @@ export function LoginForm() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-6 px-6 py-16">
       <h1 className="text-xl font-semibold">Entrar</h1>
-      <p className="text-muted-foreground max-w-sm text-center text-sm">
-        Use sua conta Google para acessar o CollectHub (mesmo grupo / empresa).
-      </p>
 
       {errorMessage ? (
         <p
@@ -83,6 +80,34 @@ export function LoginForm() {
           {errorMessage}
         </p>
       ) : null}
+
+      <div className="flex w-full max-w-md flex-col gap-3">
+        <div className="border-border/80 bg-muted/40 rounded-lg border px-3 py-3">
+          <p className="text-muted-foreground flex gap-2.5 text-sm leading-relaxed">
+            <span className="shrink-0 select-none" aria-hidden>
+              💬
+            </span>
+            <span>
+              Para solicitar acesso, basta clicar em &quot;Entrar com Google&quot;
+              com seu e-mail e aguardar a aprovação. Não é necessário criar conta!
+            </span>
+          </p>
+        </div>
+        <div className="border-border/80 bg-muted/40 rounded-lg border px-3 py-3">
+          <p className="text-muted-foreground flex gap-2.5 text-sm leading-relaxed">
+            <span className="shrink-0 select-none" aria-hidden>
+              🔒
+            </span>
+            <span>
+              Durante o login, o Google pode exibir o domínio{" "}
+              <span className="text-foreground/90 font-mono text-[13px]">
+                ubmequaafjnonekoiaxe.supabase.co
+              </span>{" "}
+              — isso é normal e seguro. É nosso servidor de autenticação.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <Button
         type="button"
