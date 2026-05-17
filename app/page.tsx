@@ -4,6 +4,7 @@ import { ArrowRight, Layers, RefreshCw, Sparkles } from "lucide-react";
 import { LandingHeader } from "@/components/landing-header";
 import { LandingQrShare } from "@/components/landing-qr-share";
 import { buttonVariants } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
 const highlights = [
@@ -24,7 +25,12 @@ const highlights = [
   },
 ] as const;
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div
       className="relative flex min-h-[100dvh] flex-1 flex-col overflow-hidden bg-background"
@@ -71,6 +77,46 @@ export default function HomePage() {
                 Sem burocracia: um toque e você entra.
               </p>
             </div>
+
+            {!user ?
+              <section
+                aria-label="Como instalar o app no celular"
+                className="border-[#10b981]/45 bg-white/[0.05] dark:bg-zinc-900/45 w-full max-w-xl rounded-2xl border p-4 shadow-sm ring-1 ring-[#10b981]/20 dark:ring-[#10b981]/25 md:max-w-none"
+              >
+                <h2 className="text-foreground mb-3 text-center text-sm font-semibold sm:text-base md:text-left">
+                  <span aria-hidden>📲</span> Instale o app no seu celular
+                </h2>
+                <div className="grid gap-4 md:grid-cols-2 md:gap-5">
+                  <div className="bg-background/45 dark:bg-black/25 space-y-2 rounded-xl p-3">
+                    <p className="text-foreground text-sm font-medium">
+                      <span aria-hidden>🤖</span> Android
+                    </p>
+                    <ol className="text-muted-foreground list-decimal space-y-1.5 pl-4 text-xs leading-snug sm:text-sm">
+                      <li>Abra no Chrome</li>
+                      <li>
+                        Menu (⋮) → &quot;Adicionar à tela inicial&quot;
+                      </li>
+                    </ol>
+                  </div>
+                  <div className="bg-background/45 dark:bg-black/25 space-y-2 rounded-xl p-3">
+                    <p className="text-foreground text-sm font-medium">
+                      <span aria-hidden>🍎</span> iPhone
+                    </p>
+                    <ol className="text-muted-foreground list-decimal space-y-1.5 pl-4 text-xs leading-snug sm:text-sm">
+                      <li>Abra no Safari</li>
+                      <li>
+                        Compartilhar (⬆️) → &quot;Adicionar à Tela de
+                        Início&quot;
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+                <p className="text-[#10b981] dark:text-emerald-400 mt-4 border-t border-[#10b981]/35 pt-3 text-center text-xs font-medium sm:text-sm">
+                  ✅ Quem já conectou com o Google entra direto, sem tela de
+                  login!
+                </p>
+              </section>
+            : null}
           </header>
 
           <section

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import { DashboardInstallBanner } from "@/components/dashboard-install-banner";
 import { DashboardView } from "@/components/dashboard-view";
 import { ALBUM_TOTAL_FIGURINHAS } from "@/lib/album-constants";
 import {
@@ -60,6 +61,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="p-4 pt-6 md:p-6">
+      <DashboardInstallBanner />
       <DashboardView
         completionPercentDisplay={completionPercentDisplay}
         completionBarPercent={completionBarPercent}
