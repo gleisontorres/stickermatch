@@ -55,10 +55,22 @@ function redirectWithSessionCookies(
   return redirectResponse;
 }
 
+type MiddlewarePerfilRow = {
+  status: string;
+  is_admin: boolean;
+  whatsapp: string | null;
+};
+
+/** Sem linha em public.perfis (maybeSingle sem erro) vs erro de rede/RLS. */
+type FetchPerfilAccessResult =
+  | { outcome: "ok"; row: MiddlewarePerfilRow }
+  | { outcome: "missing_row" }
+  | { outcome: "db_error" };
+
 async function fetchPerfilAccess(
   supabase: SupabaseClient,
   userId: string,
-): Promise<{ status: string; is_admin: boolean; whatsapp: string | null } | null> {
+): Promise<FetchPerfilAccessResult> {
   const { data, error } = await supabase
     .from("perfis")
     .select("status, is_admin, whatsapp")
@@ -80,8 +92,11 @@ async function fetchPerfilAccess(
     }
   }
 
-  if (error || !data) {
-    return null;
+  if (error) {
+    return { outcome: "db_error" };
+  }
+  if (!data) {
+    return { outcome: "missing_row" };
   }
 
   const rawStatus =
@@ -93,11 +108,22 @@ async function fetchPerfilAccess(
     : null;
 
   return {
-    status: rawStatus || "pendente",
-    is_admin: Boolean(data.is_admin),
-    whatsapp: wa,
+    outcome: "ok",
+    row: {
+      status: rawStatus || "pendente",
+      is_admin: Boolean(data.is_admin),
+      whatsapp: wa,
+    },
   };
 }
+
+/** Rotas onde o fluxo de auth não deve ser bloqueado por ausência de perfil no catálogo. */
+function bypassesPerfilLookup(pathname: string): boolean {
+  return pathname === "/login" || pathname.startsWith("/callback");
+}
+
+/** Home do app já usada após login aprovado (next padrão). */
+const APP_HOME_PATH = "/dashboard";
 
 export async function middleware(request: NextRequest) {
   const { response, supabase, user } = await updateSession(request);
@@ -125,7 +151,16 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  const access = await fetchPerfilAccess(supabase, user.id);
+  const pf = await fetchPerfilAccess(supabase, user.id);
+
+  if (pf.outcome === "missing_row") {
+    if (bypassesPerfilLookup(pathname)) {
+      return response;
+    }
+    return redirectWithSessionCookies(request, response, "/login");
+  }
+
+  const access = pf.outcome === "ok" ? pf.row : null;
   const isAdmin = access?.is_admin ?? false;
   const rawStatus =
     typeof access?.status === "string" ? access.status.trim() : "";
@@ -144,6 +179,9 @@ export async function middleware(request: NextRequest) {
         response,
         "/aguardando-aprovacao",
       );
+    }
+    if (effectiveStatus === "aprovado") {
+      return redirectWithSessionCookies(request, response, APP_HOME_PATH);
     }
     return response;
   }
