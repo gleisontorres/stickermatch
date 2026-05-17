@@ -31,13 +31,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   copaBucketForFigurinha,
+  COPA_ESPECIAIS_BUCKET_ORDER,
   copaGroupAccentHex,
   copaSectionLabel,
-  ESPECIAIS_BUCKET,
+  ESPECIAIS_CC_BUCKET,
   flagIconSrcForSelecaoCodigo,
   GRUPOS_ORDEM,
 } from "@/lib/album/copa-groups";
-import { albumGroupTitle } from "@/lib/album/group-title";
+import {
+  albumGroupTitle,
+  ESPECIAIS_SELECTION_TITLE_CC,
+  ESPECIAIS_SELECTION_TITLE_FWC,
+} from "@/lib/album/group-title";
 import {
   chunkedColecaoDelete,
   chunkedColecaoUpsert,
@@ -75,9 +80,25 @@ function buildSelectionGroups(items: Figurinha[]): [string, Figurinha[]][] {
   for (const [, list] of map) {
     list.sort((a, b) => (a.numero ?? 0) - (b.numero ?? 0));
   }
+  const selectionSortRank = (title: string): number => {
+    if (title === ESPECIAIS_SELECTION_TITLE_FWC) {
+      return 1;
+    }
+    if (title === ESPECIAIS_SELECTION_TITLE_CC) {
+      return 2;
+    }
+    if (title === "Especiais") {
+      return 3;
+    }
+    return 0;
+  };
+
   return [...map.entries()].sort((a, b) => {
-    if (a[0] === "Especiais") return 1;
-    if (b[0] === "Especiais") return -1;
+    const ra = selectionSortRank(a[0]);
+    const rb = selectionSortRank(b[0]);
+    if (ra !== rb) {
+      return ra - rb;
+    }
     return minNumero(a[1]) - minNumero(b[1]);
   });
 }
@@ -86,6 +107,27 @@ interface CopaAlbumSection {
   copaKey: string;
   headerTitle: string;
   selections: [string, Figurinha[]][];
+}
+
+/** Cabeçalho Coca‑Cola na seção Especiais (garrafa + texto). */
+function AlbumCcHeadingWithBottleIcon() {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/icons/bottle.png"
+        alt="garrafa"
+        style={{
+          width: "16px",
+          height: "24px",
+          filter: "invert(1)",
+          display: "inline-block",
+          verticalAlign: "middle",
+        }}
+      />
+      <span>{ESPECIAIS_SELECTION_TITLE_CC}</span>
+    </span>
+  );
 }
 
 /**
@@ -672,13 +714,15 @@ export function AlbumView({
       }
     }
 
-    const espItems = byBucket.get(ESPECIAIS_BUCKET);
-    if (espItems && espItems.length > 0) {
-      sections.push({
-        copaKey: ESPECIAIS_BUCKET,
-        headerTitle: copaSectionLabel(ESPECIAIS_BUCKET),
-        selections: buildSelectionGroups(espItems),
-      });
+    for (const bucketKey of COPA_ESPECIAIS_BUCKET_ORDER) {
+      const items = byBucket.get(bucketKey);
+      if (items && items.length > 0) {
+        sections.push({
+          copaKey: bucketKey,
+          headerTitle: copaSectionLabel(bucketKey),
+          selections: buildSelectionGroups(items),
+        });
+      }
     }
 
     return sections;
@@ -985,7 +1029,11 @@ export function AlbumView({
                   </span>
                   <span className="min-w-0 flex-1 space-y-1.5">
                     <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="font-semibold">{section.headerTitle}</span>
+                      <span className="font-semibold">
+                        {section.copaKey === ESPECIAIS_CC_BUCKET ?
+                          <AlbumCcHeadingWithBottleIcon />
+                        : section.headerTitle}
+                      </span>
                       <span className="text-muted-foreground text-sm">
                         {selectionCount}{" "}
                         {selectionCount === 1 ? "seleção" : "seleções"}
@@ -1038,7 +1086,11 @@ export function AlbumView({
                           )}
                         >
                           <span className="flex items-center justify-between gap-2">
-                            <span className="min-w-0">{title}</span>
+                            <span className="min-w-0">
+                              {title === ESPECIAIS_SELECTION_TITLE_CC ?
+                                <AlbumCcHeadingWithBottleIcon />
+                              : title}
+                            </span>
                             <span className="flex shrink-0 items-center gap-2">
                               {busyGroupTitle === title ?
                                 <span

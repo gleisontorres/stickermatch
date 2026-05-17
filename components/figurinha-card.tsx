@@ -25,6 +25,36 @@ function cardToneClass(quantidade: number): string {
   return "border-secondary/45 bg-secondary/[0.14]";
 }
 
+type TipoBadge =
+  | { variant: "text"; text: string; bg: string }
+  | { variant: "cc"; bg: string };
+
+/** Aparência do badge de tipo (fundo sólido + rótulo curto ou ícone CC). */
+function tipoBadgeStyle(figurinha: Figurinha): TipoBadge {
+  if (figurinha.tipo === "especial") {
+    const sc = figurinha.selecao_codigo?.trim().toUpperCase() ?? "";
+    if (sc === "CC") {
+      return { variant: "cc", bg: "#ef4444" };
+    }
+    if (sc === "FWC") {
+      return { variant: "text", text: "⭐ FWC", bg: "#eab308" };
+    }
+    return { variant: "text", text: "⭐ Esp", bg: "#eab308" };
+  }
+  switch (figurinha.tipo) {
+    case "jogador":
+      return { variant: "text", text: "👟 Jog", bg: "#10b981" };
+    case "logo":
+      return { variant: "text", text: "🛡️ Logo", bg: "#6366f1" };
+    case "selecao":
+      return { variant: "text", text: "👥 Sel", bg: "#f59e0b" };
+    default: {
+      const _never: never = figurinha.tipo;
+      return _never;
+    }
+  }
+}
+
 /**
  * Cartão compacto de figurinha com código/número catálogo, nome e seletor de quantidade.
  */
@@ -44,6 +74,7 @@ export function FigurinhaCard({
   const codigoDisplay = formatCodigo(codigoLabel);
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
+  const tipoBadge = tipoBadgeStyle(figurinha);
 
   return (
     <article
@@ -75,8 +106,29 @@ export function FigurinhaCard({
       <div className="min-w-0 space-y-0.5">
         <div className="text-muted-foreground flex items-center justify-between gap-2 text-[11px] font-medium uppercase tracking-wide">
           <span>{codigoDisplay}</span>
-          <span className="brand-badge-gradient max-w-[52%] truncate rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide normal-case">
-            {figurinha.tipo}
+          <span
+            className={cn(
+              "max-w-[52%] shrink-0 truncate rounded-full px-2.5 py-1 text-xs font-bold tracking-normal text-white normal-case",
+              tipoBadge.variant === "cc" && "inline-flex items-center gap-1",
+            )}
+            style={{ backgroundColor: tipoBadge.bg }}
+          >
+            {tipoBadge.variant === "cc" ?
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/icons/bottle.png"
+                  alt="garrafa"
+                  className="shrink-0"
+                  style={{
+                    width: "10px",
+                    height: "16px",
+                    filter: "invert(1)",
+                  }}
+                />
+                <span>CC</span>
+              </>
+            : tipoBadge.text}
           </span>
         </div>
         <h3 className="line-clamp-2 text-sm font-medium leading-snug">

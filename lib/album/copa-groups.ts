@@ -1,5 +1,7 @@
 import type { Figurinha } from "@/lib/types";
 
+import { ESPECIAIS_SELECTION_TITLE_CC } from "@/lib/album/group-title";
+
 /** Ordem dos grupos no álbum físico Panini (Copa 2026). */
 export const GRUPOS_ORDEM = [
   "A",
@@ -16,8 +18,21 @@ export const GRUPOS_ORDEM = [
   "L",
 ] as const;
 
-/** Chave da seção externa para especiais e itens fora de A–L. */
+/** Chave da seção externa para itens com grupo ∉ A–L e não‑FWC/CC. */
 export const ESPECIAIS_BUCKET = "Especiais";
+
+/** FIFA World Cup (figurinhas douradas, selecao_codigo FWC). */
+export const ESPECIAIS_FWC_BUCKET = "Especiais-FWC";
+
+/** Coca‑Cola (patrocinador, selecao_codigo CC). */
+export const ESPECIAIS_CC_BUCKET = "Especiais-CC";
+
+/** Ordem das seções de especiais após os grupos A–L. */
+export const COPA_ESPECIAIS_BUCKET_ORDER = [
+  ESPECIAIS_FWC_BUCKET,
+  ESPECIAIS_CC_BUCKET,
+  ESPECIAIS_BUCKET,
+] as const;
 
 /** Slug do pacote lipis/flag-icons (flags/4x3/{slug}.svg) por `selecao_codigo` do catálogo. FWC omitido. */
 export const SELECAO_CODIGO_FLAG_SLUG: Record<string, string> = {
@@ -102,6 +117,8 @@ export const GRUPO_CORES: Record<string, string> = {
   K: "#14b8a6",
   L: "#d97706",
   [ESPECIAIS_BUCKET]: "#94a3b8",
+  [ESPECIAIS_FWC_BUCKET]: "#f59e0b",
+  [ESPECIAIS_CC_BUCKET]: "#ef4444",
 };
 
 const GRUPO_SET = new Set<string>(GRUPOS_ORDEM);
@@ -114,21 +131,40 @@ export function copaGroupAccentHex(copaKey: string): string {
 }
 
 /**
- * Retorna a chave da seção do álbum (A–L ou bloco de especiais).
- * Qualquer `grupo` que não esteja em GRUPOS_ORDEM cai em Especiais.
+ * Retorna a chave da seção do álbum (A–L ou blocos de especiais FWC/CC/outros).
+ * `grupo` ∈ A–L usa a letra; fora disso diferencia especial FWC/CC por `selecao_codigo`.
  */
-export function copaBucketForFigurinha(f: Pick<Figurinha, "grupo">): string {
+export function copaBucketForFigurinha(
+  f: Pick<Figurinha, "grupo" | "tipo" | "selecao_codigo">,
+): string {
   const g = f.grupo;
   if (g != null && GRUPO_SET.has(g)) {
     return g;
   }
+
+  const sc = (f.selecao_codigo ?? "").trim().toUpperCase();
+  if (f.tipo === "especial") {
+    if (sc === "FWC") {
+      return ESPECIAIS_FWC_BUCKET;
+    }
+    if (sc === "CC") {
+      return ESPECIAIS_CC_BUCKET;
+    }
+  }
+
   return ESPECIAIS_BUCKET;
 }
 
-/** Rótulo do header da seção externa (ex.: "Grupo A", "Especiais"). */
+/** Rótulo do header da seção externa (ex.: "Grupo A", "Especiais", FWC, CC). */
 export function copaSectionLabel(bucket: string): string {
   if (bucket === ESPECIAIS_BUCKET) {
     return ESPECIAIS_BUCKET;
+  }
+  if (bucket === ESPECIAIS_FWC_BUCKET) {
+    return "🏆 FWC — FIFA World Cup";
+  }
+  if (bucket === ESPECIAIS_CC_BUCKET) {
+    return ESPECIAIS_SELECTION_TITLE_CC;
   }
   return `Grupo ${bucket}`;
 }
