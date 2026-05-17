@@ -179,7 +179,9 @@ export function PacoteModeClient({
     }
 
     setDraft("");
-    inputRef.current?.focus();
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
   }, [
     appendLog,
     busy,
