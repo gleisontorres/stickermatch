@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChevronDown, ChevronRight, MoreVertical } from "lucide-react";
 import {
+  startTransition,
   useCallback,
   useEffect,
   useMemo,
@@ -12,7 +13,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 
-import { FigurinhaCard } from "@/components/figurinha-card";
+import { AlbumFigurinhaChunkGrid } from "@/components/album-figurinha-chunk-grid";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -173,6 +174,10 @@ export function AlbumView({
 
   const [bulkTipReady, setBulkTipReady] = useState(false);
   const [bulkTipHidden, setBulkTipHidden] = useState(false);
+  /** Aberturas dos `<details>` internos por seleção (evita montar cards antes da 1ª abertura). */
+  const [selectionDetailsOpen, setSelectionDetailsOpen] = useState<
+    Record<string, boolean>
+  >({});
 
   useEffect(() => {
     setQuantities(initialQuantities);
@@ -748,6 +753,11 @@ export function AlbumView({
   }, [figurinhas, quantities]);
 
   const filterSignature = `${filterMode}|${search.trim()}`;
+
+  useEffect(() => {
+    setSelectionDetailsOpen({});
+  }, [filterSignature]);
+
   const visibleCopaKeysRef = useRef(visibleCopaKeyList);
   visibleCopaKeysRef.current = visibleCopaKeyList;
   const prevFilterSignatureRef = useRef(filterSignature);
@@ -782,13 +792,17 @@ export function AlbumView({
   const toggleCopaGroup = useCallback(
     (key: string) => {
       if (isNarrowFilter) {
-        setOpenCopaGroups((prev) =>
-          prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
-        );
+        startTransition(() => {
+          setOpenCopaGroups((prev) =>
+            prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
+          );
+        });
       } else {
-        setOpenCopaGroups((prev) =>
-          prev.length === 1 && prev[0] === key ? [] : [key],
-        );
+        startTransition(() => {
+          setOpenCopaGroups((prev) =>
+            prev.length === 1 && prev[0] === key ? [] : [key],
+          );
+        });
       }
     },
     [isNarrowFilter],
@@ -1074,11 +1088,26 @@ export function AlbumView({
 
                 {isOpen ?
                   <div className="border-border flex flex-col gap-3 border-t px-2 py-3 sm:px-3">
-                    {section.selections.map(([title, items]) => (
-                      <details
-                        key={`${section.copaKey}-${title}`}
-                        className="group border-border rounded-xl border"
-                      >
+                    {section.selections.map(([title, items]) => {
+                      const detailKey = `${section.copaKey}|${title}`;
+                      const selOpen =
+                        selectionDetailsOpen[detailKey] ?? false;
+                      const chunkStableKey = `${filterSignature}|${detailKey}|${items.map((f) => f.id).join(",")}`;
+
+                      return (
+                        <details
+                          key={`${section.copaKey}-${title}`}
+                          className="group border-border rounded-xl border"
+                          open={selOpen}
+                          onToggle={(e) => {
+                            const opened =
+                              (e.currentTarget as HTMLDetailsElement).open;
+                            setSelectionDetailsOpen((prev) => ({
+                              ...prev,
+                              [detailKey]: opened,
+                            }));
+                          }}
+                        >
                         <summary
                           className={cn(
                             "cursor-pointer list-none px-4 py-3 font-medium outline-none",
@@ -1193,27 +1222,23 @@ export function AlbumView({
                             );
                           })()}
                         </summary>
-                        <div className="border-border grid gap-2 border-t p-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                          {items.map((f) => (
-                            <FigurinhaCard
-                              key={f.id}
-                              figurinha={f}
-                              quantidade={quantities[f.id] ?? 0}
-                              disabled={
-                                busyId === f.id ||
-                                quickPrepLoading ||
-                                globalBusy ||
-                                (busyGroupTitle !== null &&
-                                  albumGroupTitle(f) === busyGroupTitle)
-                              }
-                              quickTapMode={quickRegistrationMode}
-                              onQuickTap={() => handleQuickTap(f.id)}
-                              onQuantidadeChange={handleQtyChange}
-                            />
-                          ))}
-                        </div>
+                        {selOpen ?
+                          <AlbumFigurinhaChunkGrid
+                            stableKey={chunkStableKey}
+                            items={items}
+                            quantities={quantities}
+                            busyId={busyId}
+                            quickPrepLoading={quickPrepLoading}
+                            globalBusy={globalBusy}
+                            busyGroupTitle={busyGroupTitle}
+                            quickRegistrationMode={quickRegistrationMode}
+                            onQuickTap={handleQuickTap}
+                            onQuantidadeChange={handleQtyChange}
+                          />
+                        : null}
                       </details>
-                    ))}
+                      );
+                    })}
                   </div>
                 : null}
               </div>
