@@ -19,22 +19,25 @@ export default async function AlbumPage({
     redirect("/login?next=/album");
   }
 
-  const { data: figurinhasRows, error: figurinhasError } = await supabase
-    .from("figurinhas")
-    .select(
-      "id, numero, nome, selecao, selecao_codigo, grupo, tipo, posicao, imagem_url",
-    )
-    .order("numero", { ascending: true, nullsFirst: false });
+  const [
+    { data: figurinhasRows, error: figurinhasError },
+    { data: colecaoRows, error: colecaoError },
+  ] = await Promise.all([
+    supabase
+      .from("figurinhas")
+      .select(
+        "id, numero, nome, selecao, selecao_codigo, grupo, tipo, posicao, imagem_url",
+      )
+      .order("numero", { ascending: true, nullsFirst: false }),
+    supabase
+      .from("colecao")
+      .select("figurinha_id, quantidade")
+      .eq("user_id", user.id),
+  ]);
 
   if (figurinhasError) {
     throw new Error(figurinhasError.message);
   }
-
-  const { data: colecaoRows, error: colecaoError } = await supabase
-    .from("colecao")
-    .select("figurinha_id, quantidade")
-    .eq("user_id", user.id);
-
   if (colecaoError) {
     throw new Error(colecaoError.message);
   }
