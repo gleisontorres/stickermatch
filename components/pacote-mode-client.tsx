@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent }
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { cn } from "@/lib/utils";
+import { cn, normalizeCodigo } from "@/lib/utils";
 
 /** Linha mínima do catálogo para resolver código ou número. */
 export interface PacoteCatalogRow {
@@ -102,16 +102,17 @@ export function PacoteModeClient({
       if (!t) {
         return null;
       }
-      const upper = t.toUpperCase();
-      const byCode = canonicalByUpper.get(upper);
-      if (byCode) {
-        return byCode;
-      }
       if (/^\d+$/.test(t)) {
         const n = parseInt(t, 10);
         if (n >= 1 && n <= 9999) {
           return numeroToId.get(n) ?? null;
         }
+        return null;
+      }
+      const normalized = normalizeCodigo(t);
+      const byCode = canonicalByUpper.get(normalized);
+      if (byCode) {
+        return byCode;
       }
       return null;
     },
@@ -204,7 +205,7 @@ export function PacoteModeClient({
         <h1 className="text-xl font-semibold tracking-tight">Modo pacote</h1>
         <p className="text-muted-foreground text-sm">
           Digite o código da figurinha (ex.:{" "}
-          <span className="font-mono text-foreground">BRA02</span>) ou só o{" "}
+          <span className="font-mono text-foreground">BRA2</span>) ou só o{" "}
           <span className="font-mono text-foreground">número</span> do álbum e
           pressione <kbd className="font-mono text-xs">Enter</kbd> para somar{" "}
           <strong className="text-foreground">+1</strong> na quantidade.
@@ -241,7 +242,7 @@ export function PacoteModeClient({
             disabled={busy}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={onKeyDown}
-            placeholder="Ex.: BRA02 ou 142"
+            placeholder="Ex.: BRA2 ou 142"
             autoCapitalize="characters"
             autoCorrect="off"
             spellCheck={false}

@@ -3,7 +3,7 @@
 import type { Figurinha } from "@/lib/types";
 
 import { QtySelector } from "@/components/qty-selector";
-import { cn } from "@/lib/utils";
+import { cn, formatCodigo } from "@/lib/utils";
 
 interface FigurinhaCardProps {
   figurinha: Figurinha;
@@ -26,7 +26,7 @@ function cardToneClass(quantidade: number): string {
 }
 
 /**
- * Cartão compacto de figurinha com número, nome e seletor de quantidade.
+ * Cartão compacto de figurinha com código/número catálogo, nome e seletor de quantidade.
  */
 export function FigurinhaCard({
   figurinha,
@@ -36,8 +36,12 @@ export function FigurinhaCard({
   onQuickTap,
   onQuantidadeChange,
 }: FigurinhaCardProps) {
-  const numLabel =
-    figurinha.numero != null ? `#${figurinha.numero}` : figurinha.id;
+  /** Código Panini quando a API envia `codigo`; caso contrário o `id` do catálogo. */
+  const f = figurinha as Figurinha & { codigo?: string | null };
+  const codigoLabel =
+    typeof f.codigo === "string" && f.codigo.trim() ? f.codigo.trim()
+    : f.id;
+  const codigoDisplay = formatCodigo(codigoLabel);
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
 
@@ -70,7 +74,7 @@ export function FigurinhaCard({
     >
       <div className="min-w-0 space-y-0.5">
         <div className="text-muted-foreground flex items-center justify-between gap-2 text-[11px] font-medium uppercase tracking-wide">
-          <span>{numLabel}</span>
+          <span>{codigoDisplay}</span>
           <span className="brand-badge-gradient max-w-[52%] truncate rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide normal-case">
             {figurinha.tipo}
           </span>
