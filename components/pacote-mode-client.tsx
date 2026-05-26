@@ -102,6 +102,11 @@ export function PacoteModeClient({
       if (!t) {
         return null;
       }
+      // Id literal (ex.: "00") antes de tratar só dígitos como número do álbum.
+      const byExactId = canonicalByUpper.get(t.toUpperCase());
+      if (byExactId) {
+        return byExactId;
+      }
       if (/^\d+$/.test(t)) {
         const n = parseInt(t, 10);
         if (n >= 1 && n <= 9999) {
