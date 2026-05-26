@@ -8,7 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { GradientBorder } from "@/components/ui/gradient-border";
 import { formatDistanceKm } from "@/lib/format-distance-km";
 import type { MatchPartnerEntry } from "@/lib/types";
-import { whatsappExternalHref } from "@/lib/whatsapp-external-href";
+import { matchWhatsappHref } from "@/lib/match-whatsapp-href";
 import { cn } from "@/lib/utils";
 
 /** Quantidade inicial de figurinhas antes de exigir expansão. */
@@ -23,7 +23,7 @@ interface MatchPartnerCardProps {
  */
 export function MatchPartnerCard({ entry }: MatchPartnerCardProps) {
   const totalTrocas = entry.eu_dou.length + entry.eu_recebo.length;
-  const wa = whatsappExternalHref(entry.whatsapp);
+  const wa = matchWhatsappHref(entry);
   const distLabel = formatDistanceKm(entry.distanciaKm ?? null);
 
   const body = (
