@@ -27,6 +27,8 @@ interface LogLine {
 
 const MAX_LOG = 40;
 
+type EntryMode = "individual" | "batch";
+
 /**
  * Entrada rápida tipo “abri um pacote”: código ou número + Enter incrementa +1.
  */
@@ -35,9 +37,12 @@ export function PacoteModeClient({
   initialQuantities,
 }: PacoteModeClientProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const batchRef = useRef<HTMLTextAreaElement>(null);
   const qtyRef = useRef<Record<string, number>>(initialQuantities);
 
+  const [entryMode, setEntryMode] = useState<EntryMode>("individual");
   const [draft, setDraft] = useState("");
+  const [batchDraft, setBatchDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [log, setLog] = useState<LogLine[]>([]);
@@ -128,73 +133,96 @@ export function PacoteModeClient({
     setLog((prev) => [line, ...prev].slice(0, MAX_LOG));
   }, []);
 
+  const processOneEntry = useCallback(
+    async (raw: string, logKeySuffix: string) => {
+      const figurinhaId = resolveFigurinhaId(raw);
+      const trimmed = raw.trim();
+
+      if (!trimmed) {
+        return;
+      }
+
+      if (!figurinhaId) {
+        appendLog({
+          key: `${Date.now()}-${logKeySuffix}-err`,
+          ok: false,
+          message: `“${trimmed}” não existe no catálogo.`,
+        });
+        return;
+      }
+
+      const nome = nomePorId.get(figurinhaId) ?? figurinhaId;
+      const oldVal = qtyRef.current[figurinhaId] ?? 0;
+      const newVal = Math.min(99, oldVal + 1);
+
+      if (newVal === oldVal && oldVal >= 99) {
+        appendLog({
+          key: `${Date.now()}-${logKeySuffix}-cap`,
+          ok: false,
+          message: `${figurinhaId} (${nome}) já está no máximo (99).`,
+        });
+        return;
+      }
+
+      qtyRef.current = { ...qtyRef.current, [figurinhaId]: newVal };
+
+      const ok = await persistIncrement(figurinhaId, oldVal, newVal);
+
+      if (ok) {
+        appendLog({
+          key: `${Date.now()}-${logKeySuffix}-ok`,
+          ok: true,
+          message: `+1 · ${figurinhaId} · ${nome} → qty ${newVal}`,
+        });
+      } else {
+        appendLog({
+          key: `${Date.now()}-${logKeySuffix}-fail`,
+          ok: false,
+          message: `Falha ao salvar ${figurinhaId}.`,
+        });
+      }
+    },
+    [appendLog, nomePorId, persistIncrement, resolveFigurinhaId],
+  );
+
   const submitCurrent = useCallback(async () => {
     const raw = draft;
-    const figurinhaId = resolveFigurinhaId(raw);
     const trimmed = raw.trim();
 
     if (!trimmed || busy) {
       return;
     }
 
-    if (!figurinhaId) {
-      appendLog({
-        key: `${Date.now()}-err`,
-        ok: false,
-        message: `“${trimmed}” não existe no catálogo.`,
-      });
-      setDraft("");
-      inputRef.current?.focus();
-      return;
-    }
-
-    const nome = nomePorId.get(figurinhaId) ?? figurinhaId;
-    const oldVal = qtyRef.current[figurinhaId] ?? 0;
-    const newVal = Math.min(99, oldVal + 1);
-
-    if (newVal === oldVal && oldVal >= 99) {
-      appendLog({
-        key: `${Date.now()}-cap`,
-        ok: false,
-        message: `${figurinhaId} (${nome}) já está no máximo (99).`,
-      });
-      setDraft("");
-      inputRef.current?.focus();
-      return;
-    }
-
     setBusy(true);
-    qtyRef.current = { ...qtyRef.current, [figurinhaId]: newVal };
-
-    const ok = await persistIncrement(figurinhaId, oldVal, newVal);
+    await processOneEntry(raw, "one");
     setBusy(false);
-
-    if (ok) {
-      appendLog({
-        key: `${Date.now()}-ok`,
-        ok: true,
-        message: `+1 · ${figurinhaId} · ${nome} → qty ${newVal}`,
-      });
-    } else {
-      appendLog({
-        key: `${Date.now()}-fail`,
-        ok: false,
-        message: `Falha ao salvar ${figurinhaId}.`,
-      });
-    }
 
     setDraft("");
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
-  }, [
-    appendLog,
-    busy,
-    draft,
-    nomePorId,
-    persistIncrement,
-    resolveFigurinhaId,
-  ]);
+  }, [busy, draft, processOneEntry]);
+
+  const submitBatch = useCallback(async () => {
+    const codes = batchDraft
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    if (codes.length === 0 || busy) {
+      return;
+    }
+
+    setBusy(true);
+    for (let i = 0; i < codes.length; i += 1) {
+      await processOneEntry(codes[i], `batch-${i}`);
+    }
+    setBusy(false);
+    setBatchDraft("");
+    setTimeout(() => {
+      batchRef.current?.focus();
+    }, 0);
+  }, [batchDraft, busy, processOneEntry]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -238,49 +266,123 @@ export function PacoteModeClient({
       ) : null}
 
       <div className="border-border rounded-xl border bg-card p-4 shadow-sm">
-        <label className="flex flex-col gap-2">
-          <span className="text-muted-foreground text-xs font-medium">
-            Próxima figurinha
-          </span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={draft}
+        {entryMode === "individual" ? (
+          <label className="flex flex-col gap-2">
+            <span className="text-muted-foreground text-xs font-medium">
+              Próxima figurinha
+            </span>
+            <input
+              ref={inputRef}
+              type="text"
+              value={draft}
+              disabled={busy}
+              onChange={(e) => setDraft(e.target.value)}
+              onKeyDown={onKeyDown}
+              placeholder="Ex.: BRA2 ou 142"
+              autoCapitalize="characters"
+              autoCorrect="off"
+              spellCheck={false}
+              enterKeyHint="done"
+              autoFocus
+              aria-busy={busy}
+              className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono h-11 w-full rounded-lg border px-3 text-base tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
+            />
+          </label>
+        ) : null}
+
+        <div
+          className={cn(
+            "flex rounded-lg border p-0.5",
+            entryMode === "individual" ? "mt-3" : "",
+          )}
+          role="group"
+          aria-label="Modo de cadastro"
+        >
+          <button
+            type="button"
             disabled={busy}
-            onChange={(e) => setDraft(e.target.value)}
-            onKeyDown={onKeyDown}
-            placeholder="Ex.: BRA2 ou 142"
-            autoCapitalize="characters"
-            autoCorrect="off"
-            spellCheck={false}
-            enterKeyHint="done"
-            autoFocus
-            aria-busy={busy}
-            className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono h-11 w-full rounded-lg border px-3 text-base tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
-          />
-        </label>
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Button
-            type="button"
-            variant="gradient"
-            size="sm"
-            disabled={busy || !draft.trim()}
-            onClick={() => void submitCurrent()}
+            onClick={() => setEntryMode("individual")}
+            className={cn(
+              "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-60",
+              entryMode === "individual"
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground",
+            )}
           >
-            Adicionar (+1)
-          </Button>
-          <Button
+            Individual
+          </button>
+          <button
             type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              setDraft("");
-              inputRef.current?.focus();
-            }}
+            disabled={busy}
+            onClick={() => setEntryMode("batch")}
+            className={cn(
+              "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-60",
+              entryMode === "batch"
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground",
+            )}
           >
-            Limpar campo
-          </Button>
+            Lote
+          </button>
         </div>
+
+        {entryMode === "batch" ? (
+          <div className="mt-3 space-y-3">
+            <label className="flex flex-col gap-2">
+              <span className="text-muted-foreground text-xs font-medium">
+                Cadastro em lote
+              </span>
+              <textarea
+                ref={batchRef}
+                value={batchDraft}
+                disabled={busy}
+                onChange={(e) => setBatchDraft(e.target.value)}
+                placeholder="BRA1,BRA2,FRA5,MEX03"
+                rows={4}
+                autoCapitalize="characters"
+                autoCorrect="off"
+                spellCheck={false}
+                aria-busy={busy}
+                className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono w-full resize-y rounded-lg border px-3 py-2 text-sm tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
+              />
+              <span className="text-muted-foreground text-xs">
+                Cole códigos separados por vírgula.
+              </span>
+            </label>
+            <Button
+              type="button"
+              variant="gradient"
+              size="sm"
+              disabled={busy || !batchDraft.trim()}
+              onClick={() => void submitBatch()}
+            >
+              Adicionar lote
+            </Button>
+          </div>
+        ) : (
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="gradient"
+              size="sm"
+              disabled={busy || !draft.trim()}
+              onClick={() => void submitCurrent()}
+            >
+              Adicionar (+1)
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                setDraft("");
+                inputRef.current?.focus();
+              }}
+            >
+              Limpar campo
+            </Button>
+          </div>
+        )}
       </div>
 
       <section aria-labelledby="pacote-log-heading" className="space-y-2">
