@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { ColecaoListClient } from "@/components/colecao-list-client";
+import { sortFigurinhasAlbumOrder } from "@/lib/album/figurinha-sort";
 import { createClient } from "@/lib/supabase/server";
 import type { Figurinha } from "@/lib/types";
 
@@ -18,10 +19,7 @@ export default async function FaltasPage() {
   }
 
   const [figRes, colRes] = await Promise.all([
-    supabase
-      .from("figurinhas")
-      .select(FIGURINHA_SELECT)
-      .order("numero", { ascending: true, nullsFirst: false }),
+    supabase.from("figurinhas").select(FIGURINHA_SELECT),
     supabase
       .from("colecao")
       .select("figurinha_id, quantidade")
@@ -39,12 +37,14 @@ export default async function FaltasPage() {
     (colRes.data ?? []).map((r) => [r.figurinha_id, r.quantidade]),
   );
 
-  const items = (figRes.data ?? [])
-    .filter((f) => (qtyMap.get(f.id) ?? 0) === 0)
-    .map((f) => ({
-      ...(f as Figurinha),
-      quantidade: 0,
-    }));
+  const items = sortFigurinhasAlbumOrder(
+    (figRes.data ?? [])
+      .filter((f) => (qtyMap.get(f.id) ?? 0) === 0)
+      .map((f) => ({
+        ...(f as Figurinha),
+        quantidade: 0,
+      })),
+  );
 
   return (
     <div className="p-4 pb-12 md:p-6">

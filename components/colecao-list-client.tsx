@@ -177,7 +177,17 @@ function ColecaoListRow({
             </>
           ) : null}
         </div>
-        <p className="text-sm font-medium leading-snug">{row.nome}</p>
+        <p className="text-sm font-medium leading-snug">
+          {variant === "faltas" ? (
+            <>
+              <span className="font-mono">{row.id}</span>
+              {" · "}
+              {row.nome}
+            </>
+          ) : (
+            row.nome
+          )}
+        </p>
       </div>
       {variant === "repetidas" ? (
         <span
