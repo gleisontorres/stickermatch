@@ -91,6 +91,52 @@ export const SELECAO_CODIGO_FLAG_SLUG: Record<string, string> = {
 const FLAG_ICONS_BASE =
   "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3";
 
+const REGIONAL_INDICATOR_A = 0x1f1e6;
+
+/** Bandeiras emoji para slugs flag-icons que não são ISO2 simples. */
+const FLAG_SLUG_EMOJI: Record<string, string> = {
+  "gb-eng": "\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E007F}",
+  "gb-sct": "\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}",
+};
+
+function iso2ToFlagEmoji(iso2: string): string | null {
+  const upper = iso2.toUpperCase();
+  if (!/^[A-Z]{2}$/.test(upper)) {
+    return null;
+  }
+  return String.fromCodePoint(
+    ...[...upper].map(
+      (char) => REGIONAL_INDICATOR_A + (char.charCodeAt(0) - 65),
+    ),
+  );
+}
+
+function flagEmojiFromSlug(slug: string): string | null {
+  const preset = FLAG_SLUG_EMOJI[slug];
+  if (preset) {
+    return preset;
+  }
+  return iso2ToFlagEmoji(slug);
+}
+
+/**
+ * Emoji de bandeira para `selecao_codigo`, ou null (ex.: FWC, CC).
+ * Usa o mesmo mapa `SELECAO_CODIGO_FLAG_SLUG` de `flagIconSrcForSelecaoCodigo`.
+ */
+export function flagEmojiForSelecaoCodigo(
+  selecaoCodigo: string | null | undefined,
+): string | null {
+  const key = (selecaoCodigo ?? "").trim().toUpperCase();
+  if (!key) {
+    return null;
+  }
+  const slug = SELECAO_CODIGO_FLAG_SLUG[key];
+  if (!slug) {
+    return null;
+  }
+  return flagEmojiFromSlug(slug);
+}
+
 /**
  * URL do SVG da bandeira (flag-icons) para `selecao_codigo`, ou null se não houver (ex.: FWC).
  */

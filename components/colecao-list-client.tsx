@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
+import { flagEmojiForSelecaoCodigo } from "@/lib/album/copa-groups";
 import type { Figurinha } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -151,6 +152,8 @@ function ColecaoListRow({
   row: ColecaoListItem;
 }) {
   const numLabel = row.numero != null ? `#${row.numero}` : row.id;
+  const flagEmoji =
+    variant === "faltas" ? flagEmojiForSelecaoCodigo(row.selecao_codigo) : null;
 
   return (
     <div
@@ -180,6 +183,7 @@ function ColecaoListRow({
         <p className="text-sm font-medium leading-snug">
           {variant === "faltas" ? (
             <>
+              {flagEmoji ? <span aria-hidden>{flagEmoji} </span> : null}
               <span className="font-mono">{row.id}</span>
               {" · "}
               {row.nome}
