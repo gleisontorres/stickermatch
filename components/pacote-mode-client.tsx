@@ -1,7 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type RefObject,
+} from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -28,21 +36,29 @@ interface LogLine {
 const MAX_LOG = 40;
 
 type EntryMode = "individual" | "batch";
+type PacoteDelta = 1 | -1;
 
 /**
- * Entrada rápida tipo “abri um pacote”: código ou número + Enter incrementa +1.
+ * Entrada rápida tipo “abri um pacote”: adicionar ou remover ±1 por código/número.
  */
 export function PacoteModeClient({
   catalog,
   initialQuantities,
 }: PacoteModeClientProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const batchRef = useRef<HTMLTextAreaElement>(null);
   const qtyRef = useRef<Record<string, number>>(initialQuantities);
 
-  const [entryMode, setEntryMode] = useState<EntryMode>("individual");
-  const [draft, setDraft] = useState("");
-  const [batchDraft, setBatchDraft] = useState("");
+  const [addEntryMode, setAddEntryMode] = useState<EntryMode>("individual");
+  const [addDraft, setAddDraft] = useState("");
+  const [addBatchDraft, setAddBatchDraft] = useState("");
+  const addInputRef = useRef<HTMLInputElement>(null);
+  const addBatchRef = useRef<HTMLTextAreaElement>(null);
+
+  const [removeEntryMode, setRemoveEntryMode] = useState<EntryMode>("individual");
+  const [removeDraft, setRemoveDraft] = useState("");
+  const [removeBatchDraft, setRemoveBatchDraft] = useState("");
+  const removeInputRef = useRef<HTMLInputElement>(null);
+  const removeBatchRef = useRef<HTMLTextAreaElement>(null);
+
   const [busy, setBusy] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [log, setLog] = useState<LogLine[]>([]);
@@ -67,7 +83,7 @@ export function PacoteModeClient({
     return { canonicalByUpper, numeroToId, nomePorId };
   }, [catalog]);
 
-  const persistIncrement = useCallback(
+  const persistQuantity = useCallback(
     async (figurinhaId: string, oldVal: number, newVal: number) => {
       const supabase = createClient();
       const {
@@ -107,7 +123,6 @@ export function PacoteModeClient({
       if (!t) {
         return null;
       }
-      // Id literal (ex.: "00") antes de tratar só dígitos como número do álbum.
       const byExactId = canonicalByUpper.get(t.toUpperCase());
       if (byExactId) {
         return byExactId;
@@ -134,7 +149,7 @@ export function PacoteModeClient({
   }, []);
 
   const processOneEntry = useCallback(
-    async (raw: string, logKeySuffix: string) => {
+    async (raw: string, logKeySuffix: string, delta: PacoteDelta) => {
       const figurinhaId = resolveFigurinhaId(raw);
       const trimmed = raw.trim();
 
@@ -153,26 +168,41 @@ export function PacoteModeClient({
 
       const nome = nomePorId.get(figurinhaId) ?? figurinhaId;
       const oldVal = qtyRef.current[figurinhaId] ?? 0;
-      const newVal = Math.min(99, oldVal + 1);
+      let newVal: number;
+      const logPrefix = delta === 1 ? "+1" : "-1";
 
-      if (newVal === oldVal && oldVal >= 99) {
-        appendLog({
-          key: `${Date.now()}-${logKeySuffix}-cap`,
-          ok: false,
-          message: `${figurinhaId} (${nome}) já está no máximo (99).`,
-        });
-        return;
+      if (delta === 1) {
+        if (oldVal >= 99) {
+          appendLog({
+            key: `${Date.now()}-${logKeySuffix}-cap`,
+            ok: false,
+            message: `${figurinhaId} (${nome}) já está no máximo (99).`,
+          });
+          return;
+        }
+        newVal = Math.min(99, oldVal + 1);
+      } else {
+        if (oldVal <= 0) {
+          appendLog({
+            key: `${Date.now()}-${logKeySuffix}-zero`,
+            ok: false,
+            message:
+              "Figurinha já está em 0, não é possível remover",
+          });
+          return;
+        }
+        newVal = oldVal - 1;
       }
 
       qtyRef.current = { ...qtyRef.current, [figurinhaId]: newVal };
 
-      const ok = await persistIncrement(figurinhaId, oldVal, newVal);
+      const ok = await persistQuantity(figurinhaId, oldVal, newVal);
 
       if (ok) {
         appendLog({
           key: `${Date.now()}-${logKeySuffix}-ok`,
           ok: true,
-          message: `+1 · ${figurinhaId} · ${nome} → qty ${newVal}`,
+          message: `${logPrefix} · ${figurinhaId} · ${nome} → qty ${newVal}`,
         });
       } else {
         appendLog({
@@ -182,68 +212,66 @@ export function PacoteModeClient({
         });
       }
     },
-    [appendLog, nomePorId, persistIncrement, resolveFigurinhaId],
+    [appendLog, nomePorId, persistQuantity, resolveFigurinhaId],
   );
 
-  const submitCurrent = useCallback(async () => {
-    const raw = draft;
-    const trimmed = raw.trim();
+  const runIndividual = useCallback(
+    async (
+      raw: string,
+      delta: PacoteDelta,
+      inputRef: RefObject<HTMLInputElement | null>,
+      clear: () => void,
+    ) => {
+      const trimmed = raw.trim();
+      if (!trimmed || busy) {
+        return;
+      }
 
-    if (!trimmed || busy) {
-      return;
-    }
+      setBusy(true);
+      await processOneEntry(raw, delta === 1 ? "add-one" : "remove-one", delta);
+      setBusy(false);
+      clear();
+      setTimeout(() => inputRef.current?.focus(), 0);
+    },
+    [busy, processOneEntry],
+  );
 
-    setBusy(true);
-    await processOneEntry(raw, "one");
-    setBusy(false);
+  const runBatch = useCallback(
+    async (
+      batchText: string,
+      delta: PacoteDelta,
+      batchRef: RefObject<HTMLTextAreaElement | null>,
+      clear: () => void,
+    ) => {
+      const codes = batchText
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
 
-    setDraft("");
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  }, [busy, draft, processOneEntry]);
+      if (codes.length === 0 || busy) {
+        return;
+      }
 
-  const submitBatch = useCallback(async () => {
-    const codes = batchDraft
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    if (codes.length === 0 || busy) {
-      return;
-    }
-
-    setBusy(true);
-    for (let i = 0; i < codes.length; i += 1) {
-      await processOneEntry(codes[i], `batch-${i}`);
-    }
-    setBusy(false);
-    setBatchDraft("");
-    setTimeout(() => {
-      batchRef.current?.focus();
-    }, 0);
-  }, [batchDraft, busy, processOneEntry]);
-
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      void submitCurrent();
-    }
-    if (e.key === "Escape") {
-      setDraft("");
-    }
-  };
+      const prefix = delta === 1 ? "add" : "remove";
+      setBusy(true);
+      for (let i = 0; i < codes.length; i += 1) {
+        await processOneEntry(codes[i], `${prefix}-batch-${i}`, delta);
+      }
+      setBusy(false);
+      clear();
+      setTimeout(() => batchRef.current?.focus(), 0);
+    },
+    [busy, processOneEntry],
+  );
 
   return (
     <div className="mx-auto flex max-w-lg flex-col gap-6">
       <header className="space-y-1">
         <h1 className="text-xl font-semibold tracking-tight">Modo pacote</h1>
         <p className="text-muted-foreground text-sm">
-          Digite o código da figurinha (ex.:{" "}
+          Adicione ou remova cópias digitando o código (ex.:{" "}
           <span className="font-mono text-foreground">BRA2</span>) ou só o{" "}
-          <span className="font-mono text-foreground">número</span> do álbum e
-          pressione <kbd className="font-mono text-xs">Enter</kbd> para somar{" "}
-          <strong className="text-foreground">+1</strong> na quantidade.
+          <span className="font-mono text-foreground">número</span> do álbum.
         </p>
       </header>
 
@@ -265,125 +293,57 @@ export function PacoteModeClient({
         </p>
       ) : null}
 
-      <div className="border-border rounded-xl border bg-card p-4 shadow-sm">
-        {entryMode === "individual" ? (
-          <label className="flex flex-col gap-2">
-            <span className="text-muted-foreground text-xs font-medium">
-              Próxima figurinha
-            </span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={draft}
-              disabled={busy}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={onKeyDown}
-              placeholder="Ex.: BRA2 ou 142"
-              autoCapitalize="characters"
-              autoCorrect="off"
-              spellCheck={false}
-              enterKeyHint="done"
-              autoFocus
-              aria-busy={busy}
-              className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono h-11 w-full rounded-lg border px-3 text-base tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
-            />
-          </label>
-        ) : null}
+      <PacoteEntrySection
+        title="Adicionar Figurinha"
+        variant="add"
+        entryMode={addEntryMode}
+        onEntryModeChange={setAddEntryMode}
+        busy={busy}
+        individualDraft={addDraft}
+        onIndividualDraftChange={setAddDraft}
+        individualInputRef={addInputRef}
+        batchDraft={addBatchDraft}
+        onBatchDraftChange={setAddBatchDraft}
+        batchInputRef={addBatchRef}
+        onSubmitIndividual={() =>
+          void runIndividual(addDraft, 1, addInputRef, () => setAddDraft(""))
+        }
+        onSubmitBatch={() =>
+          void runBatch(addBatchDraft, 1, addBatchRef, () => setAddBatchDraft(""))
+        }
+        autoFocusIndividual
+      />
 
-        <div
-          className={cn(
-            "flex rounded-lg border p-0.5",
-            entryMode === "individual" ? "mt-3" : "",
-          )}
-          role="group"
-          aria-label="Modo de cadastro"
-        >
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => setEntryMode("individual")}
-            className={cn(
-              "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-60",
-              entryMode === "individual"
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            Individual
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={() => setEntryMode("batch")}
-            className={cn(
-              "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-60",
-              entryMode === "batch"
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            Lote
-          </button>
-        </div>
-
-        {entryMode === "batch" ? (
-          <div className="mt-3 space-y-3">
-            <label className="flex flex-col gap-2">
-              <span className="text-muted-foreground text-xs font-medium">
-                Cadastro em lote
-              </span>
-              <textarea
-                ref={batchRef}
-                value={batchDraft}
-                disabled={busy}
-                onChange={(e) => setBatchDraft(e.target.value)}
-                placeholder="BRA1,BRA2,FRA5,MEX03"
-                rows={4}
-                autoCapitalize="characters"
-                autoCorrect="off"
-                spellCheck={false}
-                aria-busy={busy}
-                className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono w-full resize-y rounded-lg border px-3 py-2 text-sm tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
-              />
-              <span className="text-muted-foreground text-xs">
-                Cole códigos separados por vírgula.
-              </span>
-            </label>
-            <Button
-              type="button"
-              variant="gradient"
-              size="sm"
-              disabled={busy || !batchDraft.trim()}
-              onClick={() => void submitBatch()}
-            >
-              Adicionar lote
-            </Button>
-          </div>
-        ) : (
-          <div className="mt-3 flex flex-wrap gap-2">
-            <Button
-              type="button"
-              variant="gradient"
-              size="sm"
-              disabled={busy || !draft.trim()}
-              onClick={() => void submitCurrent()}
-            >
-              Adicionar (+1)
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setDraft("");
-                inputRef.current?.focus();
-              }}
-            >
-              Limpar campo
-            </Button>
-          </div>
-        )}
-      </div>
+      <PacoteEntrySection
+        title="Remover Figurinha"
+        subtitle="Digite o código para subtrair -1 da quantidade."
+        variant="remove"
+        entryMode={removeEntryMode}
+        onEntryModeChange={setRemoveEntryMode}
+        busy={busy}
+        individualDraft={removeDraft}
+        onIndividualDraftChange={setRemoveDraft}
+        individualInputRef={removeInputRef}
+        batchDraft={removeBatchDraft}
+        onBatchDraftChange={setRemoveBatchDraft}
+        batchInputRef={removeBatchRef}
+        onSubmitIndividual={() =>
+          void runIndividual(
+            removeDraft,
+            -1,
+            removeInputRef,
+            () => setRemoveDraft(""),
+          )
+        }
+        onSubmitBatch={() =>
+          void runBatch(
+            removeBatchDraft,
+            -1,
+            removeBatchRef,
+            () => setRemoveBatchDraft(""),
+          )
+        }
+      />
 
       <section aria-labelledby="pacote-log-heading" className="space-y-2">
         <h2 id="pacote-log-heading" className="text-sm font-semibold">
@@ -395,7 +355,8 @@ export function PacoteModeClient({
         >
           {log.length === 0 ? (
             <p className="text-muted-foreground">
-              Nada registrado ainda. Comece digitando um código acima.
+              Nada registrado ainda. Use as seções acima para adicionar ou
+              remover figurinhas.
             </p>
           ) : (
             <ul className="flex flex-col gap-1.5">
@@ -415,5 +376,187 @@ export function PacoteModeClient({
         </div>
       </section>
     </div>
+  );
+}
+
+interface PacoteEntrySectionProps {
+  title: string;
+  subtitle?: string;
+  variant: "add" | "remove";
+  entryMode: EntryMode;
+  onEntryModeChange: (mode: EntryMode) => void;
+  busy: boolean;
+  individualDraft: string;
+  onIndividualDraftChange: (value: string) => void;
+  individualInputRef: RefObject<HTMLInputElement | null>;
+  batchDraft: string;
+  onBatchDraftChange: (value: string) => void;
+  batchInputRef: RefObject<HTMLTextAreaElement | null>;
+  onSubmitIndividual: () => void;
+  onSubmitBatch: () => void;
+  autoFocusIndividual?: boolean;
+}
+
+/** Bloco Individual/Lote compartilhado entre adicionar e remover. */
+function PacoteEntrySection({
+  title,
+  subtitle,
+  variant,
+  entryMode,
+  onEntryModeChange,
+  busy,
+  individualDraft,
+  onIndividualDraftChange,
+  individualInputRef,
+  batchDraft,
+  onBatchDraftChange,
+  batchInputRef,
+  onSubmitIndividual,
+  onSubmitBatch,
+  autoFocusIndividual = false,
+}: PacoteEntrySectionProps) {
+  const isAdd = variant === "add";
+  /** Mesma estrutura do toggle de Adicionar; só a cor do selecionado muda. */
+  const toggleSelectedClass = isAdd
+    ? "bg-primary text-primary-foreground"
+    : "bg-[var(--destructive)] text-[var(--destructive-foreground)]";
+
+  const onIndividualKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmitIndividual();
+    }
+    if (e.key === "Escape") {
+      onIndividualDraftChange("");
+    }
+  };
+
+  return (
+    <section className="border-border rounded-xl border bg-card p-4 shadow-sm">
+      <div className="space-y-1">
+        <h2 className="text-sm font-semibold">{title}</h2>
+        {subtitle ? (
+          <p className="text-muted-foreground text-xs">{subtitle}</p>
+        ) : null}
+      </div>
+
+      {entryMode === "individual" ? (
+        <label className="mt-3 flex flex-col gap-2">
+          <span className="text-muted-foreground text-xs font-medium">
+            {isAdd ? "Próxima figurinha" : "Código da figurinha"}
+          </span>
+          <input
+            ref={individualInputRef}
+            type="text"
+            value={individualDraft}
+            disabled={busy}
+            onChange={(e) => onIndividualDraftChange(e.target.value)}
+            onKeyDown={onIndividualKeyDown}
+            placeholder="Ex.: BRA2 ou 142"
+            autoCapitalize="characters"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="done"
+            autoFocus={autoFocusIndividual}
+            aria-busy={busy}
+            className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono h-11 w-full rounded-lg border px-3 text-base tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
+          />
+        </label>
+      ) : null}
+
+      <div
+        className={cn(
+          "flex rounded-lg border p-0.5",
+          entryMode === "individual" ? "mt-3" : "mt-3",
+        )}
+        role="group"
+        aria-label={`Modo de ${isAdd ? "adição" : "remoção"}`}
+      >
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => onEntryModeChange("individual")}
+          className={cn(
+            "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-60",
+            entryMode === "individual"
+              ? toggleSelectedClass
+              : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          Individual
+        </button>
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => onEntryModeChange("batch")}
+          className={cn(
+            "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors disabled:opacity-60",
+            entryMode === "batch"
+              ? toggleSelectedClass
+              : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          Lote
+        </button>
+      </div>
+
+      {entryMode === "batch" ? (
+        <div className="mt-3 space-y-3">
+          <label className="flex flex-col gap-2">
+            <span className="text-muted-foreground text-xs font-medium">
+              {isAdd ? "Cadastro em lote" : "Remoção em lote"}
+            </span>
+            <textarea
+              ref={batchInputRef}
+              value={batchDraft}
+              disabled={busy}
+              onChange={(e) => onBatchDraftChange(e.target.value)}
+              placeholder="BRA1,BRA2,FRA5,MEX03"
+              rows={4}
+              autoCapitalize="characters"
+              autoCorrect="off"
+              spellCheck={false}
+              aria-busy={busy}
+              className="border-input bg-background placeholder:text-muted-foreground focus-visible:ring-ring font-mono w-full resize-y rounded-lg border px-3 py-2 text-sm tracking-wide outline-none focus-visible:ring-2 disabled:opacity-60"
+            />
+            <span className="text-muted-foreground text-xs">
+              Cole códigos separados por vírgula.
+            </span>
+          </label>
+          <Button
+            type="button"
+            variant={isAdd ? "gradient" : "destructive"}
+            size="sm"
+            disabled={busy || !batchDraft.trim()}
+            onClick={onSubmitBatch}
+          >
+            {isAdd ? "Adicionar lote" : "Remover lote"}
+          </Button>
+        </div>
+      ) : (
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Button
+            type="button"
+            variant={isAdd ? "gradient" : "destructive"}
+            size="sm"
+            disabled={busy || !individualDraft.trim()}
+            onClick={onSubmitIndividual}
+          >
+            {isAdd ? "Adicionar (+1)" : "Remover (-1)"}
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              onIndividualDraftChange("");
+              individualInputRef.current?.focus();
+            }}
+          >
+            Limpar campo
+          </Button>
+        </div>
+      )}
+    </section>
   );
 }
