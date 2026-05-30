@@ -121,7 +121,58 @@ export const GRUPO_CORES: Record<string, string> = {
   [ESPECIAIS_CC_BUCKET]: "#ef4444",
 };
 
+/** Ordem oficial das seleções dentro de cada grupo (Copa 2026, códigos FIFA). */
+export const GRUPO_SELECOES_ORDEM: Record<
+  (typeof GRUPOS_ORDEM)[number],
+  readonly string[]
+> = {
+  A: ["MEX", "RSA", "KOR", "CZE"],
+  B: ["CAN", "BIH", "QAT", "SUI"],
+  C: ["BRA", "MAR", "HAI", "SCO"],
+  D: ["USA", "PAR", "AUS", "TUR"],
+  E: ["GER", "CUW", "CIV", "ECU"],
+  F: ["NED", "JPN", "SWE", "TUN"],
+  G: ["BEL", "EGY", "IRN", "NZL"],
+  H: ["ESP", "CPV", "KSA", "URU"],
+  I: ["FRA", "SEN", "IRQ", "NOR"],
+  J: ["ARG", "ALG", "AUT", "JOR"],
+  K: ["POR", "COD", "UZB", "COL"],
+  L: ["ENG", "CRO", "GHA", "PAN"],
+};
+
 const GRUPO_SET = new Set<string>(GRUPOS_ORDEM);
+
+/** Figurinhas de seleção (jogador, logo, cartão de seleção) — não especiais do álbum. */
+export function isAlbumTeamFigurinha(
+  f: Pick<Figurinha, "tipo">,
+): boolean {
+  return (
+    f.tipo === "jogador" || f.tipo === "logo" || f.tipo === "selecao"
+  );
+}
+
+/** Índice do grupo A–L; valores fora da lista vão após L. */
+export function grupoOrdemIndex(grupo: string | null | undefined): number {
+  if (grupo == null) {
+    return GRUPOS_ORDEM.length;
+  }
+  const idx = (GRUPOS_ORDEM as readonly string[]).indexOf(grupo);
+  return idx >= 0 ? idx : GRUPOS_ORDEM.length;
+}
+
+/** Posição da seleção dentro do grupo conforme `GRUPO_SELECOES_ORDEM`. */
+export function selecaoCodigoOrdemNoGrupo(
+  f: Pick<Figurinha, "grupo" | "selecao_codigo">,
+): number {
+  const g = f.grupo;
+  if (g == null || !GRUPO_SET.has(g)) {
+    return 99;
+  }
+  const list = GRUPO_SELECOES_ORDEM[g as (typeof GRUPOS_ORDEM)[number]];
+  const sc = (f.selecao_codigo ?? "").trim().toUpperCase();
+  const idx = list.indexOf(sc);
+  return idx >= 0 ? idx : list.length;
+}
 
 /**
  * Cor de acento para o cabeçalho do grupo no álbum.
