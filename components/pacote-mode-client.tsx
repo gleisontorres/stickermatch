@@ -219,7 +219,7 @@ export function PacoteModeClient({
     async (
       raw: string,
       delta: PacoteDelta,
-      inputRef: RefObject<HTMLInputElement | null>,
+      inputRef: RefObject<HTMLInputElement>,
       clear: () => void,
     ) => {
       const trimmed = raw.trim();
@@ -240,7 +240,7 @@ export function PacoteModeClient({
     async (
       batchText: string,
       delta: PacoteDelta,
-      batchRef: RefObject<HTMLTextAreaElement | null>,
+      batchRef: RefObject<HTMLTextAreaElement>,
       clear: () => void,
     ) => {
       const codes = batchText
@@ -388,10 +388,10 @@ interface PacoteEntrySectionProps {
   busy: boolean;
   individualDraft: string;
   onIndividualDraftChange: (value: string) => void;
-  individualInputRef: RefObject<HTMLInputElement | null>;
+  individualInputRef: RefObject<HTMLInputElement>;
   batchDraft: string;
   onBatchDraftChange: (value: string) => void;
-  batchInputRef: RefObject<HTMLTextAreaElement | null>;
+  batchInputRef: RefObject<HTMLTextAreaElement>;
   onSubmitIndividual: () => void;
   onSubmitBatch: () => void;
   autoFocusIndividual?: boolean;
