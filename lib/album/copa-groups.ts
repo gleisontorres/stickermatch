@@ -93,10 +93,18 @@ const FLAG_ICONS_BASE =
 
 const REGIONAL_INDICATOR_A = 0x1f1e6;
 
+/** Subdivisões do Reino Unido — verificadas antes da conversão ISO genérica. */
+const SPECIAL_FLAGS: Record<string, string> = {
+  SCO: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E006F}\u{E007F}",
+  ENG: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}",
+  WAL: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}",
+};
+
 /** Bandeiras emoji para slugs flag-icons que não são ISO2 simples. */
 const FLAG_SLUG_EMOJI: Record<string, string> = {
-  "gb-eng": "\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E007F}",
-  "gb-sct": "\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}",
+  "gb-eng": SPECIAL_FLAGS.ENG,
+  "gb-sct": SPECIAL_FLAGS.SCO,
+  "gb-wls": SPECIAL_FLAGS.WAL,
 };
 
 function iso2ToFlagEmoji(iso2: string): string | null {
@@ -130,6 +138,12 @@ export function flagEmojiForSelecaoCodigo(
   if (!key) {
     return null;
   }
+
+  const special = SPECIAL_FLAGS[key];
+  if (special) {
+    return special;
+  }
+
   const slug = SELECAO_CODIGO_FLAG_SLUG[key];
   if (!slug) {
     return null;

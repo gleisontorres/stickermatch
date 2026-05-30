@@ -14,6 +14,7 @@ import {
 import { toast } from "sonner";
 
 import { AlbumFigurinhaChunkGrid } from "@/components/album-figurinha-chunk-grid";
+import { SelecaoFlagIcon } from "@/components/selecao-flag-icon";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -994,28 +995,21 @@ export function AlbumView({
               (copaStats.owned / copaStats.total) * 100
             : 0;
             const grupoCor = copaGroupAccentHex(section.copaKey);
-            const bandeiraImagens = section.selections
-              .map(([title, items]) => {
+            const bandeiraImagens = section.selections.flatMap(
+              ([title, items]) => {
                 const codigo = items[0]?.selecao_codigo ?? "";
-                const src = flagIconSrcForSelecaoCodigo(codigo);
-                if (!src) return null;
-                return (
-                  // Bandeiras via SVG (flag-icons): emojis de bandeira viram "MX ZA KR" no Windows.
-                  // eslint-disable-next-line @next/next/no-img-element -- asset externo versionado no jsDelivr
-                  <img
+                if (!flagIconSrcForSelecaoCodigo(codigo)) {
+                  return [];
+                }
+                return [
+                  <SelecaoFlagIcon
                     key={`${section.copaKey}-${codigo}-${title}`}
-                    src={src}
-                    alt=""
+                    selecaoCodigo={codigo}
                     title={title}
-                    width={28}
-                    height={21}
-                    loading="lazy"
-                    decoding="async"
-                    className="inline-block h-[1.125rem] w-auto shrink-0 rounded-sm object-cover shadow-sm ring-1 ring-black/10 dark:ring-white/15"
-                  />
-                );
-              })
-              .filter(Boolean);
+                  />,
+                ];
+              },
+            );
 
             return (
               <div
