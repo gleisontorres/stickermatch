@@ -778,35 +778,44 @@ export function AlbumView({
 
     prevNarrowFilterRef.current = true;
 
+    const visible = visibleCopaKeysRef.current;
+
     if (prevFilterSignatureRef.current !== filterSignature) {
       prevFilterSignatureRef.current = filterSignature;
-      setOpenCopaGroups(visibleCopaKeysRef.current);
+      setOpenCopaGroups(visible.length > 0 ? [visible[0]] : []);
     } else {
-      setOpenCopaGroups((prev) =>
-        prev.filter((k) => visibleCopaKeysRef.current.includes(k)),
-      );
+      setOpenCopaGroups((prev) => {
+        const kept = prev.find((k) => visible.includes(k));
+        return kept ? [kept] : visible.length > 0 ? [visible[0]] : [];
+      });
     }
   }, [filterSignature, visibleCopaKeyList, filterMode, search]);
 
-  const isNarrowFilter = search.trim() !== "" || filterMode !== "all";
+  const toggleCopaGroup = useCallback((key: string) => {
+    startTransition(() => {
+      setOpenCopaGroups((prev) =>
+        prev.length === 1 && prev[0] === key ? [] : [key],
+      );
+    });
+  }, []);
 
-  const toggleCopaGroup = useCallback(
-    (key: string) => {
-      if (isNarrowFilter) {
-        startTransition(() => {
-          setOpenCopaGroups((prev) =>
-            prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
-          );
-        });
-      } else {
-        startTransition(() => {
-          setOpenCopaGroups((prev) =>
-            prev.length === 1 && prev[0] === key ? [] : [key],
-          );
-        });
-      }
+  const toggleSelectionInCopaGroup = useCallback(
+    (copaKey: string, detailKey: string, opened: boolean) => {
+      setSelectionDetailsOpen((prev) => {
+        if (!opened) {
+          return { ...prev, [detailKey]: false };
+        }
+        const next = { ...prev };
+        for (const k of Object.keys(next)) {
+          if (k.startsWith(`${copaKey}|`)) {
+            next[k] = false;
+          }
+        }
+        next[detailKey] = true;
+        return next;
+      });
     },
-    [isNarrowFilter],
+    [],
   );
 
   const filterButtons: { mode: AlbumFilterMode; label: string }[] = [
@@ -1096,10 +1105,11 @@ export function AlbumView({
                           onToggle={(e) => {
                             const opened =
                               (e.currentTarget as HTMLDetailsElement).open;
-                            setSelectionDetailsOpen((prev) => ({
-                              ...prev,
-                              [detailKey]: opened,
-                            }));
+                            toggleSelectionInCopaGroup(
+                              section.copaKey,
+                              detailKey,
+                              opened,
+                            );
                           }}
                         >
                         <summary
