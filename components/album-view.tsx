@@ -14,6 +14,7 @@ import {
 import { toast } from "sonner";
 
 import { AlbumFigurinhaChunkGrid } from "@/components/album-figurinha-chunk-grid";
+import { SelecaoFlagIcon } from "@/components/selecao-flag-icon";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Dialog,
@@ -777,35 +778,44 @@ export function AlbumView({
 
     prevNarrowFilterRef.current = true;
 
+    const visible = visibleCopaKeysRef.current;
+
     if (prevFilterSignatureRef.current !== filterSignature) {
       prevFilterSignatureRef.current = filterSignature;
-      setOpenCopaGroups(visibleCopaKeysRef.current);
+      setOpenCopaGroups(visible.length > 0 ? [visible[0]] : []);
     } else {
-      setOpenCopaGroups((prev) =>
-        prev.filter((k) => visibleCopaKeysRef.current.includes(k)),
-      );
+      setOpenCopaGroups((prev) => {
+        const kept = prev.find((k) => visible.includes(k));
+        return kept ? [kept] : visible.length > 0 ? [visible[0]] : [];
+      });
     }
   }, [filterSignature, visibleCopaKeyList, filterMode, search]);
 
-  const isNarrowFilter = search.trim() !== "" || filterMode !== "all";
+  const toggleCopaGroup = useCallback((key: string) => {
+    startTransition(() => {
+      setOpenCopaGroups((prev) =>
+        prev.length === 1 && prev[0] === key ? [] : [key],
+      );
+    });
+  }, []);
 
-  const toggleCopaGroup = useCallback(
-    (key: string) => {
-      if (isNarrowFilter) {
-        startTransition(() => {
-          setOpenCopaGroups((prev) =>
-            prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key],
-          );
-        });
-      } else {
-        startTransition(() => {
-          setOpenCopaGroups((prev) =>
-            prev.length === 1 && prev[0] === key ? [] : [key],
-          );
-        });
-      }
+  const toggleSelectionInCopaGroup = useCallback(
+    (copaKey: string, detailKey: string, opened: boolean) => {
+      setSelectionDetailsOpen((prev) => {
+        if (!opened) {
+          return { ...prev, [detailKey]: false };
+        }
+        const next = { ...prev };
+        for (const k of Object.keys(next)) {
+          if (k.startsWith(`${copaKey}|`)) {
+            next[k] = false;
+          }
+        }
+        next[detailKey] = true;
+        return next;
+      });
     },
-    [isNarrowFilter],
+    [],
   );
 
   const filterButtons: { mode: AlbumFilterMode; label: string }[] = [
@@ -994,28 +1004,21 @@ export function AlbumView({
               (copaStats.owned / copaStats.total) * 100
             : 0;
             const grupoCor = copaGroupAccentHex(section.copaKey);
-            const bandeiraImagens = section.selections
-              .map(([title, items]) => {
+            const bandeiraImagens = section.selections.flatMap(
+              ([title, items]) => {
                 const codigo = items[0]?.selecao_codigo ?? "";
-                const src = flagIconSrcForSelecaoCodigo(codigo);
-                if (!src) return null;
-                return (
-                  // Bandeiras via SVG (flag-icons): emojis de bandeira viram "MX ZA KR" no Windows.
-                  // eslint-disable-next-line @next/next/no-img-element -- asset externo versionado no jsDelivr
-                  <img
+                if (!flagIconSrcForSelecaoCodigo(codigo)) {
+                  return [];
+                }
+                return [
+                  <SelecaoFlagIcon
                     key={`${section.copaKey}-${codigo}-${title}`}
-                    src={src}
-                    alt=""
+                    selecaoCodigo={codigo}
                     title={title}
-                    width={28}
-                    height={21}
-                    loading="lazy"
-                    decoding="async"
-                    className="inline-block h-[1.125rem] w-auto shrink-0 rounded-sm object-cover shadow-sm ring-1 ring-black/10 dark:ring-white/15"
-                  />
-                );
-              })
-              .filter(Boolean);
+                  />,
+                ];
+              },
+            );
 
             return (
               <div
@@ -1102,10 +1105,11 @@ export function AlbumView({
                           onToggle={(e) => {
                             const opened =
                               (e.currentTarget as HTMLDetailsElement).open;
-                            setSelectionDetailsOpen((prev) => ({
-                              ...prev,
-                              [detailKey]: opened,
-                            }));
+                            toggleSelectionInCopaGroup(
+                              section.copaKey,
+                              detailKey,
+                              opened,
+                            );
                           }}
                         >
                         <summary

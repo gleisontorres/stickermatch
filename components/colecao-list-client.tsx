@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 
+import { SelecaoFlagIcon } from "@/components/selecao-flag-icon";
 import { buttonVariants } from "@/components/ui/button";
 import type { Figurinha } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -177,16 +178,16 @@ function ColecaoListRow({
             </>
           ) : null}
         </div>
-        <p className="text-sm font-medium leading-snug">
-          {variant === "faltas" ? (
-            <>
-              <span className="font-mono">{row.id}</span>
-              {" · "}
-              {row.nome}
-            </>
-          ) : (
-            row.nome
-          )}
+        <p className="flex flex-wrap items-center gap-1.5 text-sm font-medium leading-snug">
+          <SelecaoFlagIcon
+            selecaoCodigo={row.selecao_codigo}
+            title={row.selecao ?? undefined}
+          />
+          <span>
+            <span className="font-mono">{row.id}</span>
+            {" · "}
+            {row.nome}
+          </span>
         </p>
       </div>
       {variant === "repetidas" ? (

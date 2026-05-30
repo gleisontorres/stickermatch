@@ -3,63 +3,52 @@ import type { Figurinha } from "@/lib/types";
 import {
   COPA_ESPECIAIS_BUCKET_ORDER,
   copaBucketForFigurinha,
-  GRUPOS_ORDEM,
+  grupoOrdemIndex,
+  isAlbumTeamFigurinha,
+  selecaoCodigoOrdemNoGrupo,
 } from "@/lib/album/copa-groups";
-import {
-  albumGroupTitle,
-  ESPECIAIS_SELECTION_TITLE_CC,
-  ESPECIAIS_SELECTION_TITLE_FWC,
-} from "@/lib/album/group-title";
 
-function bucketSortRank(bucket: string): number {
-  const letterIdx = (GRUPOS_ORDEM as readonly string[]).indexOf(bucket);
-  if (letterIdx >= 0) {
-    return letterIdx;
-  }
+function especialBucketSortRank(bucket: string): number {
   const espIdx = (COPA_ESPECIAIS_BUCKET_ORDER as readonly string[]).indexOf(
     bucket,
   );
   if (espIdx >= 0) {
-    return GRUPOS_ORDEM.length + espIdx;
+    return espIdx;
   }
-  return GRUPOS_ORDEM.length + COPA_ESPECIAIS_BUCKET_ORDER.length;
-}
-
-/** Mesma prioridade de sub‑seções que `buildSelectionGroups` no álbum. */
-function selectionSortRank(title: string): number {
-  if (title === ESPECIAIS_SELECTION_TITLE_FWC) {
-    return 1;
-  }
-  if (title === ESPECIAIS_SELECTION_TITLE_CC) {
-    return 2;
-  }
-  if (title === "Especiais") {
-    return 3;
-  }
-  return 0;
+  return COPA_ESPECIAIS_BUCKET_ORDER.length;
 }
 
 /**
- * Ordena figurinhas como no álbum: grupo Copa (A–L, especiais) → seleção → número.
+ * Ordena figurinhas da página Faltas: grupo Copa (A–L) → seleção oficial → número;
+ * especiais (tipo ∉ jogador/logo/selecao) após todos os grupos.
  */
 export function compareFigurinhasAlbumOrder(a: Figurinha, b: Figurinha): number {
-  const bucketA = copaBucketForFigurinha(a);
-  const bucketB = copaBucketForFigurinha(b);
-  const rankA = bucketSortRank(bucketA);
-  const rankB = bucketSortRank(bucketB);
-  if (rankA !== rankB) {
-    return rankA - rankB;
+  const tierA = isAlbumTeamFigurinha(a) ? 0 : 1;
+  const tierB = isAlbumTeamFigurinha(b) ? 0 : 1;
+  if (tierA !== tierB) {
+    return tierA - tierB;
   }
 
-  const titleA = albumGroupTitle(a);
-  const titleB = albumGroupTitle(b);
-  const selRankA = selectionSortRank(titleA);
-  const selRankB = selectionSortRank(titleB);
-  if (selRankA !== selRankB) {
-    return selRankA - selRankB;
-  }
-  if (titleA !== titleB) {
-    return titleA.localeCompare(titleB, "pt-BR");
+  if (tierA === 0) {
+    const grupoA = grupoOrdemIndex(a.grupo);
+    const grupoB = grupoOrdemIndex(b.grupo);
+    if (grupoA !== grupoB) {
+      return grupoA - grupoB;
+    }
+
+    const selA = selecaoCodigoOrdemNoGrupo(a);
+    const selB = selecaoCodigoOrdemNoGrupo(b);
+    if (selA !== selB) {
+      return selA - selB;
+    }
+  } else {
+    const bucketA = copaBucketForFigurinha(a);
+    const bucketB = copaBucketForFigurinha(b);
+    const rankA = especialBucketSortRank(bucketA);
+    const rankB = especialBucketSortRank(bucketB);
+    if (rankA !== rankB) {
+      return rankA - rankB;
+    }
   }
 
   const numA = a.numero ?? 999_999;

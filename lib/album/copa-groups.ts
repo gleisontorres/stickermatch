@@ -91,6 +91,66 @@ export const SELECAO_CODIGO_FLAG_SLUG: Record<string, string> = {
 const FLAG_ICONS_BASE =
   "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3";
 
+const REGIONAL_INDICATOR_A = 0x1f1e6;
+
+/** Subdivisões do Reino Unido — verificadas antes da conversão ISO genérica. */
+const SPECIAL_FLAGS: Record<string, string> = {
+  SCO: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E006F}\u{E007F}",
+  ENG: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}",
+  WAL: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}",
+};
+
+/** Bandeiras emoji para slugs flag-icons que não são ISO2 simples. */
+const FLAG_SLUG_EMOJI: Record<string, string> = {
+  "gb-eng": SPECIAL_FLAGS.ENG,
+  "gb-sct": SPECIAL_FLAGS.SCO,
+  "gb-wls": SPECIAL_FLAGS.WAL,
+};
+
+function iso2ToFlagEmoji(iso2: string): string | null {
+  const upper = iso2.toUpperCase();
+  if (!/^[A-Z]{2}$/.test(upper)) {
+    return null;
+  }
+  return String.fromCodePoint(
+    ...[...upper].map(
+      (char) => REGIONAL_INDICATOR_A + (char.charCodeAt(0) - 65),
+    ),
+  );
+}
+
+function flagEmojiFromSlug(slug: string): string | null {
+  const preset = FLAG_SLUG_EMOJI[slug];
+  if (preset) {
+    return preset;
+  }
+  return iso2ToFlagEmoji(slug);
+}
+
+/**
+ * Emoji de bandeira para `selecao_codigo`, ou null (ex.: FWC, CC).
+ * Usa o mesmo mapa `SELECAO_CODIGO_FLAG_SLUG` de `flagIconSrcForSelecaoCodigo`.
+ */
+export function flagEmojiForSelecaoCodigo(
+  selecaoCodigo: string | null | undefined,
+): string | null {
+  const key = (selecaoCodigo ?? "").trim().toUpperCase();
+  if (!key) {
+    return null;
+  }
+
+  const special = SPECIAL_FLAGS[key];
+  if (special) {
+    return special;
+  }
+
+  const slug = SELECAO_CODIGO_FLAG_SLUG[key];
+  if (!slug) {
+    return null;
+  }
+  return flagEmojiFromSlug(slug);
+}
+
 /**
  * URL do SVG da bandeira (flag-icons) para `selecao_codigo`, ou null se não houver (ex.: FWC).
  */
@@ -121,7 +181,58 @@ export const GRUPO_CORES: Record<string, string> = {
   [ESPECIAIS_CC_BUCKET]: "#ef4444",
 };
 
+/** Ordem oficial das seleções dentro de cada grupo (Copa 2026, códigos FIFA). */
+export const GRUPO_SELECOES_ORDEM: Record<
+  (typeof GRUPOS_ORDEM)[number],
+  readonly string[]
+> = {
+  A: ["MEX", "RSA", "KOR", "CZE"],
+  B: ["CAN", "BIH", "QAT", "SUI"],
+  C: ["BRA", "MAR", "HAI", "SCO"],
+  D: ["USA", "PAR", "AUS", "TUR"],
+  E: ["GER", "CUW", "CIV", "ECU"],
+  F: ["NED", "JPN", "SWE", "TUN"],
+  G: ["BEL", "EGY", "IRN", "NZL"],
+  H: ["ESP", "CPV", "KSA", "URU"],
+  I: ["FRA", "SEN", "IRQ", "NOR"],
+  J: ["ARG", "ALG", "AUT", "JOR"],
+  K: ["POR", "COD", "UZB", "COL"],
+  L: ["ENG", "CRO", "GHA", "PAN"],
+};
+
 const GRUPO_SET = new Set<string>(GRUPOS_ORDEM);
+
+/** Figurinhas de seleção (jogador, logo, cartão de seleção) — não especiais do álbum. */
+export function isAlbumTeamFigurinha(
+  f: Pick<Figurinha, "tipo">,
+): boolean {
+  return (
+    f.tipo === "jogador" || f.tipo === "logo" || f.tipo === "selecao"
+  );
+}
+
+/** Índice do grupo A–L; valores fora da lista vão após L. */
+export function grupoOrdemIndex(grupo: string | null | undefined): number {
+  if (grupo == null) {
+    return GRUPOS_ORDEM.length;
+  }
+  const idx = (GRUPOS_ORDEM as readonly string[]).indexOf(grupo);
+  return idx >= 0 ? idx : GRUPOS_ORDEM.length;
+}
+
+/** Posição da seleção dentro do grupo conforme `GRUPO_SELECOES_ORDEM`. */
+export function selecaoCodigoOrdemNoGrupo(
+  f: Pick<Figurinha, "grupo" | "selecao_codigo">,
+): number {
+  const g = f.grupo;
+  if (g == null || !GRUPO_SET.has(g)) {
+    return 99;
+  }
+  const list = GRUPO_SELECOES_ORDEM[g as (typeof GRUPOS_ORDEM)[number]];
+  const sc = (f.selecao_codigo ?? "").trim().toUpperCase();
+  const idx = list.indexOf(sc);
+  return idx >= 0 ? idx : list.length;
+}
 
 /**
  * Cor de acento para o cabeçalho do grupo no álbum.
