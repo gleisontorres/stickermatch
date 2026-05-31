@@ -12,7 +12,7 @@ const CANVAS_HEIGHT = 80;
 const WAVE_AMPLITUDE = 8;
 const WAVE_FREQUENCY = 0.05;
 const PHASE_STEP = 0.05;
-const WATERMARK_OPACITY = 0.2;
+const WATERMARK_OPACITY = 0.38;
 
 interface WavingFlagProps {
   selecaoCodigo: string | null | undefined;
@@ -160,7 +160,7 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
       ref={containerRef}
       aria-hidden
       className={cn(
-        "pointer-events-none absolute -right-[10px] -bottom-[10px] z-0 select-none",
+        "pointer-events-none absolute right-[4px] -bottom-[16px] z-0 select-none",
         className,
       )}
     >
