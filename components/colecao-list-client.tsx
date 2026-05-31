@@ -1,10 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Minus, Plus } from "lucide-react";
 import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 
 import { SelecaoFlagIcon } from "@/components/selecao-flag-icon";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 import type { Figurinha } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -20,17 +23,124 @@ interface ColecaoListClientProps {
  */
 export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
   const [search, setSearch] = useState("");
+  const [faltasItems, setFaltasItems] = useState<ColecaoListItem[]>(items);
+  const [repetidasItems, setRepetidasItems] = useState<ColecaoListItem[]>(items);
+  const [addingId, setAddingId] = useState<string | null>(null);
+  const [removingId, setRemovingId] = useState<string | null>(null);
+
+  const isFaltas = variant === "faltas";
+  const isRepetidas = variant === "repetidas";
+  const listItems = isFaltas
+    ? faltasItems
+    : isRepetidas
+      ? repetidasItems
+      : items;
+
+  useEffect(() => {
+    if (isFaltas) {
+      setFaltasItems(items);
+    }
+    if (isRepetidas) {
+      setRepetidasItems(items);
+    }
+  }, [items, isFaltas, isRepetidas]);
+
+  const handleAddOneFalta = useCallback(async (row: ColecaoListItem) => {
+    setAddingId(row.id);
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        toast.error("Sessão expirada. Entre novamente.");
+        return;
+      }
+
+      const { error } = await supabase.from("colecao").upsert(
+        {
+          user_id: user.id,
+          figurinha_id: row.id,
+          quantidade: 1,
+        },
+        { onConflict: "user_id,figurinha_id" },
+      );
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      setFaltasItems((prev) => prev.filter((item) => item.id !== row.id));
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Falha ao adicionar figurinha.",
+      );
+    } finally {
+      setAddingId(null);
+    }
+  }, []);
+
+  const handleRemoveOneRepetida = useCallback(async (row: ColecaoListItem) => {
+    const newQty = row.quantidade - 1;
+    if (newQty < 1) {
+      toast.error("Quantidade inválida para remover.");
+      return;
+    }
+
+    setRemovingId(row.id);
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        toast.error("Sessão expirada. Entre novamente.");
+        return;
+      }
+
+      const { error } = await supabase.from("colecao").upsert(
+        {
+          user_id: user.id,
+          figurinha_id: row.id,
+          quantidade: newQty,
+        },
+        { onConflict: "user_id,figurinha_id" },
+      );
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (newQty === 1) {
+        setRepetidasItems((prev) => prev.filter((item) => item.id !== row.id));
+      } else {
+        setRepetidasItems((prev) =>
+          prev.map((item) =>
+            item.id === row.id ? { ...item, quantidade: newQty } : item,
+          ),
+        );
+      }
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Falha ao remover figurinha.",
+      );
+    } finally {
+      setRemovingId(null);
+    }
+  }, []);
 
   const filtered = useMemo(() => {
     const needle = search.trim().toLowerCase();
     if (!needle) {
-      return items;
+      return listItems;
     }
-    return items.filter((row) => {
+    return listItems.filter((row) => {
       const hay = `${row.nome} ${row.id} ${row.selecao ?? ""} ${row.selecao_codigo ?? ""} ${row.grupo ?? ""}`.toLowerCase();
       return hay.includes(needle);
     });
-  }, [items, search]);
+  }, [listItems, search]);
 
   const title = variant === "repetidas" ? "Repetidas" : "Faltas";
   const subtitle =
@@ -73,22 +183,22 @@ export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
       </div>
 
       <p className="text-muted-foreground text-sm">
-        {filtered.length === items.length ? (
+        {filtered.length === listItems.length ? (
           <>
             Total:{" "}
-            <span className="text-foreground font-medium">{items.length}</span>
+            <span className="text-foreground font-medium">{listItems.length}</span>
           </>
         ) : (
           <>
             Exibindo{" "}
             <span className="text-foreground font-medium">{filtered.length}</span>{" "}
             de{" "}
-            <span className="text-foreground font-medium">{items.length}</span>
+            <span className="text-foreground font-medium">{listItems.length}</span>
           </>
         )}
       </p>
 
-      {items.length === 0 ? (
+      {listItems.length === 0 ? (
         <EmptyState variant={variant} />
       ) : filtered.length === 0 ? (
         <p className="text-muted-foreground py-8 text-center text-sm">
@@ -98,7 +208,20 @@ export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
         <ul className="border-border divide-border bg-card divide-y rounded-xl border">
           {filtered.map((row) => (
             <li key={row.id}>
-              <ColecaoListRow variant={variant} row={row} />
+              <ColecaoListRow
+                variant={variant}
+                row={row}
+                adding={addingId === row.id}
+                removing={removingId === row.id}
+                onAddOne={
+                  isFaltas ? () => void handleAddOneFalta(row) : undefined
+                }
+                onRemoveOne={
+                  isRepetidas
+                    ? () => void handleRemoveOneRepetida(row)
+                    : undefined
+                }
+              />
             </li>
           ))}
         </ul>
@@ -147,16 +270,24 @@ function EmptyState({ variant }: { variant: "repetidas" | "faltas" }) {
 function ColecaoListRow({
   variant,
   row,
+  adding = false,
+  removing = false,
+  onAddOne,
+  onRemoveOne,
 }: {
   variant: "repetidas" | "faltas";
   row: ColecaoListItem;
+  adding?: boolean;
+  removing?: boolean;
+  onAddOne?: () => void;
+  onRemoveOne?: () => void;
 }) {
   const numLabel = row.numero != null ? `#${row.numero}` : row.id;
 
   return (
     <div
       className={cn(
-        "flex flex-wrap items-center justify-between gap-2 px-3 py-3 sm:px-4",
+        "flex items-center justify-between gap-2 px-3 py-3 sm:px-4",
         variant === "repetidas" && "bg-secondary/[0.08]",
       )}
     >
@@ -191,12 +322,54 @@ function ColecaoListRow({
         </p>
       </div>
       {variant === "repetidas" ? (
-        <span
-          className="brand-badge-gradient shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold tabular-nums"
-          title={`${row.quantidade} cópias`}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {onRemoveOne ? (
+            <Button
+              type="button"
+              variant="destructive"
+              size="icon-sm"
+              disabled={removing}
+              aria-label={`Remover uma cópia de ${row.id}`}
+              title="Remover -1"
+              onClick={onRemoveOne}
+            >
+              {removing ? (
+                <span
+                  className="inline-block size-3.5 animate-spin rounded-full border-2 border-destructive border-t-transparent"
+                  aria-hidden
+                />
+              ) : (
+                <Minus className="size-4" aria-hidden />
+              )}
+            </Button>
+          ) : null}
+          <span
+            className="brand-badge-gradient rounded-full px-2.5 py-0.5 text-xs font-bold tabular-nums"
+            title={`${row.quantidade} cópias`}
+          >
+            ×{row.quantidade}
+          </span>
+        </div>
+      ) : onAddOne ? (
+        <Button
+          type="button"
+          variant="default"
+          size="icon-sm"
+          className="shrink-0"
+          disabled={adding}
+          aria-label={`Adicionar ${row.id} à coleção`}
+          title="Adicionar +1"
+          onClick={onAddOne}
         >
-          ×{row.quantidade}
-        </span>
+          {adding ? (
+            <span
+              className="loading-spinner-gradient-sm inline-block size-3.5 animate-spin"
+              aria-hidden
+            />
+          ) : (
+            <Plus className="size-4" aria-hidden />
+          )}
+        </Button>
       ) : null}
     </div>
   );
