@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -24,16 +24,26 @@ interface ColecaoListClientProps {
 export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
   const [search, setSearch] = useState("");
   const [faltasItems, setFaltasItems] = useState<ColecaoListItem[]>(items);
+  const [repetidasItems, setRepetidasItems] = useState<ColecaoListItem[]>(items);
   const [addingId, setAddingId] = useState<string | null>(null);
+  const [removingId, setRemovingId] = useState<string | null>(null);
 
   const isFaltas = variant === "faltas";
-  const listItems = isFaltas ? faltasItems : items;
+  const isRepetidas = variant === "repetidas";
+  const listItems = isFaltas
+    ? faltasItems
+    : isRepetidas
+      ? repetidasItems
+      : items;
 
   useEffect(() => {
     if (isFaltas) {
       setFaltasItems(items);
     }
-  }, [items, isFaltas]);
+    if (isRepetidas) {
+      setRepetidasItems(items);
+    }
+  }, [items, isFaltas, isRepetidas]);
 
   const handleAddOneFalta = useCallback(async (row: ColecaoListItem) => {
     setAddingId(row.id);
@@ -68,6 +78,56 @@ export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
       );
     } finally {
       setAddingId(null);
+    }
+  }, []);
+
+  const handleRemoveOneRepetida = useCallback(async (row: ColecaoListItem) => {
+    const newQty = row.quantidade - 1;
+    if (newQty < 1) {
+      toast.error("Quantidade inválida para remover.");
+      return;
+    }
+
+    setRemovingId(row.id);
+    try {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        toast.error("Sessão expirada. Entre novamente.");
+        return;
+      }
+
+      const { error } = await supabase.from("colecao").upsert(
+        {
+          user_id: user.id,
+          figurinha_id: row.id,
+          quantidade: newQty,
+        },
+        { onConflict: "user_id,figurinha_id" },
+      );
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (newQty === 1) {
+        setRepetidasItems((prev) => prev.filter((item) => item.id !== row.id));
+      } else {
+        setRepetidasItems((prev) =>
+          prev.map((item) =>
+            item.id === row.id ? { ...item, quantidade: newQty } : item,
+          ),
+        );
+      }
+    } catch (err) {
+      toast.error(
+        err instanceof Error ? err.message : "Falha ao remover figurinha.",
+      );
+    } finally {
+      setRemovingId(null);
     }
   }, []);
 
@@ -152,8 +212,14 @@ export function ColecaoListClient({ variant, items }: ColecaoListClientProps) {
                 variant={variant}
                 row={row}
                 adding={addingId === row.id}
+                removing={removingId === row.id}
                 onAddOne={
                   isFaltas ? () => void handleAddOneFalta(row) : undefined
+                }
+                onRemoveOne={
+                  isRepetidas
+                    ? () => void handleRemoveOneRepetida(row)
+                    : undefined
                 }
               />
             </li>
@@ -205,12 +271,16 @@ function ColecaoListRow({
   variant,
   row,
   adding = false,
+  removing = false,
   onAddOne,
+  onRemoveOne,
 }: {
   variant: "repetidas" | "faltas";
   row: ColecaoListItem;
   adding?: boolean;
+  removing?: boolean;
   onAddOne?: () => void;
+  onRemoveOne?: () => void;
 }) {
   const numLabel = row.numero != null ? `#${row.numero}` : row.id;
 
@@ -252,12 +322,34 @@ function ColecaoListRow({
         </p>
       </div>
       {variant === "repetidas" ? (
-        <span
-          className="brand-badge-gradient shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold tabular-nums"
-          title={`${row.quantidade} cópias`}
-        >
-          ×{row.quantidade}
-        </span>
+        <div className="flex shrink-0 items-center gap-1.5">
+          {onRemoveOne ? (
+            <Button
+              type="button"
+              variant="destructive"
+              size="icon-sm"
+              disabled={removing}
+              aria-label={`Remover uma cópia de ${row.id}`}
+              title="Remover -1"
+              onClick={onRemoveOne}
+            >
+              {removing ? (
+                <span
+                  className="inline-block size-3.5 animate-spin rounded-full border-2 border-destructive border-t-transparent"
+                  aria-hidden
+                />
+              ) : (
+                <Minus className="size-4" aria-hidden />
+              )}
+            </Button>
+          ) : null}
+          <span
+            className="brand-badge-gradient rounded-full px-2.5 py-0.5 text-xs font-bold tabular-nums"
+            title={`${row.quantidade} cópias`}
+          >
+            ×{row.quantidade}
+          </span>
+        </div>
       ) : onAddOne ? (
         <Button
           type="button"
