@@ -16,37 +16,19 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-/** Gradiente horizontal do fundo (escuro à esquerda, claro à direita). */
-function cardBackground(figurinha: Figurinha, quantidade: number): string {
+const CARD_BG_HAS = "linear-gradient(to right, #064e3b, #065f46)";
+const CARD_BG_REPEATED = "linear-gradient(to right, #047857, #10b981)";
+const CARD_BG_EMPTY = "linear-gradient(to right, #0a0a0a, #111111)";
+
+/** Monocromático com acento único (verde) — igual para todos os tipos. */
+function cardBackground(quantidade: number): string {
   if (quantidade === 0) {
-    return "linear-gradient(to right, #111827, #1f2937)";
+    return CARD_BG_EMPTY;
   }
-
-  const { tipo } = figurinha;
-
   if (quantidade >= 2) {
-    if (tipo === "jogador") {
-      return "linear-gradient(to right, #14532d, #10b981)";
-    }
-    if (tipo === "logo") {
-      return "linear-gradient(to right, #4c1d95, #7c3aed)";
-    }
-    if (tipo === "selecao") {
-      return "linear-gradient(to right, #78350f, #f59e0b)";
-    }
-    return "linear-gradient(to right, #4c1d95, #7c3aed)";
+    return CARD_BG_REPEATED;
   }
-
-  if (tipo === "jogador") {
-    return "linear-gradient(to right, #065f46, #0891b2)";
-  }
-  if (tipo === "logo") {
-    return "linear-gradient(to right, #3730a3, #2563eb)";
-  }
-  if (tipo === "selecao") {
-    return "linear-gradient(to right, #92400e, #d97706)";
-  }
-  return "linear-gradient(to right, #3730a3, #2563eb)";
+  return CARD_BG_HAS;
 }
 
 /** Rótulo discreto do tipo (sem pill). */
@@ -126,7 +108,7 @@ export function FigurinhaCard({
         interactive &&
           "ring-ring cursor-pointer hover:brightness-110 active:brightness-95",
       )}
-      style={{ background: cardBackground(figurinha, quantidade) }}
+      style={{ background: cardBackground(quantidade) }}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={
