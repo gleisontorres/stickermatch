@@ -4,6 +4,11 @@ import type { Figurinha } from "@/lib/types";
 
 import { QtySelector } from "@/components/qty-selector";
 import { WavingFlag } from "@/components/waving-flag";
+import {
+  isFigurinhaTipoLogo,
+  isFigurinhaTipoSelecao,
+  normalizeFigurinhaTipo,
+} from "@/lib/album/figurinha-tipo";
 import { cn, formatCodigo } from "@/lib/utils";
 
 interface FigurinhaCardProps {
@@ -16,42 +21,46 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-/** Gradiente horizontal do fundo (escuro à esquerda, claro à direita). */
-function cardBackground(figurinha: Figurinha, quantidade: number): string {
+const CARD_BG_HAS = "linear-gradient(to right, #064e3b, #065f46)";
+const CARD_BG_REPEATED = "linear-gradient(to right, #047857, #10b981)";
+const CARD_BG_EMPTY = "linear-gradient(to right, #0a0a0a, #111111)";
+
+/** Monocromático com acento único (verde) — igual para todos os tipos. */
+function cardBackground(quantidade: number): string {
   if (quantidade === 0) {
-    return "linear-gradient(to right, #111827, #1f2937)";
+    return CARD_BG_EMPTY;
   }
-
-  const { tipo } = figurinha;
-
   if (quantidade >= 2) {
-    if (tipo === "jogador") {
-      return "linear-gradient(to right, #14532d, #10b981)";
-    }
-    if (tipo === "logo") {
-      return "linear-gradient(to right, #4c1d95, #7c3aed)";
-    }
-    if (tipo === "selecao") {
-      return "linear-gradient(to right, #78350f, #f59e0b)";
-    }
-    return "linear-gradient(to right, #4c1d95, #7c3aed)";
+    return CARD_BG_REPEATED;
+  }
+  return CARD_BG_HAS;
+}
+
+/** Borda colorida só para logo e seleção com figurinha. */
+function cardBorder(
+  figurinha: Figurinha,
+  quantidade: number,
+): string | undefined {
+  if (quantidade === 0) {
+    return undefined;
   }
 
-  if (tipo === "jogador") {
-    return "linear-gradient(to right, #065f46, #0891b2)";
+  const repeated = quantidade >= 2;
+
+  if (isFigurinhaTipoLogo(figurinha)) {
+    return repeated ? "2px solid #60a5fa" : "1.5px solid #3b82f6";
   }
-  if (tipo === "logo") {
-    return "linear-gradient(to right, #3730a3, #2563eb)";
+  if (isFigurinhaTipoSelecao(figurinha)) {
+    return repeated ? "2px solid #fbbf24" : "1.5px solid #f59e0b";
   }
-  if (tipo === "selecao") {
-    return "linear-gradient(to right, #92400e, #d97706)";
-  }
-  return "linear-gradient(to right, #3730a3, #2563eb)";
+
+  return undefined;
 }
 
 /** Rótulo discreto do tipo (sem pill). */
 function tipoLabel(figurinha: Figurinha): string {
-  if (figurinha.tipo === "especial") {
+  const tipo = normalizeFigurinhaTipo(figurinha.tipo);
+  if (tipo === "especial") {
     const sc = figurinha.selecao_codigo?.trim().toUpperCase() ?? "";
     if (sc === "CC") {
       return "CC";
@@ -61,17 +70,15 @@ function tipoLabel(figurinha: Figurinha): string {
     }
     return "Especial";
   }
-  switch (figurinha.tipo) {
+  switch (tipo) {
     case "jogador":
       return "👟 Jog";
     case "logo":
       return "🛡️ Logo";
     case "selecao":
       return "👥 Sel";
-    default: {
-      const _never: never = figurinha.tipo;
-      return _never;
-    }
+    default:
+      return figurinha.tipo;
   }
 }
 
@@ -80,13 +87,14 @@ function codigoBadgeBg(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
     return "#52525b";
   }
-  if (
-    figurinha.tipo === "logo" ||
-    figurinha.tipo === "selecao"
-  ) {
+  if (isFigurinhaTipoLogo(figurinha)) {
     return "#3b82f6";
   }
-  if (figurinha.tipo === "especial") {
+  if (isFigurinhaTipoSelecao(figurinha)) {
+    return "#f59e0b";
+  }
+  const tipo = normalizeFigurinhaTipo(figurinha.tipo);
+  if (tipo === "especial") {
     const sc = figurinha.selecao_codigo?.trim().toUpperCase() ?? "";
     if (sc === "CC") {
       return "#ef4444";
@@ -118,15 +126,19 @@ export function FigurinhaCard({
   const codigoDisplay = formatCodigo(codigoLabel);
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
+  const border = cardBorder(figurinha, quantidade);
 
   return (
     <article
       className={cn(
-        "relative flex flex-col gap-2 overflow-hidden rounded-xl border border-white/15 p-3 shadow-sm transition-[filter]",
+        "relative flex flex-col gap-2 overflow-hidden rounded-xl p-3 shadow-sm transition-[filter]",
         interactive &&
           "ring-ring cursor-pointer hover:brightness-110 active:brightness-95",
       )}
-      style={{ background: cardBackground(figurinha, quantidade) }}
+      style={{
+        background: cardBackground(quantidade),
+        ...(border ? { border } : {}),
+      }}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={

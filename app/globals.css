@@ -135,6 +135,16 @@
   }
 }
 
+/** Brilho deslizante na barra de progresso de seleção completa (Álbum). */
+@keyframes progress-bar-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
 @layer utilities {
   .brand-gradient-text {
     background-image: linear-gradient(135deg, #10b981, #f59e0b);
@@ -162,6 +172,28 @@
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
+  }
+
+  .album-selection-progress-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .album-selection-progress-shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%
+    );
+    animation: progress-bar-shine 2s linear infinite;
+    pointer-events: none;
   }
 
 }

@@ -1223,9 +1223,13 @@ export function AlbumView({
                                     {tendo}/{total} figurinhas
                                   </span>
                                 </div>
-                                <div className="bg-muted h-1 w-full overflow-hidden rounded-full">
+                                <div className="relative bg-muted h-1 w-full overflow-hidden rounded-full">
                                   <div
-                                    className="h-1 rounded-full transition-all duration-300"
+                                    className={cn(
+                                      "h-1 rounded-full transition-all duration-300",
+                                      selComplete &&
+                                        "album-selection-progress-shine",
+                                    )}
                                     style={
                                       selComplete
                                         ? brandProgressBarStyle(100)
