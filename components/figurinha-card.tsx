@@ -16,39 +16,37 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-const CARD_BG_EMPTY = "linear-gradient(135deg, #1f2937, #111827)";
-
-/** Gradiente metálico/futurista do fundo do card (tipo + quantidade). */
+/** Gradiente horizontal do fundo (escuro à esquerda, claro à direita). */
 function cardBackground(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
-    return CARD_BG_EMPTY;
+    return "linear-gradient(to right, #111827, #1f2937)";
   }
 
   const { tipo } = figurinha;
 
   if (quantidade >= 2) {
     if (tipo === "jogador") {
-      return "linear-gradient(135deg, #7c3aed, #1e40af)";
+      return "linear-gradient(to right, #14532d, #10b981)";
     }
     if (tipo === "logo") {
-      return "linear-gradient(135deg, #f59e0b, #d97706)";
+      return "linear-gradient(to right, #4c1d95, #7c3aed)";
     }
     if (tipo === "selecao") {
-      return "linear-gradient(135deg, #16a34a, #0f766e)";
+      return "linear-gradient(to right, #78350f, #f59e0b)";
     }
-    return "linear-gradient(135deg, #f59e0b, #d97706)";
+    return "linear-gradient(to right, #4c1d95, #7c3aed)";
   }
 
   if (tipo === "jogador") {
-    return "linear-gradient(135deg, #64748b, #1e40af)";
+    return "linear-gradient(to right, #065f46, #0891b2)";
   }
   if (tipo === "logo") {
-    return "linear-gradient(135deg, #d97706, #92400e)";
+    return "linear-gradient(to right, #3730a3, #2563eb)";
   }
   if (tipo === "selecao") {
-    return "linear-gradient(135deg, #4d7c0f, #0f766e)";
+    return "linear-gradient(to right, #92400e, #d97706)";
   }
-  return "linear-gradient(135deg, #d97706, #92400e)";
+  return "linear-gradient(to right, #3730a3, #2563eb)";
 }
 
 /** Rótulo discreto do tipo (sem pill). */
