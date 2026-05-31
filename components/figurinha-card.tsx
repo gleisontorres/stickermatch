@@ -16,18 +16,39 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-/** Fundo do card no álbum (estilo Panini: vazio = cinza, preenchido = colorido). */
-function cardToneClass(figurinha: Figurinha, quantidade: number): string {
+const CARD_BG_EMPTY = "linear-gradient(135deg, #1f2937, #111827)";
+
+/** Gradiente metálico/futurista do fundo do card (tipo + quantidade). */
+function cardBackground(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
-    return "border-zinc-500/35 bg-zinc-600/20 dark:border-zinc-600 dark:bg-zinc-800/75";
+    return CARD_BG_EMPTY;
   }
-  if (
-    quantidade >= 1 &&
-    (figurinha.tipo === "logo" || figurinha.tipo === "selecao")
-  ) {
-    return "border-accent/45 bg-accent/[0.14]";
+
+  const { tipo } = figurinha;
+
+  if (quantidade >= 2) {
+    if (tipo === "jogador") {
+      return "linear-gradient(135deg, #7c3aed, #1e40af)";
+    }
+    if (tipo === "logo") {
+      return "linear-gradient(135deg, #f59e0b, #d97706)";
+    }
+    if (tipo === "selecao") {
+      return "linear-gradient(135deg, #16a34a, #0f766e)";
+    }
+    return "linear-gradient(135deg, #f59e0b, #d97706)";
   }
-  return "border-primary/40 bg-primary/[0.11]";
+
+  if (tipo === "jogador") {
+    return "linear-gradient(135deg, #64748b, #1e40af)";
+  }
+  if (tipo === "logo") {
+    return "linear-gradient(135deg, #d97706, #92400e)";
+  }
+  if (tipo === "selecao") {
+    return "linear-gradient(135deg, #4d7c0f, #0f766e)";
+  }
+  return "linear-gradient(135deg, #d97706, #92400e)";
 }
 
 /** Rótulo discreto do tipo (sem pill). */
@@ -103,10 +124,11 @@ export function FigurinhaCard({
   return (
     <article
       className={cn(
-        "relative flex flex-col gap-2 overflow-hidden rounded-xl border p-3 shadow-sm transition-colors",
-        cardToneClass(figurinha, quantidade),
-        interactive && "ring-ring cursor-pointer hover:bg-muted/25 active:bg-muted/40",
+        "relative flex flex-col gap-2 overflow-hidden rounded-xl border border-white/15 p-3 shadow-sm transition-[filter]",
+        interactive &&
+          "ring-ring cursor-pointer hover:brightness-110 active:brightness-95",
       )}
+      style={{ background: cardBackground(figurinha, quantidade) }}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={
