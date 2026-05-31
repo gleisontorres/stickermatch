@@ -86,7 +86,16 @@ export const SELECAO_CODIGO_FLAG_SLUG: Record<string, string> = {
   URU: "uy",
   USA: "us",
   UZB: "uz",
+  WAL: "gb-wls",
 };
+
+/** Slug flag-icons (4x3) para `selecao_codigo` Panini, ou null. */
+export function flagSlugForSelecaoCodigo(
+  selecaoCodigo: string | null | undefined,
+): string | null {
+  const key = (selecaoCodigo ?? "").trim().toUpperCase();
+  return SELECAO_CODIGO_FLAG_SLUG[key] ?? null;
+}
 
 const FLAG_ICONS_BASE =
   "https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/flags/4x3";

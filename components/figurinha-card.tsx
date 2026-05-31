@@ -3,10 +3,7 @@
 import type { Figurinha } from "@/lib/types";
 
 import { QtySelector } from "@/components/qty-selector";
-import {
-  flagEmojiForSelecaoCodigo,
-  flagIconSrcForSelecaoCodigo,
-} from "@/lib/album/copa-groups";
+import { WavingFlag } from "@/components/waving-flag";
 import { cn, formatCodigo } from "@/lib/utils";
 
 interface FigurinhaCardProps {
@@ -83,12 +80,6 @@ export function FigurinhaCard({
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
   const tipoBadge = tipoBadgeStyle(figurinha);
-  const flagWatermarkEmoji = flagEmojiForSelecaoCodigo(
-    figurinha.selecao_codigo,
-  );
-  const flagWatermarkSrc = flagIconSrcForSelecaoCodigo(
-    figurinha.selecao_codigo,
-  );
 
   return (
     <article
@@ -117,26 +108,7 @@ export function FigurinhaCard({
         : undefined
       }
     >
-      {flagWatermarkSrc || flagWatermarkEmoji ? (
-        <span
-          aria-hidden
-          className="flag-watermark-stage pointer-events-none absolute inset-0 z-0 flex select-none items-center justify-center"
-        >
-          {flagWatermarkSrc ? (
-            // SVG (flag-icons): tag sequences emoji (SCO/ENG/WAL) não renderizam bem no Windows.
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={flagWatermarkSrc}
-              alt=""
-              className="flag-watermark-wave h-[5.5rem] w-auto max-w-[90%] object-contain opacity-[0.18]"
-            />
-          ) : (
-            <span className="flag-watermark-wave text-[5.5rem] leading-none opacity-[0.18]">
-              {flagWatermarkEmoji}
-            </span>
-          )}
-        </span>
-      ) : null}
+      <WavingFlag selecaoCodigo={figurinha.selecao_codigo} />
       <div className="relative z-10 flex min-w-0 flex-col gap-2">
       <div className="min-w-0 space-y-0.5">
         <div className="text-muted-foreground flex items-center justify-between gap-2 text-[11px] font-medium uppercase tracking-wide">

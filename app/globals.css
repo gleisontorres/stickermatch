@@ -135,16 +135,6 @@
   }
 }
 
-/** Marca d'água de bandeira nos cards do álbum (ondulação lateral / vento). */
-@keyframes flag-watermark-wave {
-  from {
-    transform: perspective(200px) rotateY(-8deg) skewY(-2deg);
-  }
-  to {
-    transform: perspective(200px) rotateY(8deg) skewY(2deg);
-  }
-}
-
 @layer utilities {
   .brand-gradient-text {
     background-image: linear-gradient(135deg, #10b981, #f59e0b);
@@ -174,21 +164,6 @@
     -webkit-text-fill-color: transparent;
   }
 
-  .flag-watermark-stage {
-    perspective: 200px;
-  }
-
-  .flag-watermark-wave {
-    animation: flag-watermark-wave 2s ease-in-out infinite alternate;
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .flag-watermark-wave {
-      animation: none;
-    }
-  }
 }
 
 html.dark ::-webkit-scrollbar {
