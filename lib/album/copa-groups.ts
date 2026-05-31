@@ -93,11 +93,20 @@ const FLAG_ICONS_BASE =
 
 const REGIONAL_INDICATOR_A = 0x1f1e6;
 
-/** Subdivisões do Reino Unido — verificadas antes da conversão ISO genérica. */
+/**
+ * Subdivisões do Reino Unido (tag sequences) — verificadas antes da conversão ISO.
+ * SCO: 🏴󠁧󠁢󠁳󠁣󠁴󠁿 · ENG: 🏴󠁧󠁢󠁥󠁮󠁧󠁿 · WAL: 🏴󠁧󠁢󠁷󠁬󠁳󠁿
+ */
 const SPECIAL_FLAGS: Record<string, string> = {
-  SCO: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E006F}\u{E007F}",
-  ENG: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}",
-  WAL: "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}",
+  SCO: String.fromCodePoint(
+    0x1f3f4, 0xe0067, 0xe0062, 0xe0073, 0xe0063, 0xe006f, 0xe007f,
+  ),
+  ENG: String.fromCodePoint(
+    0x1f3f4, 0xe0067, 0xe0062, 0xe0065, 0xe006e, 0xe0067, 0xe007f,
+  ),
+  WAL: String.fromCodePoint(
+    0x1f3f4, 0xe0067, 0xe0062, 0xe0077, 0xe006c, 0xe0073, 0xe007f,
+  ),
 };
 
 /** Bandeiras emoji para slugs flag-icons que não são ISO2 simples. */
