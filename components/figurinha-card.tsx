@@ -31,6 +31,28 @@ function cardBackground(quantidade: number): string {
   return CARD_BG_HAS;
 }
 
+/** Borda colorida só para logo e seleção com figurinha. */
+function cardBorder(
+  figurinha: Figurinha,
+  quantidade: number,
+): string | undefined {
+  if (quantidade === 0) {
+    return undefined;
+  }
+
+  const repeated = quantidade >= 2;
+  const { tipo } = figurinha;
+
+  if (tipo === "logo") {
+    return repeated ? "2px solid #60a5fa" : "1.5px solid #3b82f6";
+  }
+  if (tipo === "selecao") {
+    return repeated ? "2px solid #fbbf24" : "1.5px solid #f59e0b";
+  }
+
+  return undefined;
+}
+
 /** Rótulo discreto do tipo (sem pill). */
 function tipoLabel(figurinha: Figurinha): string {
   if (figurinha.tipo === "especial") {
@@ -100,15 +122,19 @@ export function FigurinhaCard({
   const codigoDisplay = formatCodigo(codigoLabel);
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
+  const border = cardBorder(figurinha, quantidade);
 
   return (
     <article
       className={cn(
-        "relative flex flex-col gap-2 overflow-hidden rounded-xl border border-white/15 p-3 shadow-sm transition-[filter]",
+        "relative flex flex-col gap-2 overflow-hidden rounded-xl p-3 shadow-sm transition-[filter]",
         interactive &&
           "ring-ring cursor-pointer hover:brightness-110 active:brightness-95",
       )}
-      style={{ background: cardBackground(quantidade) }}
+      style={{
+        background: cardBackground(quantidade),
+        ...(border ? { border } : {}),
+      }}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={
