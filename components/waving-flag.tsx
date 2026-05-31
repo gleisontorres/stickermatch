@@ -8,11 +8,11 @@ import { flagSlugForSelecaoCodigo } from "@/lib/album/copa-groups";
 import { cn } from "@/lib/utils";
 
 const CANVAS_WIDTH = 120;
-const CANVAS_HEIGHT = 70;
+const CANVAS_HEIGHT = 60;
 const WAVE_AMPLITUDE = 8;
 const WAVE_FREQUENCY = 0.05;
-/** Velocidade da onda — fase = timestamp * PHASE_SPEED (sincronizado entre instâncias). */
-const PHASE_SPEED = 0.002;
+/** Fase fixa — aparência de vento congelado no meio da onda. */
+const WAVE_PHASE = 1.2;
 const WATERMARK_OPACITY = 0.38;
 
 interface WavingFlagProps {
@@ -24,16 +24,37 @@ function flagSvgUrl(slug: string): string {
   return `/api/flag-icons/flags/4x3/${slug}.svg`;
 }
 
+function drawStaticWavyFlag(
+  ctx: CanvasRenderingContext2D,
+  image: HTMLImageElement,
+): void {
+  ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.globalAlpha = WATERMARK_OPACITY;
+
+  for (let x = 0; x < CANVAS_WIDTH; x += 1) {
+    const sourceX = Math.floor((x / CANVAS_WIDTH) * image.naturalWidth);
+    const waveOffset =
+      WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * x + WAVE_PHASE);
+    ctx.drawImage(
+      image,
+      sourceX,
+      0,
+      1,
+      image.naturalHeight,
+      x,
+      waveOffset,
+      1,
+      CANVAS_HEIGHT,
+    );
+  }
+}
+
 /**
- * Bandeira flag-icons desenhada em canvas com ondulação senoidal (marca d'água do álbum).
+ * Bandeira flag-icons no canvas com ondulação senoidal estática (marca d'água do álbum).
  */
 export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
   const slug = flagSlugForSelecaoCodigo(selecaoCodigo);
-  const containerRef = useRef<HTMLSpanElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef = useRef<number | null>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const visibleRef = useRef(false);
 
   useEffect(() => {
     if (!slug) {
@@ -53,102 +74,26 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
     let cancelled = false;
     const img = new Image();
     img.crossOrigin = "anonymous";
-    imageRef.current = img;
-
-    const drawFrame = (timestamp: number) => {
-      if (!visibleRef.current || cancelled || !imageRef.current?.complete) {
-        rafRef.current = null;
-        return;
-      }
-
-      const image = imageRef.current;
-      const phase = timestamp * PHASE_SPEED;
-
-      ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-      ctx.globalAlpha = WATERMARK_OPACITY;
-
-      for (let x = 0; x < CANVAS_WIDTH; x += 1) {
-        const sourceX = Math.floor((x / CANVAS_WIDTH) * image.naturalWidth);
-        const waveOffset =
-          WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * x + phase);
-        ctx.drawImage(
-          image,
-          sourceX,
-          0,
-          1,
-          image.naturalHeight,
-          x,
-          waveOffset,
-          1,
-          CANVAS_HEIGHT,
-        );
-      }
-
-      rafRef.current = requestAnimationFrame(drawFrame);
-    };
-
-    const startLoop = () => {
-      if (cancelled || !visibleRef.current) {
-        return;
-      }
-      if (rafRef.current != null) {
-        return;
-      }
-      rafRef.current = requestAnimationFrame(drawFrame);
-    };
-
-    const stopLoop = () => {
-      if (rafRef.current != null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-      ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-    };
 
     img.onload = () => {
       if (cancelled) {
         return;
       }
-      if (visibleRef.current) {
-        startLoop();
-      }
+      drawStaticWavyFlag(ctx, img);
     };
 
     img.onerror = () => {
-      imageRef.current = null;
-      stopLoop();
+      if (!cancelled) {
+        ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      }
     };
 
     img.src = flagSvgUrl(slug);
 
-    const root = containerRef.current;
-    if (!root) {
-      return () => {
-        cancelled = true;
-        stopLoop();
-      };
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const isVisible = entries.some((e) => e.isIntersecting);
-        visibleRef.current = isVisible;
-        if (isVisible && imageRef.current?.complete) {
-          startLoop();
-        } else {
-          stopLoop();
-        }
-      },
-      { root: null, threshold: 0 },
-    );
-
-    observer.observe(root);
-
     return () => {
       cancelled = true;
-      observer.disconnect();
-      stopLoop();
-      imageRef.current = null;
+      img.onload = null;
+      img.onerror = null;
     };
   }, [slug]);
 
@@ -158,10 +103,9 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
 
   return (
     <span
-      ref={containerRef}
       aria-hidden
       className={cn(
-        "pointer-events-none absolute right-0 bottom-0 z-0 select-none",
+        "pointer-events-none absolute top-auto right-2 bottom-0 z-0 select-none",
         className,
       )}
     >
@@ -169,7 +113,7 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
         ref={canvasRef}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
-        className="h-[70px] w-[120px]"
+        className="h-[60px] w-[120px]"
       />
     </span>
   );
