@@ -8,10 +8,11 @@ import { flagSlugForSelecaoCodigo } from "@/lib/album/copa-groups";
 import { cn } from "@/lib/utils";
 
 const CANVAS_WIDTH = 120;
-const CANVAS_HEIGHT = 80;
+const CANVAS_HEIGHT = 70;
 const WAVE_AMPLITUDE = 8;
 const WAVE_FREQUENCY = 0.05;
-const PHASE_STEP = 0.05;
+/** Velocidade da onda — fase = timestamp * PHASE_SPEED (sincronizado entre instâncias). */
+const PHASE_SPEED = 0.002;
 const WATERMARK_OPACITY = 0.38;
 
 interface WavingFlagProps {
@@ -30,7 +31,6 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
   const slug = flagSlugForSelecaoCodigo(selecaoCodigo);
   const containerRef = useRef<HTMLSpanElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const phaseRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const visibleRef = useRef(false);
@@ -55,20 +55,22 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
     img.crossOrigin = "anonymous";
     imageRef.current = img;
 
-    const drawFrame = () => {
+    const drawFrame = (timestamp: number) => {
       if (!visibleRef.current || cancelled || !imageRef.current?.complete) {
         rafRef.current = null;
         return;
       }
 
       const image = imageRef.current;
+      const phase = timestamp * PHASE_SPEED;
+
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
       ctx.globalAlpha = WATERMARK_OPACITY;
 
       for (let x = 0; x < CANVAS_WIDTH; x += 1) {
         const sourceX = Math.floor((x / CANVAS_WIDTH) * image.naturalWidth);
         const waveOffset =
-          WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * x + phaseRef.current);
+          WAVE_AMPLITUDE * Math.sin(WAVE_FREQUENCY * x + phase);
         ctx.drawImage(
           image,
           sourceX,
@@ -82,7 +84,6 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
         );
       }
 
-      phaseRef.current += PHASE_STEP;
       rafRef.current = requestAnimationFrame(drawFrame);
     };
 
@@ -160,7 +161,7 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
       ref={containerRef}
       aria-hidden
       className={cn(
-        "pointer-events-none absolute right-[4px] -bottom-[16px] z-0 select-none",
+        "pointer-events-none absolute right-0 bottom-0 z-0 select-none",
         className,
       )}
     >
@@ -168,7 +169,7 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
         ref={canvasRef}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}
-        className="h-20 w-[120px]"
+        className="h-[70px] w-[120px]"
       />
     </span>
   );
