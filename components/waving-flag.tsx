@@ -160,7 +160,7 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
       ref={containerRef}
       aria-hidden
       className={cn(
-        "pointer-events-none absolute inset-0 z-0 flex select-none items-center justify-center",
+        "pointer-events-none absolute -right-[10px] -bottom-[10px] z-0 select-none",
         className,
       )}
     >
