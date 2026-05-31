@@ -105,7 +105,7 @@ export function WavingFlag({ selecaoCodigo, className }: WavingFlagProps) {
     <span
       aria-hidden
       className={cn(
-        "pointer-events-none absolute top-auto right-2 bottom-0 z-0 select-none",
+        "pointer-events-none absolute top-auto right-[-5px] bottom-[-5px] z-0 select-none",
         className,
       )}
     >
