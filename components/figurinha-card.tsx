@@ -4,6 +4,11 @@ import type { Figurinha } from "@/lib/types";
 
 import { QtySelector } from "@/components/qty-selector";
 import { WavingFlag } from "@/components/waving-flag";
+import {
+  isFigurinhaTipoLogo,
+  isFigurinhaTipoSelecao,
+  normalizeFigurinhaTipo,
+} from "@/lib/album/figurinha-tipo";
 import { cn, formatCodigo } from "@/lib/utils";
 
 interface FigurinhaCardProps {
@@ -41,12 +46,11 @@ function cardBorder(
   }
 
   const repeated = quantidade >= 2;
-  const { tipo } = figurinha;
 
-  if (tipo === "logo") {
+  if (isFigurinhaTipoLogo(figurinha)) {
     return repeated ? "2px solid #60a5fa" : "1.5px solid #3b82f6";
   }
-  if (tipo === "selecao") {
+  if (isFigurinhaTipoSelecao(figurinha)) {
     return repeated ? "2px solid #fbbf24" : "1.5px solid #f59e0b";
   }
 
@@ -55,7 +59,8 @@ function cardBorder(
 
 /** Rótulo discreto do tipo (sem pill). */
 function tipoLabel(figurinha: Figurinha): string {
-  if (figurinha.tipo === "especial") {
+  const tipo = normalizeFigurinhaTipo(figurinha.tipo);
+  if (tipo === "especial") {
     const sc = figurinha.selecao_codigo?.trim().toUpperCase() ?? "";
     if (sc === "CC") {
       return "CC";
@@ -65,17 +70,15 @@ function tipoLabel(figurinha: Figurinha): string {
     }
     return "Especial";
   }
-  switch (figurinha.tipo) {
+  switch (tipo) {
     case "jogador":
       return "👟 Jog";
     case "logo":
       return "🛡️ Logo";
     case "selecao":
       return "👥 Sel";
-    default: {
-      const _never: never = figurinha.tipo;
-      return _never;
-    }
+    default:
+      return figurinha.tipo;
   }
 }
 
@@ -84,13 +87,14 @@ function codigoBadgeBg(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
     return "#52525b";
   }
-  if (
-    figurinha.tipo === "logo" ||
-    figurinha.tipo === "selecao"
-  ) {
+  if (isFigurinhaTipoLogo(figurinha)) {
     return "#3b82f6";
   }
-  if (figurinha.tipo === "especial") {
+  if (isFigurinhaTipoSelecao(figurinha)) {
+    return "#f59e0b";
+  }
+  const tipo = normalizeFigurinhaTipo(figurinha.tipo);
+  if (tipo === "especial") {
     const sc = figurinha.selecao_codigo?.trim().toUpperCase() ?? "";
     if (sc === "CC") {
       return "#ef4444";
