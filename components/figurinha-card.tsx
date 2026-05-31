@@ -15,14 +15,18 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-function cardToneClass(quantidade: number): string {
+/** Fundo do card no álbum (estilo Panini: vazio = cinza, preenchido = colorido). */
+function cardToneClass(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
-    return "border-border bg-muted/35";
+    return "border-zinc-500/35 bg-zinc-600/20 dark:border-zinc-600 dark:bg-zinc-800/75";
   }
-  if (quantidade === 1) {
-    return "border-primary/40 bg-primary/[0.11]";
+  if (
+    quantidade >= 1 &&
+    (figurinha.tipo === "logo" || figurinha.tipo === "selecao")
+  ) {
+    return "border-accent/45 bg-accent/[0.14]";
   }
-  return "border-secondary/45 bg-secondary/[0.14]";
+  return "border-primary/40 bg-primary/[0.11]";
 }
 
 type TipoBadge =
@@ -80,7 +84,7 @@ export function FigurinhaCard({
     <article
       className={cn(
         "flex flex-col gap-2 rounded-xl border p-3 shadow-sm transition-colors",
-        cardToneClass(quantidade),
+        cardToneClass(figurinha, quantidade),
         interactive && "ring-ring cursor-pointer hover:bg-muted/25 active:bg-muted/40",
       )}
       role={interactive ? "button" : undefined}
