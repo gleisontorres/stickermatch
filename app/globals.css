@@ -196,6 +196,63 @@
     pointer-events: none;
   }
 
+  /** Cartão de figurinha no Álbum — com figurinha (quantidade >= 1). */
+  .figurinha-card-glass-has {
+    background: linear-gradient(
+      135deg,
+      rgba(6, 78, 59, 0.7) 0%,
+      rgba(6, 95, 70, 0.6) 60%,
+      rgba(217, 119, 6, 0.5) 100%
+    );
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  /** Cartão de figurinha no Álbum — sem figurinha (quantidade = 0). */
+  .figurinha-card-glass-empty {
+    background: rgba(17, 24, 39, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  /** Encaixe ao incrementar quantidade pelo botão "+". */
+  .figurinha-card-snap {
+    animation: figurinha-card-snap 300ms ease-out;
+  }
+
+  .figurinha-card-snap-glow.figurinha-card-glass-has,
+  .figurinha-card-snap-glow.figurinha-card-glass-empty {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 0 0 2px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .figurinha-card-snap-glow.figurinha-card-glass-empty {
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.2),
+      0 0 0 2px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.4);
+  }
+
+}
+
+@keyframes figurinha-card-snap {
+  0% {
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 html.dark ::-webkit-scrollbar {
