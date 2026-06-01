@@ -196,7 +196,7 @@
     pointer-events: none;
   }
 
-  /** Prata/cromo — base com figurinha (qty = 1, tipos gerais). */
+  /** Prata/cromo — base com figurinha (qty = 1). */
   .figurinha-card-glass-has,
   .figurinha-card-glass-logo,
   .figurinha-card-glass-selecao {
@@ -227,7 +227,7 @@
     border: 1px solid rgba(251, 191, 36, 0.6);
   }
 
-  /** Repetidas (quantidade >= 2). */
+  /** Prata/cromo — Repetidas (quantidade >= 2). */
   .figurinha-card-glass-repeated {
     background: linear-gradient(
       135deg,
@@ -245,7 +245,7 @@
       inset 0 -1px 0 rgba(0, 0, 0, 0.2);
   }
 
-  /** Sem figurinha (quantidade = 0). */
+  /** Prata/cromo — Sem figurinha (quantidade = 0). */
   .figurinha-card-glass-empty {
     background: rgba(10, 10, 15, 0.8);
     -webkit-backdrop-filter: blur(8px);

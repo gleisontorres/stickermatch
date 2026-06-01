@@ -24,7 +24,7 @@ interface FigurinhaCardProps {
 
 const SNAP_MS = 300;
 
-/** Classe vidro azul iridescente por quantidade e tipo. */
+/** Classe prata/cromo por quantidade e tipo. */
 function cardGlassClass(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
     return "figurinha-card-glass-empty";
