@@ -3,7 +3,6 @@
 import type { Figurinha } from "@/lib/types";
 
 import { QtySelector } from "@/components/qty-selector";
-import { WavingFlag } from "@/components/waving-flag";
 import {
   isFigurinhaTipoLogo,
   isFigurinhaTipoSelecao,
@@ -21,11 +20,14 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-const CARD_BG_HAS = "linear-gradient(to right, #064e3b, #065f46)";
-const CARD_BG_REPEATED = "linear-gradient(to right, #047857, #10b981)";
-const CARD_BG_EMPTY = "linear-gradient(to right, #0a0a0a, #111111)";
+const CARD_BG_HAS =
+  "linear-gradient(135deg, #064e3b 0%, #065f46 60%, #d97706 100%)";
+const CARD_BG_REPEATED =
+  "linear-gradient(135deg, #14532d 0%, #166534 60%, #b45309 100%)";
+const CARD_BG_EMPTY =
+  "linear-gradient(135deg, #111827 0%, #1f2937 100%)";
 
-/** Monocromático com acento único (verde) — igual para todos os tipos. */
+/** Tema CollectHub (verde / âmbar) por quantidade. */
 function cardBackground(quantidade: number): string {
   if (quantidade === 0) {
     return CARD_BG_EMPTY;
@@ -36,24 +38,20 @@ function cardBackground(quantidade: number): string {
   return CARD_BG_HAS;
 }
 
-/** Borda colorida só para logo e seleção com figurinha. */
+/** Borda logo/seleção com figurinha (não em repetidas). */
 function cardBorder(
   figurinha: Figurinha,
   quantidade: number,
 ): string | undefined {
-  if (quantidade === 0) {
+  if (quantidade === 0 || quantidade >= 2) {
     return undefined;
   }
-
-  const repeated = quantidade >= 2;
-
   if (isFigurinhaTipoLogo(figurinha)) {
-    return repeated ? "2px solid #60a5fa" : "1.5px solid #3b82f6";
+    return "1.5px solid #60a5fa";
   }
   if (isFigurinhaTipoSelecao(figurinha)) {
-    return repeated ? "2px solid #fbbf24" : "1.5px solid #f59e0b";
+    return "1.5px solid #fbbf24";
   }
-
   return undefined;
 }
 
@@ -159,8 +157,7 @@ export function FigurinhaCard({
         : undefined
       }
     >
-      <WavingFlag selecaoCodigo={figurinha.selecao_codigo} />
-      <div className="relative z-10 flex min-w-0 flex-col gap-2">
+      <div className="flex min-w-0 flex-col gap-2">
       <div className="min-w-0 space-y-0.5">
         <div className="flex items-center justify-between gap-2">
           <span className="text-muted-foreground shrink-0 text-[10px] font-medium tracking-normal">
