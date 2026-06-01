@@ -196,6 +196,32 @@
     pointer-events: none;
   }
 
+  /** Brilho no card de grupo Copa com 100% de conclusão (Álbum). */
+  .album-group-complete-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .album-group-complete-shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 65%
+    );
+    animation: progress-bar-shine 3s linear infinite;
+    pointer-events: none;
+  }
+
+  .album-group-complete-shine > * {
+    position: relative;
+    z-index: 1;
+  }
+
   /** Prata/cromo — base com figurinha (qty = 1). */
   .figurinha-card-glass-has,
   .figurinha-card-glass-logo,

@@ -1,7 +1,7 @@
 import type { Figurinha } from "@/lib/types";
 
 /** Título do sub‑acordeão / chave das ações em massa das figurinhas FWC01–FWC20. */
-export const ESPECIAIS_SELECTION_TITLE_FWC = "🏆 FWC — FIFA World Cup";
+export const ESPECIAIS_SELECTION_TITLE_FWC = "⭐ FWC — FIFA World Cup";
 
 /** Título do sub‑acordeão / chave das ações em massa das figurinhas CC01–CC14. */
 export const ESPECIAIS_SELECTION_TITLE_CC = "CC — Coca-Cola";

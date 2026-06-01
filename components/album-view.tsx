@@ -70,6 +70,31 @@ function minNumero(items: Figurinha[]): number {
   return Math.min(...items.map((i) => i.numero ?? 999999));
 }
 
+/** Percentual arredondado de conclusão (0–100). */
+function albumCompletionPercent(owned: number, total: number): number {
+  if (total <= 0) {
+    return 0;
+  }
+  return Math.round((owned / total) * 100);
+}
+
+/** Seleção ou grupo com todas as figurinhas marcadas (qty >= 1). */
+function isAlbumGroupComplete(owned: number, total: number): boolean {
+  return total > 0 && owned >= total;
+}
+
+/** Rótulo "X/Y figurinhas · Z%" ou "X/Y figurinhas · ✅ 100%". */
+function albumProgressLabel(owned: number, total: number): string {
+  const base = `${owned}/${total} figurinhas`;
+  if (total <= 0) {
+    return base;
+  }
+  if (isAlbumGroupComplete(owned, total)) {
+    return `${base} · ✅ 100%`;
+  }
+  return `${base} · ${albumCompletionPercent(owned, total)}%`;
+}
+
 /** Agrupa figurinhas filtradas por seleção (acordeão interno), mesma regra do álbum antes do agrupamento por grupo da Copa. */
 function buildSelectionGroups(items: Figurinha[]): [string, Figurinha[]][] {
   const map = new Map<string, Figurinha[]>();
@@ -1003,6 +1028,9 @@ export function AlbumView({
             const progressPct = showProgress ?
               (copaStats.owned / copaStats.total) * 100
             : 0;
+            const grupoComplete =
+              copaStats !== undefined &&
+              isAlbumGroupComplete(copaStats.owned, copaStats.total);
             const grupoCor = copaGroupAccentHex(section.copaKey);
             const bandeiraImagens = section.selections.flatMap(
               ([title, items]) => {
@@ -1023,7 +1051,10 @@ export function AlbumView({
             return (
               <div
                 key={section.copaKey}
-                className="border-border overflow-hidden rounded-xl border"
+                className={cn(
+                  "border-border overflow-hidden rounded-xl border",
+                  grupoComplete && "album-group-complete-shine",
+                )}
               >
                 <button
                   type="button"
@@ -1046,10 +1077,13 @@ export function AlbumView({
                   </span>
                   <span className="min-w-0 flex-1 space-y-1.5">
                     <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="font-semibold">
+                      <span className="font-semibold inline-flex flex-wrap items-center gap-x-1.5">
                         {section.copaKey === ESPECIAIS_CC_BUCKET ?
                           <AlbumCcHeadingWithBottleIcon />
                         : section.headerTitle}
+                        {grupoComplete && bandeiraImagens.length === 0 ?
+                          <span aria-hidden>🏆</span>
+                        : null}
                       </span>
                       <span className="text-muted-foreground text-sm">
                         {selectionCount}{" "}
@@ -1059,12 +1093,18 @@ export function AlbumView({
                     {bandeiraImagens.length > 0 ?
                       <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
                         {bandeiraImagens}
+                        {grupoComplete ?
+                          <span aria-hidden>🏆</span>
+                        : null}
                       </div>
                     : null}
                     {showProgress ?
                       <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                         <span className="text-muted-foreground text-xs tabular-nums">
-                          {copaStats.owned}/{copaStats.total} figurinhas
+                          {albumProgressLabel(
+                            copaStats.owned,
+                            copaStats.total,
+                          )}
                         </span>
                         <span
                           className="bg-muted/80 inline-flex h-1.5 w-20 max-w-[40%] overflow-hidden rounded-full sm:w-24"
@@ -1072,13 +1112,16 @@ export function AlbumView({
                           aria-valuenow={copaStats.owned}
                           aria-valuemin={0}
                           aria-valuemax={copaStats.total}
+                          aria-valuetext={`${albumCompletionPercent(copaStats.owned, copaStats.total)}%`}
                           aria-label={`Figurinhas no ${section.headerTitle}: ${copaStats.owned} de ${copaStats.total}`}
                         >
                           <span
-                            className="h-full rounded-full transition-all duration-300"
+                            className={cn(
+                              "h-full rounded-full transition-all duration-300",
+                              grupoComplete && "album-selection-progress-shine",
+                            )}
                             style={
-                              copaStats.total > 0 &&
-                              copaStats.owned >= copaStats.total
+                              grupoComplete
                                 ? brandProgressBarStyle(100)
                                 : brandProgressBarStyle(progressPct)
                             }
@@ -1096,6 +1139,18 @@ export function AlbumView({
                       const selOpen =
                         selectionDetailsOpen[detailKey] ?? false;
                       const chunkStableKey = `${filterSignature}|${detailKey}|${items.map((f) => f.id).join(",")}`;
+                      const selTotal = items.length;
+                      const selOwned = items.filter(
+                        (f) => (quantities[f.id] ?? 0) >= 1,
+                      ).length;
+                      const selComplete = isAlbumGroupComplete(
+                        selOwned,
+                        selTotal,
+                      );
+                      const selPct =
+                        selTotal > 0 ?
+                          albumCompletionPercent(selOwned, selTotal)
+                        : 0;
 
                       return (
                         <details
@@ -1134,6 +1189,9 @@ export function AlbumView({
                                   <span>{title}</span>
                                 </>
                               )}
+                              {selComplete ?
+                                <span aria-hidden>🏆</span>
+                              : null}
                             </span>
                             <span className="flex shrink-0 items-center gap-2">
                               {busyGroupTitle === title ?
@@ -1208,38 +1266,39 @@ export function AlbumView({
                             </span>
                           </span>
 
-                          {(() => {
-                            const total = items.length;
-                            const tendo = items.filter(
-                              (f) => (quantities[f.id] ?? 0) >= 1,
-                            ).length;
-                            if (tendo === 0) return null;
-                            const pct = (tendo / total) * 100;
-                            const selComplete = tendo === total && total > 0;
-                            return (
-                              <div className="px-4 pb-2 pt-1">
-                                <div className="mb-1 flex items-center justify-between">
-                                  <span className="text-muted-foreground text-xs">
-                                    {tendo}/{total} figurinhas
-                                  </span>
-                                </div>
-                                <div className="relative bg-muted h-1 w-full overflow-hidden rounded-full">
-                                  <div
-                                    className={cn(
-                                      "h-1 rounded-full transition-all duration-300",
-                                      selComplete &&
-                                        "album-selection-progress-shine",
-                                    )}
-                                    style={
-                                      selComplete
-                                        ? brandProgressBarStyle(100)
-                                        : brandProgressBarStyle(pct)
-                                    }
-                                  />
-                                </div>
+                          {selOwned > 0 ?
+                            <div className="px-4 pb-2 pt-1">
+                              <div className="mb-1 flex items-center justify-between">
+                                <span className="text-muted-foreground text-xs tabular-nums">
+                                  {albumProgressLabel(selOwned, selTotal)}
+                                </span>
                               </div>
-                            );
-                          })()}
+                              <div
+                                className="bg-muted relative h-1 w-full overflow-hidden rounded-full"
+                                role="progressbar"
+                                aria-valuenow={selOwned}
+                                aria-valuemin={0}
+                                aria-valuemax={selTotal}
+                                aria-valuetext={`${selPct}%`}
+                                aria-label={`Figurinhas em ${title}: ${selOwned} de ${selTotal}`}
+                              >
+                                <div
+                                  className={cn(
+                                    "h-1 rounded-full transition-all duration-300",
+                                    selComplete &&
+                                      "album-selection-progress-shine",
+                                  )}
+                                  style={
+                                    selComplete
+                                      ? brandProgressBarStyle(100)
+                                      : brandProgressBarStyle(
+                                          (selOwned / selTotal) * 100,
+                                        )
+                                  }
+                                />
+                              </div>
+                            </div>
+                          : null}
                         </summary>
                         {selOpen ?
                           <AlbumFigurinhaChunkGrid
