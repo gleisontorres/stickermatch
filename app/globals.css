@@ -145,6 +145,32 @@
   }
 }
 
+/** Troféu do Dashboard — shimmer prata (< 100%). */
+@keyframes silver-shimmer {
+  0% {
+    filter: grayscale(100%) brightness(0.6);
+  }
+  50% {
+    filter: grayscale(60%) brightness(0.9);
+  }
+  100% {
+    filter: grayscale(100%) brightness(0.6);
+  }
+}
+
+/** Troféu do Dashboard — brilho dourado (100%). */
+@keyframes gold-glow {
+  0% {
+    filter: brightness(1) drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+  }
+  50% {
+    filter: brightness(1.3) drop-shadow(0 0 12px rgba(212, 175, 55, 0.8));
+  }
+  100% {
+    filter: brightness(1) drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
+  }
+}
+
 @layer utilities {
   .brand-gradient-text {
     background-image: linear-gradient(135deg, #10b981, #f59e0b);
@@ -196,6 +222,137 @@
     pointer-events: none;
   }
 
+  /** Brilho no card de grupo Copa com 100% de conclusão (Álbum). */
+  .album-group-complete-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .album-group-complete-shine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 65%
+    );
+    animation: progress-bar-shine 3s linear infinite;
+    pointer-events: none;
+  }
+
+  .album-group-complete-shine > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /** Troféu do Dashboard — prata com shimmer (< 100%). */
+  .dashboard-trophy-silver {
+    filter: grayscale(100%) brightness(0.6);
+    transition: filter 1s ease-in-out;
+    animation: silver-shimmer 3s ease-in-out infinite;
+  }
+
+  /** Troféu do Dashboard — dourado pulsante (100%). */
+  .dashboard-trophy-gold {
+    transition: filter 1s ease-in-out;
+    animation: gold-glow 2s ease-in-out infinite;
+  }
+
+  /** Prata/cromo — base com figurinha (qty = 1). */
+  .figurinha-card-glass-has,
+  .figurinha-card-glass-logo,
+  .figurinha-card-glass-selecao {
+    background: linear-gradient(
+      135deg,
+      rgba(30, 30, 40, 0.95) 0%,
+      rgba(50, 50, 65, 0.85) 50%,
+      rgba(70, 70, 85, 0.75) 100%
+    );
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .figurinha-card-glass-has {
+    border: 1px solid rgba(200, 200, 220, 0.3);
+  }
+
+  .figurinha-card-glass-logo {
+    border: 1px solid rgba(96, 165, 250, 0.6);
+  }
+
+  .figurinha-card-glass-selecao {
+    border: 1px solid rgba(251, 191, 36, 0.6);
+  }
+
+  /** Prata/cromo — Repetidas (quantidade >= 2). */
+  .figurinha-card-glass-repeated {
+    background: linear-gradient(
+      135deg,
+      rgba(40, 40, 55, 0.95) 0%,
+      rgba(80, 80, 100, 0.85) 50%,
+      rgba(120, 120, 140, 0.75) 100%
+    );
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(220, 220, 240, 0.5);
+    border-radius: 12px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  /** Prata/cromo — Sem figurinha (quantidade = 0). */
+  .figurinha-card-glass-empty {
+    background: rgba(10, 10, 15, 0.8);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  /** Encaixe ao incrementar quantidade pelo botão "+". */
+  .figurinha-card-snap {
+    animation: figurinha-card-snap 300ms ease-out;
+  }
+
+  .figurinha-card-snap-glow.figurinha-card-glass-has,
+  .figurinha-card-snap-glow.figurinha-card-glass-logo,
+  .figurinha-card-snap-glow.figurinha-card-glass-selecao,
+  .figurinha-card-snap-glow.figurinha-card-glass-repeated {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+      0 0 0 2px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .figurinha-card-snap-glow.figurinha-card-glass-empty {
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      0 0 0 2px rgba(16, 185, 129, 0.6),
+      0 0 20px rgba(16, 185, 129, 0.4);
+  }
+
+}
+
+@keyframes figurinha-card-snap {
+  0% {
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 html.dark ::-webkit-scrollbar {

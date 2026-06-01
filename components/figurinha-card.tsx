@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
+
 import type { Figurinha } from "@/lib/types";
 
 import { QtySelector } from "@/components/qty-selector";
@@ -20,39 +22,23 @@ interface FigurinhaCardProps {
   onQuantidadeChange: (figurinhaId: string, next: number) => void;
 }
 
-const CARD_BG_HAS =
-  "linear-gradient(135deg, #064e3b 0%, #065f46 60%, #d97706 100%)";
-const CARD_BG_REPEATED =
-  "linear-gradient(135deg, #14532d 0%, #166534 60%, #b45309 100%)";
-const CARD_BG_EMPTY =
-  "linear-gradient(135deg, #111827 0%, #1f2937 100%)";
+const SNAP_MS = 300;
 
-/** Tema CollectHub (verde / âmbar) por quantidade. */
-function cardBackground(quantidade: number): string {
+/** Classe prata/cromo por quantidade e tipo. */
+function cardGlassClass(figurinha: Figurinha, quantidade: number): string {
   if (quantidade === 0) {
-    return CARD_BG_EMPTY;
+    return "figurinha-card-glass-empty";
   }
   if (quantidade >= 2) {
-    return CARD_BG_REPEATED;
-  }
-  return CARD_BG_HAS;
-}
-
-/** Borda logo/seleção com figurinha (não em repetidas). */
-function cardBorder(
-  figurinha: Figurinha,
-  quantidade: number,
-): string | undefined {
-  if (quantidade === 0 || quantidade >= 2) {
-    return undefined;
+    return "figurinha-card-glass-repeated";
   }
   if (isFigurinhaTipoLogo(figurinha)) {
-    return "1.5px solid #60a5fa";
+    return "figurinha-card-glass-logo";
   }
   if (isFigurinhaTipoSelecao(figurinha)) {
-    return "1.5px solid #fbbf24";
+    return "figurinha-card-glass-selecao";
   }
-  return undefined;
+  return "figurinha-card-glass-has";
 }
 
 /** Rótulo discreto do tipo (sem pill). */
@@ -124,19 +110,49 @@ export function FigurinhaCard({
   const codigoDisplay = formatCodigo(codigoLabel);
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
-  const border = cardBorder(figurinha, quantidade);
+
+  const [snap, setSnap] = useState(false);
+  const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const triggerSnap = useCallback(() => {
+    if (snapTimerRef.current) {
+      clearTimeout(snapTimerRef.current);
+    }
+    setSnap(true);
+    snapTimerRef.current = setTimeout(() => {
+      setSnap(false);
+      snapTimerRef.current = null;
+    }, SNAP_MS);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (snapTimerRef.current) {
+        clearTimeout(snapTimerRef.current);
+      }
+    },
+    [],
+  );
+
+  const handleQuantidadeChange = useCallback(
+    (next: number) => {
+      if (next > quantidade) {
+        triggerSnap();
+      }
+      onQuantidadeChange(figurinha.id, next);
+    },
+    [figurinha.id, onQuantidadeChange, quantidade, triggerSnap],
+  );
 
   return (
     <article
       className={cn(
-        "relative flex flex-col gap-2 overflow-hidden rounded-xl p-3 shadow-sm transition-[filter]",
+        "relative flex flex-col gap-2 overflow-hidden p-3 transition-[filter]",
+        cardGlassClass(figurinha, quantidade),
+        snap && "figurinha-card-snap figurinha-card-snap-glow",
         interactive &&
           "ring-ring cursor-pointer hover:brightness-110 active:brightness-95",
       )}
-      style={{
-        background: cardBackground(quantidade),
-        ...(border ? { border } : {}),
-      }}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={
@@ -187,7 +203,7 @@ export function FigurinhaCard({
         <QtySelector
           value={quantidade}
           disabled={disabled}
-          onChange={(next) => onQuantidadeChange(figurinha.id, next)}
+          onChange={handleQuantidadeChange}
         />
       )}
       </div>

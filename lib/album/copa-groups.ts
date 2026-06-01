@@ -1,6 +1,9 @@
 import type { Figurinha } from "@/lib/types";
 
-import { ESPECIAIS_SELECTION_TITLE_CC } from "@/lib/album/group-title";
+import {
+  ESPECIAIS_SELECTION_TITLE_CC,
+  ESPECIAIS_SELECTION_TITLE_FWC,
+} from "@/lib/album/group-title";
 
 /** Ordem dos grupos no álbum físico Panini (Copa 2026). */
 export const GRUPOS_ORDEM = [
@@ -290,7 +293,7 @@ export function copaSectionLabel(bucket: string): string {
     return ESPECIAIS_BUCKET;
   }
   if (bucket === ESPECIAIS_FWC_BUCKET) {
-    return "🏆 FWC — FIFA World Cup";
+    return ESPECIAIS_SELECTION_TITLE_FWC;
   }
   if (bucket === ESPECIAIS_CC_BUCKET) {
     return ESPECIAIS_SELECTION_TITLE_CC;

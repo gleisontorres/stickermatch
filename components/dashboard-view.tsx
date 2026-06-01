@@ -4,6 +4,7 @@ import { MessageSquareText, Sparkles } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { GradientBorder } from "@/components/ui/gradient-border";
+import { DashboardFillTrophy } from "@/components/dashboard-fill-trophy";
 import { DashboardMatchesTipBanner } from "@/components/dashboard-matches-tip-banner";
 import { DashboardPixBanner } from "@/components/dashboard-pix-banner";
 import type { MatchPartnerEntry } from "@/lib/types";
@@ -78,26 +79,27 @@ export function DashboardView({
               >
                 Álbum
               </p>
-              <p
-                className="flex flex-wrap items-baseline gap-x-1 gap-y-1 text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl"
-              >
-                <span
-                  className={cn(
-                    albumComplete ?
-                      "text-amber-600 dark:text-amber-400"
-                    : "text-foreground",
-                  )}
-                >
-                  {completionPercentDisplay}
-                </span>
-                <span className="text-muted-foreground text-2xl font-normal sm:text-3xl">
-                  %
-                </span>
-                {albumComplete ?
-                  <span className="text-2xl sm:text-3xl" aria-hidden>
-                    🏆
+              <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1 text-4xl font-semibold tabular-nums tracking-tight sm:text-5xl">
+                <span className="inline-flex items-baseline gap-x-1">
+                  <span
+                    className={cn(
+                      albumComplete ?
+                        "text-amber-600 dark:text-amber-400"
+                      : "text-foreground",
+                    )}
+                  >
+                    {completionPercentDisplay}
                   </span>
-                : null}
+                  <span className="text-muted-foreground text-[0.65em] font-normal">
+                    %
+                  </span>
+                </span>
+                <DashboardFillTrophy
+                  fillPercent={
+                    albumComplete ? 100 : completionBarPercent
+                  }
+                  className="text-[1em]"
+                />
               </p>
               <p className="text-muted-foreground text-sm">
                 <span className="text-foreground font-medium">{ownedCount}</span>{" "}
