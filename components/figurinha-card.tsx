@@ -24,28 +24,21 @@ interface FigurinhaCardProps {
 
 const SNAP_MS = 300;
 
-/** Classe glassmorphism por quantidade. */
-function cardGlassClass(quantidade: number): string {
-  return quantidade === 0 ?
-      "figurinha-card-glass-empty"
-    : "figurinha-card-glass-has";
-}
-
-/** Borda azul (logo) ou amarela (seleção) com figurinha única. */
-function cardBorderStyle(
-  figurinha: Figurinha,
-  quantidade: number,
-): { border: string } | undefined {
-  if (quantidade === 0 || quantidade >= 2) {
-    return undefined;
+/** Classe vidro azul iridescente por quantidade e tipo. */
+function cardGlassClass(figurinha: Figurinha, quantidade: number): string {
+  if (quantidade === 0) {
+    return "figurinha-card-glass-empty";
+  }
+  if (quantidade >= 2) {
+    return "figurinha-card-glass-repeated";
   }
   if (isFigurinhaTipoLogo(figurinha)) {
-    return { border: "1.5px solid #60a5fa" };
+    return "figurinha-card-glass-logo";
   }
   if (isFigurinhaTipoSelecao(figurinha)) {
-    return { border: "1.5px solid #fbbf24" };
+    return "figurinha-card-glass-selecao";
   }
-  return undefined;
+  return "figurinha-card-glass-has";
 }
 
 /** Rótulo discreto do tipo (sem pill). */
@@ -117,7 +110,6 @@ export function FigurinhaCard({
   const codigoDisplay = formatCodigo(codigoLabel);
 
   const interactive = quickTapMode && quantidade > 0 && !disabled;
-  const borderStyle = cardBorderStyle(figurinha, quantidade);
 
   const [snap, setSnap] = useState(false);
   const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -156,12 +148,11 @@ export function FigurinhaCard({
     <article
       className={cn(
         "relative flex flex-col gap-2 overflow-hidden p-3 transition-[filter]",
-        cardGlassClass(quantidade),
+        cardGlassClass(figurinha, quantidade),
         snap && "figurinha-card-snap figurinha-card-snap-glow",
         interactive &&
           "ring-ring cursor-pointer hover:brightness-110 active:brightness-95",
       )}
-      style={borderStyle}
       role={interactive ? "button" : undefined}
       tabIndex={interactive ? 0 : undefined}
       onClick={
