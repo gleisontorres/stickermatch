@@ -39,13 +39,7 @@ export default async function DashboardPage() {
     throw new Error(colRes.error.message);
   }
 
-  /** Catálogo do álbum oficial no Dashboard: Coca‑Cola (CC) não entra no total nem nas métricas. */
-  const catalogIds = (figRes.data ?? [])
-    .filter(
-      (r) =>
-        (r.selecao_codigo ?? "").trim().toUpperCase() !== "CC",
-    )
-    .map((r) => r.id);
+  const catalogIds = (figRes.data ?? []).map((r) => r.id);
   const qtyByFigurinhaId = new Map(
     (colRes.data ?? []).map((r) => [r.figurinha_id, r.quantidade]),
   );
