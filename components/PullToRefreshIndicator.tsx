@@ -27,7 +27,7 @@ export function PullToRefreshIndicator({
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 top-14 z-40 flex justify-center md:hidden"
+      className="pointer-events-none fixed inset-x-0 top-[calc(3.5rem+env(safe-area-inset-top,0px))] z-40 flex justify-center md:hidden"
       aria-hidden="true"
     >
       <div

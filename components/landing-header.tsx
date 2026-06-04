@@ -55,7 +55,7 @@ export function LandingHeader() {
 
   return (
     <header
-      className="from-background/90 via-background/55 fixed top-0 right-0 left-0 z-50 flex flex-nowrap items-center justify-between gap-3 bg-gradient-to-b to-transparent px-4 py-4 backdrop-blur-sm sm:px-6"
+      className="from-background/90 via-background/55 fixed top-[env(safe-area-inset-top,0px)] right-0 left-0 z-50 flex flex-nowrap items-center justify-between gap-3 bg-gradient-to-b to-transparent px-4 py-4 backdrop-blur-sm sm:px-6"
     >
       <div className="flex min-w-0 shrink items-center gap-2.5">
         <Image
