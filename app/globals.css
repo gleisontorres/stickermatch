@@ -409,7 +409,7 @@ html.dark ::-webkit-scrollbar-thumb {
   }
   body {
     @apply bg-background text-foreground;
-    padding-top: env(safe-area-inset-top, 0px);
+    padding-top: env(safe-area-inset-top);
   }
   html {
     @apply font-sans;

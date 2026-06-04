@@ -22,8 +22,10 @@ interface AppShellProps {
 export function AppShell({ user, children }: AppShellProps) {
   const router = useRouter();
 
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = useCallback(async () => {
     router.refresh();
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    window.location.reload();
   }, [router]);
 
   const { isPulling, pullProgress, isRefreshing } = usePullToRefresh({
@@ -39,7 +41,7 @@ export function AppShell({ user, children }: AppShellProps) {
       />
       <Sidebar user={user} />
       <MobileHeader user={user} />
-      <main className="md:ml-64 pt-14 pb-20 md:pb-0 md:pt-0">{children}</main>
+      <main className="md:ml-64 pb-20 md:pb-0">{children}</main>
       <BottomNav />
     </>
   );
