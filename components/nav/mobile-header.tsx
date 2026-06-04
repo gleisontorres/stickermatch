@@ -13,13 +13,13 @@ interface MobileHeaderProps {
 }
 
 /**
- * Cabeçalho fixo no mobile: marca CollectHub e menu do usuário (avatar).
+ * Cabeçalho mobile no fluxo da página: marca CollectHub e menu do usuário (avatar).
  */
 export function MobileHeader({ user, className }: MobileHeaderProps) {
   return (
     <header
       className={cn(
-        "border-border bg-background fixed inset-x-0 top-[env(safe-area-inset-top,0px)] z-50 flex h-14 items-center justify-between border-b px-4 md:hidden",
+        "border-border bg-background flex h-14 items-center justify-between border-b px-4 md:hidden",
         className,
       )}
     >
